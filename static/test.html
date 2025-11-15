@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HoverTilt Web Component Test</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 40px;
+			font-family: system-ui, -apple-system, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			color: white;
+			text-align: center;
+			margin-bottom: 40px;
+		}
+
+		.test-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-bottom: 40px;
+		}
+
+		.test-card {
+			background: white;
+			border-radius: 12px;
+			padding: 20px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.test-card h2 {
+			margin-top: 0;
+			color: #333;
+		}
+
+		.test-card p {
+			color: #666;
+			margin-bottom: 20px;
+		}
+
+		/* Styles for content inside hover-tilt */
+		.hover-content {
+			width: 100%;
+			aspect-ratio: 0.7159;
+			overflow: hidden;
+			background: #f0f0f0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+		}
+
+		.hover-content img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.code-block {
+			background: #1e1e1e;
+			color: #d4d4d4;
+			padding: 15px;
+			border-radius: 6px;
+			font-family: 'Courier New', monospace;
+			font-size: 14px;
+			overflow-x: auto;
+			margin-top: 20px;
+		}
+
+		/* Styles for new examples from +page.svelte */
+		/* Use ::part() to style shadow DOM elements */
+		hover-tilt::part(container),
+		.basic-examples .hover-content {
+			border-radius: 4.55% / 3.5%;
+		}
+
+		hover-tilt.example-card-rounded-xl::part(container),
+		hover-tilt.example-card-rounded-xl .example-card-content-wide {
+			border-radius: 30px;
+		}
+
+		.example-card-content {
+			aspect-ratio: 0.7159;
+			width: 100%;
+			max-width: 360px;
+			border-radius: 4.55% / 3.5%;
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		}
+
+		.example-card-content img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			margin: 0;
+			display: block;
+			border-radius: inherit;
+		}
+
+		.example-card-content-wide {
+			aspect-ratio: 1.59;
+			overflow: hidden;
+			border-radius: 12px;
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		}
+
+		.example-card-content-wide img {
+			width: 100%;
+		}
+		
+		.custom-style * {
+			color: red;
+			font-weight: bold;
+		}
+
+		.two-column {
+			grid-column: span 2;
+		}
+
+		code {
+			background: #d6dce2aa;
+			color: #2f0252;
+			font-weight: bold;
+			font-size: 1.125em;
+			padding-inline: 0.33em;
+			border-radius: 6px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>🎯 HoverTilt Web Component Test</h1>
+
+		<div class="test-grid basic-examples">
+			<div class="test-card">
+				<h2>Basic Example</h2>
+				<p>Simple hover tilt effect with default settings</p>
+				<hover-tilt>
+					<div class="hover-content" style="background: linear-gradient(-11deg, #6bffa4 0%, #62b11d 100%);">
+						<span style="color: #333;">Basic Example</span>
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>Custom Tilt Factor</h2>
+				<p>Increased tilt intensity (<code>tiltFactor="2"</code>)</p>
+				<hover-tilt tilt-factor="2">
+					<div class="hover-content" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+						<span style="color: white;">Hover me!</span>
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>With Scale Effect</h2>
+				<p>Scales up on hover (<code>scale-factor="1.1"</code>)</p>
+				<hover-tilt scale-factor="1.1">
+					<div class="hover-content" style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
+						<span style="color: white;">Scale + Tilt</span>
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>High Glare Intensity</h2>
+				<p>Strong glare effect (<code>glare-intensity="2"</code>)</p>
+				<hover-tilt glare-intensity="2" blend-mode="plus-lighter">
+					<div class="hover-content" style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);">
+						<span style="color: white;">Glare Effect</span>
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>Add Shadow</h2>
+				<p>Shadow enabled (<code>shadow="true"</code>)</p>
+				<hover-tilt shadow>
+					<div class="hover-content" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+						<span>Add Shadow</span>
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>Custom Class</h2>
+				<p>With custom styling class</p>
+				<hover-tilt class="custom-style" class="main-style">
+					<style>
+					</style>
+					<div class="hover-content" style="background: linear-gradient(180deg, #a8edea 0%, #fed6e3 100%);">
+						<span>Custom Class</span>
+					</div>
+				</hover-tilt>
+			</div>
+		</div>
+
+		<h1 style="margin-top: 60px; margin-bottom: 40px;">📋 Examples from +page.svelte</h1>
+
+		<div class="test-grid">
+			<div class="test-card">
+				<h2>Card with Custom Border Radius</h2>
+				<p>Pokemon card with custom rounded corners using <code>::part()</code></p>
+				<hover-tilt>
+					<div class="example-card-content">
+						<img src="https://images.pokemontcg.io/swsh1/85_hires.png" alt="Pokemon card" />
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>Glare Mask Effect</h2>
+				<p>Using glare mask with foil effect (<code>scale-factor="1"</code>, <code>glare-intensity="0.8"</code>, <code>blend-mode="plus-lighter"</code>)</p>
+				<hover-tilt 
+					scale-factor="1"
+					glare-intensity="0.8"
+					blend-mode="plus-lighter"
+					glare-mask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.foil.png)">
+					<div class="example-card-content">
+						<img src="https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.png" alt="Card with foil mask" />
+					</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card">
+				<h2>Advanced Glare Mask</h2>
+				<p>Multiple masks with intersect composite (<code>glare-intensity="2"</code>, <code>glare-mask-composite="intersect"</code>, <code>glare-mask-mode="luminance"</code>)</p>
+				<hover-tilt 
+					glare-intensity="1.5"
+					blend-mode="plus-lighter"
+					glare-mask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.etch.png), url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.foil.png)"
+					glare-mask-composite="intersect"
+					glare-mask-mode="luminance">
+						<div class="example-card-content">
+							<img src="https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_std.png" alt="Card with advanced mask" />
+						</div>
+				</hover-tilt>
+			</div>
+
+			<div class="test-card two-column">
+				<h2>Custom Spring Options</h2>
+				<p>Wide card with custom tilt factors and spring options (<code>tilt-factor="0.25"</code>, <code>tilt-factor-y="2.5"</code>, <code>glare-hue="22"</code>, <code>exit-delay="0"</code>)</p>
+				<hover-tilt 
+					class="example-card-rounded-xl"
+					exit-delay="0"
+					glare-intensity="0.75"
+					glare-hue="22"
+					tilt-factor="0.25"
+					tilt-factor-y="2.5"
+					shadow
+					blend-mode="plus-lighter"
+					spring-options='{"damping": 0.8, "stiffness": 0.2}'>
+					<div class="example-card-content-wide">
+						<img src="./cc.png" alt="Wide card" />
+					</div>
+				</hover-tilt>
+			</div>
+		</div>
+
+		<div class="test-card">
+			<h2>Usage Example</h2>
+			<p>Here's how to use the component in your HTML:</p>
+			<pre class="code-block">
+&lt;!-- Import the component --&gt;
+&lt;script type="module" src="../dist/index.js"&gt;&lt;/script&gt;
+
+&lt;!-- Use the component --&gt;
+&lt;hover-tilt tilt-factor="1.5" scale-factor="1.1" glare-intensity="1.5"&gt;
+	&lt;div style="width: 300px; aspect-ratio: 0.7159; background: #667eea;"&gt;
+		Your content here
+	&lt;/div&gt;
+&lt;/hover-tilt&gt;
+			</pre>
+		</div>
+	</div>
+
+	<!-- Import the web component -->
+	<script type="module" src="./hover-tilt.js"></script>
+
+	<script>
+		// Log when component is registered
+		window.addEventListener('load', () => {
+			setTimeout(() => {
+				if (customElements.get('hover-tilt')) {
+					console.log('✅ hover-tilt component registered successfully!');
+				} else {
+					console.error('❌ hover-tilt component not found');
+					console.warn('Confirm you ran the build script: `bun run build:components`...');
+					console.warn('Make sure the module loaded correctly. Check the Network tab for errors.');
+				}
+			}, 100);
+		});
+
+		// Log any module loading errors
+		window.addEventListener('error', (event) => {
+			if (event.filename && event.filename.includes('index.js')) {
+				console.error('❌ Error loading module:', event.message);
+			}
+		}, true);
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+node_modules
+
+# Lock files (using Bun)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+/dist
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Build testing files
+/static/hover-tilt.js

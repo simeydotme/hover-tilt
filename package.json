@@ -1,0 +1,64 @@
+{
+	"name": "svelte-hover-tilt",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build && npm run prepack",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"prepack": "svelte-kit sync && svelte-package && publint",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "prettier --write .",
+		"lint": "prettier --check .",
+		"build:components": "bun run build && rollup -c && cp dist/hover-tilt.js static/hover-tilt.js"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^29.0.0",
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-typescript": "^12.3.0",
+		"@svebcomponents/build": "^0.0.7",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.47.1",
+		"@sveltejs/package": "^2.5.4",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@tailwindcss/typography": "^0.5.19",
+		"@tailwindcss/vite": "^4.1.14",
+		"prettier": "^3.6.2",
+		"prettier-plugin-svelte": "^3.4.0",
+		"prettier-plugin-tailwindcss": "^0.7.1",
+		"publint": "^0.3.14",
+		"rollup": "^4.53.2",
+		"rollup-plugin-svelte": "^7.2.3",
+		"svelte": "^5.41.0",
+		"svelte-check": "^4.3.3",
+		"tailwindcss": "^4.1.14",
+		"tsdown": "^0.16.4",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.10",
+		"vite-plugin-devtools-json": "^1.0.0"
+	},
+	"keywords": [
+		"svelte"
+	]
+}
