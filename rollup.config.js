@@ -46,5 +46,5 @@ export default {
 			// Type checking is handled separately by svelte-check
 			noEmitOnError: false
 		})
-	],
+	]
 };

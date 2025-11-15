@@ -1,22 +1,24 @@
-<svelte:options customElement={{
-	tag: 'hover-tilt',
-	props: {
-		tiltFactor: { attribute: 'tilt-factor', type: 'Number' },
-		tiltFactorY: { attribute: 'tilt-factor-y', type: 'Number' },
-		scaleFactor: { attribute: 'scale-factor', type: 'Number' },
-		springOptions: { attribute: 'spring-options', type: 'Object' },
-		tiltSpringOptions: { attribute: 'tilt-spring-options', type: 'Object' },
-		shadow: { attribute: 'shadow', type: 'Boolean' },
-		shadowBlur: { attribute: 'shadow-blur', type: 'Number' },
-		glareIntensity: { attribute: 'glare-intensity', type: 'Number' },
-		glareHue: { attribute: 'glare-hue', type: 'Number' },
-		glareMask: { attribute: 'glare-mask', type: 'String' },
-		glareMaskMode: { attribute: 'glare-mask-mode', type: 'String' },
-		glareMaskComposite: { attribute: 'glare-mask-composite', type: 'String' },
-		exitDelay: { attribute: 'exit-delay', type: 'Number' },
-		blendMode: { attribute: 'blend-mode', type: 'String' }
-	}
-}} />
+<svelte:options
+	customElement={{
+		tag: 'hover-tilt',
+		props: {
+			tiltFactor: { attribute: 'tilt-factor', type: 'Number' },
+			tiltFactorY: { attribute: 'tilt-factor-y', type: 'Number' },
+			scaleFactor: { attribute: 'scale-factor', type: 'Number' },
+			springOptions: { attribute: 'spring-options', type: 'Object' },
+			tiltSpringOptions: { attribute: 'tilt-spring-options', type: 'Object' },
+			shadow: { attribute: 'shadow', type: 'Boolean' },
+			shadowBlur: { attribute: 'shadow-blur', type: 'Number' },
+			glareIntensity: { attribute: 'glare-intensity', type: 'Number' },
+			glareHue: { attribute: 'glare-hue', type: 'Number' },
+			glareMask: { attribute: 'glare-mask', type: 'String' },
+			glareMaskMode: { attribute: 'glare-mask-mode', type: 'String' },
+			glareMaskComposite: { attribute: 'glare-mask-composite', type: 'String' },
+			exitDelay: { attribute: 'exit-delay', type: 'Number' },
+			blendMode: { attribute: 'blend-mode', type: 'String' }
+		}
+	}}
+/>
 
 <script lang="ts">
 	import { Spring } from 'svelte/motion';
