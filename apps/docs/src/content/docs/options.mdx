@@ -1,0 +1,291 @@
+---
+title: Options
+description: Complete reference for all HoverTilt props and options
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Here you can find a complete reference for all HoverTilt props and options.
+
+## Interaction Props
+
+Props which affect the interaction/animation of the component,
+such as tilt factor, scale factor, and spring options.
+
+### `tiltFactor`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt tiltFactor={1.5}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt tilt-factor="1.5">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `1`
+- **Description**: Controls the intensity of horizontal tilt.  
+  Higher values create more pronounced tilt effects.
+
+### `tiltFactorY`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt tiltFactorY={0.5}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt tilt-factor-y="0.5">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `tiltFactor` _(same value as tiltFactor, unless overridden)_
+- **Description**: Controls the intensity of vertical tilt.  
+  Useful for creating asymmetric tilt effects.
+
+### `scaleFactor`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt scaleFactor={1.1}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt scale-factor="1.1">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `1`
+- **Description**: Scale multiplier applied on hover.  
+  Values greater than `1` will scale up, values less than `1` will scale down.
+
+### `springOptions`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt springOptions={{ stiffness: 0.3, damping: 0.7 }}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt spring-options='{"stiffness": 0.3, "damping": 0.7}'>
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `{ stiffness?: number, damping?: number, precision?: number }`
+- **Default**: `{ stiffness: 0.2, damping: 0.8, precision: 0.001 }`
+- **Description**: Physics options for scale and opacity animations.  
+  Based on the [Svelte Spring](https://svelte.dev/docs/svelte/svelte-motion#Spring) values. Higher stiffness = faster response, higher damping = less oscillation.
+
+### `tiltSpringOptions`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt tiltSpringOptions={{ stiffness: 0.3, damping: 0.7 }}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt tilt-spring-options='{"stiffness": 0.3, "damping": 0.7}'>
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `{ stiffness?: number, damping?: number, precision?: number }`
+- **Default**: Uses `springOptions` if not specified
+- **Description**: Separate physics options for tilt animations. Allows different animation feel for tilt vs scale.
+
+### `exitDelay`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt exitDelay={300}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt exit-delay="300">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `200`
+- **Description**: Delay in milliseconds before animating back to default state when cursor leaves. Helps prevent flickering when cursor briefly leaves the element.
+
+<br />
+<br />
+
+## Aesthetic Props
+
+These are props that affect the visual appearance of the component, such as
+adding a shadow, or increasing the intensity of the glare effect.
+
+### `shadow`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt shadow>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt shadow>
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Enables dynamic shadow that moves with the tilt effect.
+
+### `shadowBlur`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt shadow shadowBlur={40}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt shadow shadow-blur="40">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `22`
+- **Description**: Blur radius for the shadow effect (in pixels). Only applies when `shadow` is `true`.
+
+### `blendMode`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt blendMode="overlay">
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt blend-mode="overlay">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `string`
+- **Default**: `"overlay"`
+- **Description**: CSS blend mode for the glare effect. Common values: `overlay`, `screen`, `multiply`, `plus-lighter`, etc.
+
+### `glareIntensity`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt glareIntensity={1.5}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt glare-intensity="1.5">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `1`
+- **Description**: Intensity of the glare effect. Values greater than `1` increase intensity, values less than `1` decrease it.
+
+### `glareHue`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt glareHue={180}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt glare-hue="180">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `270` (lavendar-ish)
+- **Description**: Hue value (0-360) for the glare color. Adjusts the color of the glare effect.
+
+### `glareMask`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt glareMask="url(#mask)">
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt glare-mask="url(#mask)">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `string` | `undefined`
+- **Default**: `undefined` _(no mask)_
+- **Description**: [CSS mask image](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-image) for the glare effect. Allows custom masking of the glare to specific areas.
+
+### `glareMaskMode`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt glareMaskMode="luminance">
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt glare-mask-mode="luminance">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `'match-source' | 'luminance' | 'alpha' | 'none' | undefined`
+- **Default**: `undefined` _(browser default behavior is 'match-source')_
+- **Description**: [CSS `mask-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-mode) for the glare mask. Controls how the mask is interpreted.
+
+### `glareMaskComposite`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt glareMaskComposite="add">
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt glare-mask-composite="add">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `'add' | 'subtract' | 'exclude' | 'intersect' | undefined`
+- **Default**: `undefined` _(browser default behavior is 'add')_
+- **Description**: [Composite operation for multiple masks](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-composite). Only useful if applying multiple masks.

@@ -1,0 +1,31 @@
+name: Docs CI
+
+on:
+	push:
+		branches: [main]
+		paths:
+			- 'apps/docs/**'
+	pull_request:
+		paths:
+			- 'apps/docs/**'
+
+jobs:
+	lint-and-build:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- uses: pnpm/action-setup@v4
+				with:
+					version: 10
+			- uses: actions/setup-node@v4
+				with:
+					node-version: '20'
+					cache: 'pnpm'
+			- name: Install dependencies
+				run: pnpm install --frozen-lockfile
+			- name: Lint
+				run: pnpm --filter '@svecodocs/docs' lint
+			- name: Type check
+				run: pnpm --filter '@svecodocs/docs' check
+			- name: Build
+				run: pnpm --filter '@svecodocs/docs' build

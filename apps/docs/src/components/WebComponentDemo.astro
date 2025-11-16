@@ -1,0 +1,42 @@
+---
+// Wrapper component for web component demos with styles
+---
+
+<div class="web-component-demo">
+	<slot />
+</div>
+
+<style>
+	.web-component-demo .demo-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		justify-content: center;
+		margin: 2rem 0;
+		padding: 2rem;
+	}
+
+	.web-component-demo .demo-card {
+		width: 300px;
+		height: 200px;
+		border-radius: 12px;
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.web-component-demo .demo-card h3 {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.5rem;
+	}
+
+	.web-component-demo .demo-card p {
+		margin: 0;
+		text-align: center;
+	}
+</style>
+

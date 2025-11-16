@@ -1,0 +1,65 @@
+name: Library CI
+
+on:
+	push:
+		branches: [main]
+		paths:
+			- 'packages/svelte-hover-tilt/**'
+	pull_request:
+		paths:
+			- 'packages/svelte-hover-tilt/**'
+	tags:
+		- 'v*'
+
+jobs:
+	lint-and-test:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- uses: pnpm/action-setup@v4
+				with:
+					version: 10
+			- uses: actions/setup-node@v4
+				with:
+					node-version: '20'
+					cache: 'pnpm'
+			- name: Install dependencies
+				run: pnpm install --frozen-lockfile
+			- name: Lint
+				run: pnpm --filter svelte-hover-tilt lint
+			- name: Type check
+				run: pnpm --filter svelte-hover-tilt check
+			- name: Build
+				run: pnpm --filter svelte-hover-tilt build
+
+	publish:
+		needs: lint-and-test
+		runs-on: ubuntu-latest
+		if: startsWith(github.ref, 'refs/tags/v')
+		steps:
+			- uses: actions/checkout@v4
+			- uses: pnpm/action-setup@v4
+				with:
+					version: 10
+			- uses: actions/setup-node@v4
+				with:
+					node-version: '20'
+					cache: 'pnpm'
+					registry-url: 'https://registry.npmjs.org'
+			- name: Install dependencies
+				run: pnpm install --frozen-lockfile
+			- name: Build package
+				run: pnpm --filter svelte-hover-tilt build
+			- name: Publish to NPM
+				run: pnpm --filter svelte-hover-tilt publish --no-git-checks --access public
+				env:
+					NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+			- name: Create GitHub Release
+				uses: actions/create-release@v1
+				env:
+					GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+				with:
+					tag_name: ${{ github.ref }}
+					release_name: Release ${{ github.ref }}
+					draft: false
+					prerelease: false

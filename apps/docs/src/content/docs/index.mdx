@@ -1,0 +1,60 @@
+---
+title: Hover Tilt
+description: A beautiful hover tilt effect component for Svelte 5 and Native Web Components
+template: splash
+hero:
+  tagline: Add smooth tilt & glare effects to your website
+  actions:
+    - text: Get Started
+      link: /getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: View Examples
+      link: /examples/
+      icon: document
+      variant: minimal
+---
+
+import { CardGrid } from '@astrojs/starlight/components';
+import Card from '../../components/astro/Card.astro';
+import BasicDemo from '../../components/demos/BasicDemo.svelte';
+
+<div class="px-6 py-10 -mx-4 overflow-hidden">
+	<CardGrid stagger>
+
+    	<BasicDemo client:only="svelte" gradientColor1="#dc8754" gradientColor2="#ff3e00" >
+    		<Card title="Svelte 5 Component" icon="seti:svelte" iconColor="#ff3e00">
+    			Native **Svelte 5** component with full **TypeScript support** and slotted content!
+    		</Card>
+    	</BasicDemo>
+
+    	<BasicDemo client:only="svelte" >
+    		<Card title="Web Component" icon="seti:html" iconColor="#667eea">
+    			Use it in **any framework** or vanilla HTML with the **Web Components** API!
+    		</Card>
+    	</BasicDemo>
+
+    	<BasicDemo client:only="svelte" gradientColor1="rgb(132, 221, 93)" gradientColor2="rgb(75, 162, 162)" textColor="rgb(55, 68, 62)" >
+    		<Card title="Spring Animations" icon="star" iconColor="rgb(132, 221, 93)">
+    			**Smooth**, customizable physics-based **animations** allow you to create the exact effect you want!
+    		</Card>
+    	</BasicDemo>
+
+    	<BasicDemo client:only="svelte" gradientColor1="rgb(86, 219, 219)" gradientColor2="rgb(0, 100, 255)" textColor="rgb(61, 71, 74)" >
+    		<Card title="Highly Customizable" icon="setting" iconColor="rgb(86, 219, 219)">
+    			Extensive props for **tilt**, **scale**, **glare**, **shadow**, and **animation** control. Even
+    			allows a custom mask and blend-mode!
+    		</Card>
+    	</BasicDemo>
+
+    </CardGrid>
+
+</div>
+
+<div class="text-center max-w-150 mx-auto supports-[text-wrap:pretty]:text-pretty not-supports-[text-wrap:pretty]:text-balance">
+	## Built with Experience
+
+    Born from the same magic as the popular [Pokemon Holo Effects](https://poke-holo.simey.me) by [@simeydotme](https://github.com/simeydotme),
+    this component delivers the same concepts with **better performance** and **zero complexity**.
+
+</div>

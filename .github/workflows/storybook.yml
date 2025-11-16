@@ -1,0 +1,30 @@
+name: Storybook CI
+
+on:
+	push:
+		branches: [main]
+		paths:
+			- 'apps/storybook/**'
+	- pull_request:
+		paths:
+			- 'apps/storybook/**'
+
+jobs:
+	lint-and-build:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- uses: pnpm/action-setup@v4
+				with:
+					version: 10
+			- uses: actions/setup-node@v4
+				with:
+					node-version: '20'
+					cache: 'pnpm'
+			- name: Install dependencies
+				run: pnpm install --frozen-lockfile
+			- name: Lint
+				run: pnpm --filter '@svelte-hover-tilt/storybook' lint
+			- name: Build
+				run: pnpm --filter '@svelte-hover-tilt/storybook' build
+

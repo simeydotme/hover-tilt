@@ -1,0 +1,32 @@
+{
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "predev": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "prebuild": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.36.2",
+    "@astrojs/starlight-tailwind": "^4.0.2",
+    "@astrojs/svelte": "^6.0.0",
+    "@catppuccin/starlight": "^1.0.2",
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.6.1",
+    "hover-tilt": "workspace:*",
+    "sharp": "^0.34.2",
+    "svelte": "^5.43.7",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "0.14.1"
+  }
+}

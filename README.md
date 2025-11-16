@@ -1,58 +1,156 @@
-# Svelte library
+# Svelte Hover Tilt
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+A beautiful hover tilt effect component for Svelte 5, available as both a Svelte component and web component.
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+## Features
 
-## Creating a project
+- **Svelte 5 Component** - Native Svelte component with full TypeScript support
+- **Web Component** - Use it in any framework or vanilla HTML
+- **Spring Animations** - Smooth, physics-based animations using Svelte's spring store
+- **Customizable** - Extensive props for tilt, scale, glare, shadow, and more
+- **TypeScript** - Full type definitions exported for your IDE
+- **Lightweight** - Minimal dependencies, optimized bundle size
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```bash
+npm install svelte-hover-tilt
+# or
+pnpm add svelte-hover-tilt
+# or
+yarn add svelte-hover-tilt
 ```
 
-## Developing
+## Quick Start
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Svelte Component
 
-```sh
-npm run dev
+```svelte
+<script>
+	import { HoverTilt } from 'svelte-hover-tilt';
+</script>
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+<HoverTilt tiltFactor={1.5} scaleFactor={1.1}>
+	<div class="card">
+		Your content here
+	</div>
+</HoverTilt>
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+### Web Component
 
-## Building
+```html
+<script type="module" src="node_modules/svelte-hover-tilt/dist/hover-tilt.js"></script>
 
-To build your library:
-
-```sh
-npm pack
+<hover-tilt tilt-factor="1.5" scale-factor="1.1">
+	<div class="card">
+		Your content here
+	</div>
+</hover-tilt>
 ```
 
-To create a production version of your showcase app:
+## Documentation
 
-```sh
-npm run build
+- **[Full Documentation](https://simeydotme.github.io/svelte-hover-tilt)** - Complete API reference and examples
+- **[Storybook](apps/storybook)** - Interactive component playground
+
+## Monorepo Structure
+
+This repository is a monorepo containing:
+
+- **`packages/hover-tilt`** - The main library package
+- **`apps/docs`** - Documentation site built with Svecodocs
+- **`apps/storybook`** - Storybook for component development and testing
+
+## Development
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm 10+
+
+### Setup
+
+```bash
+# Install dependencies
+pnpm install
 ```
 
-You can preview the production build with `npm run preview`.
+### Scripts
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+#### Development
 
-## Publishing
+```bash
+# Run dev server for packages only (library)
+pnpm dev
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
+# Run dev servers for all packages and apps (library, docs, storybook)
+pnpm dev:all
 ```
+
+#### Build
+
+```bash
+# Build packages only
+pnpm build
+
+# Build all packages and apps
+pnpm build:all
+```
+
+#### Lint
+
+```bash
+# Lint packages only
+pnpm lint
+
+# Lint all packages and apps
+pnpm lint:all
+```
+
+#### Format
+
+```bash
+# Format packages only
+pnpm format
+
+# Format all packages and apps
+pnpm format:all
+```
+
+#### Type Check
+
+```bash
+# Type check packages only
+pnpm check
+
+# Type check all packages and apps
+pnpm check:all
+```
+
+### Running Individual Packages
+
+If you need to run a specific package directly:
+
+```bash
+# Library
+pnpm --filter svelte-hover-tilt dev
+
+# Documentation
+pnpm --filter '@svecodocs/docs' dev
+
+# Storybook
+pnpm --filter '@svelte-hover-tilt/storybook' dev
+```
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+MPL-2.0
+
+## Author
+
+Simon Goellner ([@simeydotme](https://github.com/simeydotme))

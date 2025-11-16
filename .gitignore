@@ -10,7 +10,7 @@ pnpm-lock.yaml
 .vercel
 .netlify
 .wrangler
-/.svelte-kit
+.svelte-kit
 /build
 /dist
 
