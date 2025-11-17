@@ -16,35 +16,35 @@ hero:
 ---
 
 import { CardGrid } from '@astrojs/starlight/components';
-import Card from '../../components/astro/Card.astro';
+import IndexCard from '../../components/astro/IndexCard.astro';
 import BasicDemo from '../../components/demos/BasicDemo.svelte';
 
 <div class="px-6 py-10 -mx-4 overflow-hidden">
 	<CardGrid stagger>
 
     	<BasicDemo client:only="svelte" gradientColor1="#dc8754" gradientColor2="#ff3e00" >
-    		<Card title="Svelte 5 Component" icon="seti:svelte" iconColor="#ff3e00">
+    		<IndexCard title="Svelte 5 Component" icon="seti:svelte" iconColor="#ff3e00">
     			Native **Svelte 5** component with full **TypeScript support** and slotted content!
-    		</Card>
+    		</IndexCard>
     	</BasicDemo>
 
     	<BasicDemo client:only="svelte" >
-    		<Card title="Web Component" icon="seti:html" iconColor="#667eea">
+    		<IndexCard title="Web Component" icon="seti:html" iconColor="#667eea">
     			Use it in **any framework** or vanilla HTML with the **Web Components** API!
-    		</Card>
+    		</IndexCard>
     	</BasicDemo>
 
-    	<BasicDemo client:only="svelte" gradientColor1="rgb(132, 221, 93)" gradientColor2="rgb(75, 162, 162)" textColor="rgb(55, 68, 62)" >
-    		<Card title="Spring Animations" icon="star" iconColor="rgb(132, 221, 93)">
+    	<BasicDemo client:only="svelte" gradientColor1="rgb(132, 221, 93)" gradientColor2="rgb(75, 162, 162)" >
+    		<IndexCard title="Spring Animations" icon="star" iconColor="rgb(132, 221, 93)">
     			**Smooth**, customizable physics-based **animations** allow you to create the exact effect you want!
-    		</Card>
+    		</IndexCard>
     	</BasicDemo>
 
-    	<BasicDemo client:only="svelte" gradientColor1="rgb(86, 219, 219)" gradientColor2="rgb(0, 100, 255)" textColor="rgb(61, 71, 74)" >
-    		<Card title="Highly Customizable" icon="setting" iconColor="rgb(86, 219, 219)">
+    	<BasicDemo client:only="svelte" gradientColor1="rgb(86, 219, 219)" gradientColor2="rgb(0, 100, 255)" >
+    		<IndexCard title="Highly Customizable" icon="setting" iconColor="rgb(86, 219, 219)">
     			Extensive props for **tilt**, **scale**, **glare**, **shadow**, and **animation** control. Even
     			allows a custom mask and blend-mode!
-    		</Card>
+    		</IndexCard>
     	</BasicDemo>
 
     </CardGrid>

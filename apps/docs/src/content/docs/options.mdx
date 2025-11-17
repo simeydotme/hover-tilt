@@ -3,7 +3,7 @@ title: Options
 description: Complete reference for all HoverTilt props and options
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 Here you can find a complete reference for all HoverTilt props and options.
 
@@ -47,7 +47,7 @@ such as tilt factor, scale factor, and spring options.
 	</TabItem>
 </Tabs>
 
-- **Type**: `number`
+- **Type**: `number` | `undefined`
 - **Default**: `tiltFactor` _(same value as tiltFactor, unless overridden)_
 - **Description**: Controls the intensity of vertical tilt.  
   Useful for creating asymmetric tilt effects.
@@ -87,8 +87,8 @@ such as tilt factor, scale factor, and spring options.
 	</TabItem>
 </Tabs>
 
-- **Type**: `{ stiffness?: number, damping?: number, precision?: number }`
-- **Default**: `{ stiffness: 0.2, damping: 0.8, precision: 0.001 }`
+- **Type**: `{ stiffness?: number, damping?: number }`
+- **Default**: `{ stiffness: 0.2, damping: 0.8 }`
 - **Description**: Physics options for scale and opacity animations.  
   Based on the [Svelte Spring](https://svelte.dev/docs/svelte/svelte-motion#Spring) values. Higher stiffness = faster response, higher damping = less oscillation.
 
@@ -107,7 +107,7 @@ such as tilt factor, scale factor, and spring options.
 	</TabItem>
 </Tabs>
 
-- **Type**: `{ stiffness?: number, damping?: number, precision?: number }`
+- **Type**: `{ stiffness?: number, damping?: number }` | `undefined`
 - **Default**: Uses `springOptions` if not specified
 - **Description**: Separate physics options for tilt animations. Allows different animation feel for tilt vs scale.
 
@@ -138,6 +138,29 @@ such as tilt factor, scale factor, and spring options.
 These are props that affect the visual appearance of the component, such as
 adding a shadow, or increasing the intensity of the glare effect.
 
+### `class`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt class="my-custom-class">
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt class="my-custom-class">
+		```
+		<Aside type="caution">
+			Classes on **the web component are applied to the host element**, not the internal container/tilt elements, and
+			thus **behave differently than the Svelte component**. See [CSS Class / Style](/css-class-style) for more details.
+		</Aside>
+	</TabItem>
+</Tabs>
+
+- **Type**: `string` | `undefined`
+- **Default**: `undefined`
+- **Description**: CSS class to apply to the container/host element.
+
 ### `shadow`
 
 <Tabs syncKey='api'>
@@ -153,7 +176,7 @@ adding a shadow, or increasing the intensity of the glare effect.
 	</TabItem>
 </Tabs>
 
-- **Type**: `boolean`
+- **Type**: `boolean` | `undefined`
 - **Default**: `false`
 - **Description**: Enables dynamic shadow that moves with the tilt effect.
 
@@ -172,9 +195,14 @@ adding a shadow, or increasing the intensity of the glare effect.
 	</TabItem>
 </Tabs>
 
-- **Type**: `number`
+- **Type**: `number` | `undefined`
 - **Default**: `22`
 - **Description**: Blur radius for the shadow effect (in pixels). Only applies when `shadow` is `true`.
+
+
+<Aside type="note">
+	**shadowBlur** can also be set by providing a `--hover-tilt-shadow-blur: 40;` css variable instead.
+</Aside>
 
 ### `blendMode`
 
@@ -191,9 +219,13 @@ adding a shadow, or increasing the intensity of the glare effect.
 	</TabItem>
 </Tabs>
 
-- **Type**: `string`
+- **Type**: `string` | `undefined`
 - **Default**: `"overlay"`
 - **Description**: CSS blend mode for the glare effect. Common values: `overlay`, `screen`, `multiply`, `plus-lighter`, etc.
+
+<Aside type="note">
+	**blendMode** can also be set by providing a `--hover-tilt-blend-mode: overlay;` css variable instead.
+</Aside>
 
 ### `glareIntensity`
 
@@ -229,9 +261,13 @@ adding a shadow, or increasing the intensity of the glare effect.
 	</TabItem>
 </Tabs>
 
-- **Type**: `number`
+- **Type**: `number` | `undefined`
 - **Default**: `270` (lavendar-ish)
 - **Description**: Hue value (0-360) for the glare color. Adjusts the color of the glare effect.
+
+<Aside type="note">
+	**glareHue** can also be set by providing a `--hover-tilt-glare-hue: 180;` css variable instead.
+</Aside>
 
 ### `glareMask`
 

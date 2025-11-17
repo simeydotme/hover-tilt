@@ -1,0 +1,31 @@
+
+<div class="grid md:grid-cols-2 gap-4 *:mt-0">
+  
+  <hover-tilt class="">
+    <div class="p-8 bg-slate-600 text-white not-content rounded-3xl">
+      <h3>Overflowing Radius</h3>
+      <p class="leading-snug">This card has a radius on the content, but no radius on the container. The glare will overflow the radius.</p>
+    </div>
+  </HoverTilt>
+  
+  <hover-tilt class="tilt-card" >
+    <div class="p-8 bg-slate-600 text-white not-content rounded-3xl">
+      <h3>Fixed Radius</h3>
+      <p class="leading-snug">This card has a radius on the container and the content. The glare will not overflow the radius.</p>
+    </div>
+  </HoverTilt>
+
+</div>
+
+<style>
+
+  hover-tilt > div {
+    /* apply a radius to the content, could also be done with tailwindCSS */
+    border-radius: 24px;
+  }
+
+  .tilt-card::part(container) {
+    /* apply a radius to the container and the tilt element */
+    border-radius: 24px;
+  }
+</style>

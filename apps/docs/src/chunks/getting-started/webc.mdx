@@ -1,0 +1,71 @@
+---
+title: Getting Started (web component)
+---
+
+import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import CodeWithPreview from '../../components/astro/CodeWithPreview.astro';
+import BasicExampleWebC from './BasicExampleWebC.astro';
+
+export const includeScriptExample = String.raw`
+<html>
+  <head>
+    <!-- import the web component from the local node_modules folder -->
+    <script type="module" src="node_modules/hover-tilt/dist/hover-tilt.js"></script>
+  </head>
+  <body>
+    <hover-tilt>
+      Your content here
+    </hover-tilt>
+  </body>
+</html>
+`;
+
+export const cdnExample = String.raw`
+<!-- import the web component from a CDN -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/hover-tilt/dist/hover-tilt.js"></script>
+`;
+
+export const basicExample = String.raw`
+<hover-tilt tilt-factor="1.5" scale-factor="1.1">
+  <div class="card">
+    <h2>Card Title</h2>
+    <p>Hover over this card to see the effect!</p>
+  </div>
+</hover-tilt>
+
+<style>
+  .card {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    color: white;
+  }
+</style>
+`;
+
+#### Include the Script
+
+Add the web component script to your HTML page:
+
+<Code lang="html" title="index.html" code={includeScriptExample} />
+
+#### Using a CDN
+
+You can also use a CDN to load the web component:
+
+<Code lang="html" title="CDN usage" code={cdnExample} />
+
+#### Basic Example
+
+Once the web component script is included, you can use it like this:
+
+<CodeWithPreview lang="svelte" title="index.html" code={basicExample}>
+
+<div class="mx-auto max-w-100 text-center">
+  <BasicExampleWebC />
+</div>
+
+</CodeWithPreview>
+

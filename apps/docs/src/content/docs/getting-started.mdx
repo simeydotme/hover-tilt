@@ -4,16 +4,29 @@ description: Installation and basic usage for Hover Tilt
 ---
 
 import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import CodeWithPreview from '../../components/astro/CodeWithPreview.astro';
+import BasicDemo from '../../components/demos/BasicDemo.svelte';
+
+import GettingStartedSvelte from '../../chunks/getting-started/svelte.mdx';
+import GettingStartedWebc from '../../chunks/getting-started/webc.mdx';
 
 ## Installation
 
 Install the package using your preferred package manager:
 
 <Tabs>
-  <TabItem label="npm">```bash npm install hover-tilt ```</TabItem>
-  <TabItem label="pnpm">```bash pnpm add hover-tilt ```</TabItem>
-  <TabItem label="yarn">```bash yarn add hover-tilt ```</TabItem>
-  <TabItem label="bun">```bash bun add hover-tilt ```</TabItem>
+  <TabItem label="npm">
+    <Code lang="bash" title="terminal" code={`npm install hover-tilt`} />
+  </TabItem>
+  <TabItem label="pnpm">
+    <Code lang="bash" title="terminal" code={`pnpm add hover-tilt`} />
+  </TabItem>
+  <TabItem label="yarn">
+    <Code lang="bash" title="terminal" code={`yarn add hover-tilt`} />
+  </TabItem>
+  <TabItem label="bun">
+    <Code lang="bash" title="terminal" code={`bun add hover-tilt`} />
+  </TabItem>
 </Tabs>
 
 ## Usage
@@ -24,103 +37,13 @@ a **Web Component (`<hover-tilt />`)**, there are two ways to use it;
 <br />
 <br />
 
-<Tabs syncKey='api'>
-	<TabItem label="Svelte">
-
-    	#### Import and Use
-
-    	Import the `HoverTilt` component in your Svelte file:
-
-    	<Code lang="svelte" title="App.svelte" code={`
-
-<script>import {HoverTilt} from 'hover-tilt';</script>
-
-<HoverTilt>Your content here</HoverTilt>
-`} />
-
-    	#### Basic Example
-
-    	<Code lang="svelte" title="MyComponent.svelte" code={`
-
-<script>import {HoverTilt} from 'hover-tilt';</script>
-
-<HoverTilt tiltFactor={1.5} scaleFactor={1.1}>
-  <div class="card">
-    <h2>Card Title</h2>
-    <p>Hover over this card to see the effect!</p>
-  </div>
-</HoverTilt>
-
-  <style>
-    .card {
-      width: 300px;
-      height: 200px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 12px;
-      padding: 2rem;
-      color: white;
-    }
-  </style>
-
-`} />
-
-</TabItem>
-<TabItem label="Web Component">
-
-    #### Include the Script
-
-    	Add the web component script to your HTML page:
-
-    	```html
-    	<!DOCTYPE html>
-    	<html>
-    	<head>
-    	  <title>Hover Tilt Example</title>
-    	</head>
-    	<body>
-    	  <script type="module" src="node_modules/hover-tilt/dist/hover-tilt.js"></script>
-
-    	  <hover-tilt tilt-factor="1.5" scale-factor="1.1">
-    	    <div class="card">
-    	      <h2>Card Title</h2>
-    	      <p>Hover over this card to see the effect!</p>
-    	    </div>
-    	  </hover-tilt>
-    	</body>
-    	</html>
-    	```
-
-    	#### Using a CDN
-
-    	You can also use a CDN to load the web component:
-
-    	```html
-    	<script type="module" src="https://cdn.jsdelivr.net/npm/hover-tilt/dist/hover-tilt.js"></script>
-    	```
-
-    	#### Basic Example
-
-    	```html
-    	<hover-tilt tilt-factor="1.5" scale-factor="1.1">
-    	  <div class="card">
-    	    <h2>Card Title</h2>
-    	    <p>Hover over this card to see the effect!</p>
-    	  </div>
-    	</hover-tilt>
-
-    	<style>
-    	  .card {
-    	    width: 300px;
-    	    height: 200px;
-    	    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    	    border-radius: 12px;
-    	    padding: 2rem;
-    	    color: white;
-    	  }
-    	</style>
-    	```
-    </TabItem>
-
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    <GettingStartedSvelte />
+  </TabItem>
+  <TabItem label="Web Component">
+    <GettingStartedWebc />
+  </TabItem>
 </Tabs>
 
 ## Next Steps

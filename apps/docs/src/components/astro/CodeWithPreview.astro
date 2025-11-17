@@ -1,0 +1,51 @@
+---
+import { Code } from '@astrojs/starlight/components';
+
+interface Props {
+	lang: string;
+	title: string;
+	code: string;
+  previewTitle?: string;
+}
+
+const { lang, title, code, previewTitle = 'Preview' } = Astro.props;
+---
+
+
+
+<Code lang={lang} title={title} code={code} />
+
+<div class="preview"> 
+  <figcaption>
+    {previewTitle}
+  </figcaption> 
+  <div class="preview-content">
+    <slot />
+  </div> 
+</div>
+
+
+<style lang="postcss">
+  @reference "tailwindcss";
+
+  :global(.expressive-code) + .preview {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+  }
+  :global(.expressive-code:has(+ .preview) pre) {
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+  }
+
+  .preview {
+    border: var(--ec-brdWd) solid var(--ec-brdCol);
+    border-radius: var(--ec-brdRad);
+    padding: .5rem 1rem 1rem;
+  }
+  .preview figcaption {
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+  }
+</style>

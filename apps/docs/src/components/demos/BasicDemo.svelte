@@ -11,10 +11,10 @@
 </script>
 
 <!-- svelte-ignore slot_element_deprecated -->
-<div class="demo-container flex items-center justify-center">
-  <HoverTilt class="w-full">
+<div class="demo-container flex items-center justify-center text-center">
+  <HoverTilt class="w-full rounded-xl" >
     <div
-      class="demo-card not-content / box-shadow-md flex min-h-50 flex-col items-center justify-center gap-3 rounded-xl p-6 px-8"
+      class="demo-card not-content / box-shadow-md flex min-h-50 flex-col items-center justify-center gap-3 rounded-xl p-6 px-8 text-center"
       style="background: linear-gradient(135deg, {gradientColor1} 0%, {gradientColor2} 100%); color: {textColor};"
     >
       <slot>

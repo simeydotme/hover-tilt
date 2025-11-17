@@ -1,5 +1,58 @@
-@layer base, starlight, theme, components, utilities;
+@layer base, starlight, theme, components, utilities, custom;
 
 @import '@astrojs/starlight-tailwind';
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
+
+
+@layer custom {
+  :root {
+    --ec-brdRad: 6px;
+    --ec-frm-edTabBrdRad: 6px;
+  }
+
+
+  .demo-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-block: 2rem;
+    margin: auto;
+  }
+
+  .demo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .demo-item h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--sl-color-text-2);
+  }
+
+  .demo-card {
+    min-height: 150px;
+    min-width: 300px;
+    aspect-ratio: 1.6;
+    background: linear-gradient(135deg, #86898c 0%, #575a63 100%);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .demo-card code {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 600;
+  }
+
+}

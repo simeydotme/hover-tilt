@@ -14,11 +14,11 @@ A beautiful hover tilt effect component for Svelte 5, available as both a Svelte
 ## Installation
 
 ```bash
-npm install svelte-hover-tilt
+npm install hover-tilt
 # or
-pnpm add svelte-hover-tilt
+pnpm add hover-tilt
 # or
-yarn add svelte-hover-tilt
+yarn add hover-tilt
 ```
 
 ## Quick Start
@@ -27,7 +27,7 @@ yarn add svelte-hover-tilt
 
 ```svelte
 <script>
-	import { HoverTilt } from 'svelte-hover-tilt';
+	import { HoverTilt } from 'hover-tilt';
 </script>
 
 <HoverTilt tiltFactor={1.5} scaleFactor={1.1}>
@@ -40,7 +40,7 @@ yarn add svelte-hover-tilt
 ### Web Component
 
 ```html
-<script type="module" src="node_modules/svelte-hover-tilt/dist/hover-tilt.js"></script>
+<script type="module" src="node_modules/hover-tilt/dist/hover-tilt.js"></script>
 
 <hover-tilt tilt-factor="1.5" scale-factor="1.1">
 	<div class="card">
@@ -51,7 +51,7 @@ yarn add svelte-hover-tilt
 
 ## Documentation
 
-- **[Full Documentation](https://simeydotme.github.io/svelte-hover-tilt)** - Complete API reference and examples
+- **[Full Documentation](https://simeydotme.github.io/hover-tilt)** - Complete API reference and examples
 - **[Storybook](apps/storybook)** - Interactive component playground
 
 ## Monorepo Structure
@@ -59,7 +59,7 @@ yarn add svelte-hover-tilt
 This repository is a monorepo containing:
 
 - **`packages/hover-tilt`** - The main library package
-- **`apps/docs`** - Documentation site built with Svecodocs
+- **`apps/docs`** - Documentation site built with Astro + Starlight
 - **`apps/storybook`** - Storybook for component development and testing
 
 ## Development
@@ -134,13 +134,13 @@ If you need to run a specific package directly:
 
 ```bash
 # Library
-pnpm --filter svelte-hover-tilt dev
+pnpm --filter hover-tilt dev
 
 # Documentation
-pnpm --filter '@svecodocs/docs' dev
+pnpm --filter ./apps/docs dev
 
 # Storybook
-pnpm --filter '@svelte-hover-tilt/storybook' dev
+pnpm --filter ./apps/storybook dev
 ```
 
 ## Contributing

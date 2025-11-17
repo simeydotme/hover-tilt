@@ -15,8 +15,8 @@ This is a monorepo using pnpm workspaces. Follow these steps to get started:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/simeydotme/svelte-hover-tilt.git
-cd svelte-hover-tilt
+git clone https://github.com/simeydotme/hover-tilt.git
+cd hover-tilt
 ```
 
 2. Install dependencies:
@@ -29,9 +29,9 @@ pnpm install
 ```
 /
 ├── packages/
-│   └── svelte-hover-tilt/     # Main library package
+│   └── hover-tilt/            # Main library package
 ├── apps/
-│   ├── docs/                   # Documentation site (Svecodocs)
+│   ├── docs/                   # Starlight-powered documentation site
 │   └── storybook/              # Storybook for component testing
 ```
 
@@ -41,36 +41,36 @@ pnpm install
 
 ```bash
 # Development mode
-pnpm --filter svelte-hover-tilt dev
+pnpm --filter hover-tilt dev
 
 # Build
-pnpm --filter svelte-hover-tilt build
+pnpm --filter hover-tilt build
 
 # Type check
-pnpm --filter svelte-hover-tilt check
+pnpm --filter hover-tilt check
 
 # Lint
-pnpm --filter svelte-hover-tilt lint
+pnpm --filter hover-tilt lint
 ```
 
 ### Documentation Site
 
 ```bash
 # Development mode
-pnpm --filter '@svecodocs/docs' dev
+pnpm --filter ./apps/docs dev
 
 # Build
-pnpm --filter '@svecodocs/docs' build
+pnpm --filter ./apps/docs build
 ```
 
 ### Storybook
 
 ```bash
 # Development mode
-pnpm --filter '@svelte-hover-tilt/storybook' dev
+pnpm --filter ./apps/storybook dev
 
 # Build
-pnpm --filter '@svelte-hover-tilt/storybook' build
+pnpm --filter ./apps/storybook build
 ```
 
 ### Root Scripts
@@ -104,7 +104,7 @@ Stories are located in `apps/storybook/src/`. To add a new story:
 Example:
 ```typescript
 import type { Meta, StoryObj } from '@storybook/svelte';
-import HoverTilt from 'svelte-hover-tilt';
+import HoverTilt from 'hover-tilt';
 
 const meta = {
 	title: 'Components/HoverTilt',
@@ -129,7 +129,7 @@ Documentation examples are in `apps/docs/src/content/`. To add a new example:
 
 1. Edit the relevant markdown file in `apps/docs/src/content/`
 2. Use the `DemoContainer` component for interactive examples
-3. Import the component: `import { HoverTilt } from 'svelte-hover-tilt';`
+3. Import the component: `import { HoverTilt } from 'hover-tilt';`
 
 ## Code Style
 

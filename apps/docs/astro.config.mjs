@@ -23,7 +23,13 @@ export default defineConfig({
         },
         {
           label: 'Options',
-          items: [{ label: 'Props Reference', slug: 'options' }]
+          items: [
+            {
+              label: 'Props Reference',
+              slug: 'options'
+            },
+            { label: 'CSS Class / Style', slug: 'css-class-style' }
+          ]
         },
         {
           label: 'Examples',
@@ -39,7 +45,7 @@ export default defineConfig({
           dark: { flavor: 'frappe', accent: 'sky' },
           light: { flavor: 'latte', accent: 'lavender' }
         })
-      ]
+      ],
     })
   ],
 

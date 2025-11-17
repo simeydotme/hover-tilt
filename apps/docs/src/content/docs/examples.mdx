@@ -8,9 +8,12 @@ import BasicDemo from '../../components/demos/BasicDemo.svelte';
 import TiltDemo from '../../components/demos/TiltDemo.svelte';
 import ScaleDemo from '../../components/demos/ScaleDemo.svelte';
 import ShadowDemo from '../../components/demos/ShadowDemo.svelte';
+import ShadowStaticDemo from '../../components/demos/ShadowStaticDemo.svelte';
 import GlareDemo from '../../components/demos/GlareDemo.svelte';
+import GlareHueDemo from '../../components/demos/GlareHueDemo.svelte';
 import SpringDemo from '../../components/demos/SpringDemo.svelte';
-import CombinedDemo from '../../components/demos/CombinedDemo.svelte';
+import ExitDelayDemo from '../../components/demos/ExitDelayDemo.svelte';
+import BlendModeDemo from '../../components/demos/BlendModeDemo.svelte';
 
 ## Basic Usage
 
@@ -21,9 +24,6 @@ The simplest usage with default props. The component will apply a subtle tilt ef
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<HoverTilt>
     	  <div class="card">
@@ -48,16 +48,14 @@ The simplest usage with default props. The component will apply a subtle tilt ef
 
 ## Tilt Factors
 
-Control the intensity of the tilt effect with `tiltFactor` and `tiltFactorY`. The `tiltFactor` controls horizontal tilt, while `tiltFactorY` controls vertical tilt (defaults to `tiltFactor` if not specified).
+Control the intensity of the tilt effect with `tiltFactor` and `tiltFactorY`. 
+The `tiltFactor` controls tilt on both axes, while `tiltFactorY` overrides control of the vertical tilt.
 
 <TiltDemo client:only="svelte" />
 
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- Default tilt -->
     	<HoverTilt>
@@ -105,9 +103,6 @@ Add a scale effect on hover with `scaleFactor`. A value of `1` means no scaling,
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- No scale -->
     	<HoverTilt scaleFactor={1}>
@@ -120,8 +115,13 @@ Add a scale effect on hover with `scaleFactor`. A value of `1` means no scaling,
     	</HoverTilt>
 
     	<!-- Prominent scale -->
-    	<HoverTilt scaleFactor={1.15}>
-    	  <div class="card">scaleFactor: 1.15</div>
+    	<HoverTilt scaleFactor={1.2}>
+    	  <div class="card">scaleFactor: 1.2</div>
+    	</HoverTilt>
+
+    	<!-- Negative scale -->
+    	<HoverTilt scaleFactor={0.9}>
+    	  <div class="card">scaleFactor: 0.9</div>
     	</HoverTilt>
     	```
     </TabItem>
@@ -138,8 +138,13 @@ Add a scale effect on hover with `scaleFactor`. A value of `1` means no scaling,
     	</hover-tilt>
 
     	<!-- Prominent scale -->
-    	<hover-tilt scale-factor="1.15">
-    	  <div class="card">scale-factor: 1.15</div>
+    	<hover-tilt scale-factor="1.2">
+    	  <div class="card">scale-factor: 1.2</div>
+    	</hover-tilt>
+
+    	<!-- Negative scale -->
+    	<hover-tilt scale-factor="0.9">
+    	  <div class="card">scale-factor: 0.9</div>
     	</hover-tilt>
     	```
     </TabItem>
@@ -155,9 +160,6 @@ Enable dynamic shadows that follow the cursor with the `shadow` prop. Control th
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- No shadow -->
     	<HoverTilt>
@@ -166,12 +168,12 @@ Enable dynamic shadows that follow the cursor with the `shadow` prop. Control th
 
     	<!-- With shadow -->
     	<HoverTilt shadow>
-    	  <div class="card">shadow: true</div>
+    	  <div class="card">shadow</div>
     	</HoverTilt>
 
     	<!-- Custom shadow blur -->
-    	<HoverTilt shadow shadowBlur={40}>
-    	  <div class="card">shadowBlur: 40</div>
+    	<HoverTilt shadow shadowBlur={60}>
+    	  <div class="card">shadowBlur: 60</div>
     	</HoverTilt>
     	```
     </TabItem>
@@ -184,30 +186,39 @@ Enable dynamic shadows that follow the cursor with the `shadow` prop. Control th
 
     	<!-- With shadow -->
     	<hover-tilt shadow>
-    	  <div class="card">shadow: true</div>
+    	  <div class="card">shadow</div>
     	</hover-tilt>
 
     	<!-- Custom shadow blur -->
-    	<hover-tilt shadow shadow-blur="40">
-    	  <div class="card">shadow-blur: 40</div>
+    	<hover-tilt shadow shadow-blur="60">
+    	  <div class="card">shadow-blur: 60</div>
     	</hover-tilt>
     	```
     </TabItem>
 
 </Tabs>
 
+If you want to add a static shadow to the component while the interaction is
+not happening, I would suggest to remove it during interaction using the `[data-is-active="false"]` selector.
+
+<ShadowStaticDemo client:only="svelte" />
+```css
+.demo-card:not(:hover) {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	transition: box-shadow 0.3s ease-in-out;
+}
+```
+
 ## Glare Customization
 
-Control the glare effect intensity and color with `glareIntensity` and `glareHue`. The glare follows your cursor and adds a beautiful light effect.
+Control the glare effect intensity and color with `glareIntensity` and `glareHue`. 
+The glare follows your cursor and adds a beautiful default lighting effect.
 
 <GlareDemo client:only="svelte" />
 
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- Default glare -->
     	<HoverTilt>
@@ -217,11 +228,6 @@ Control the glare effect intensity and color with `glareIntensity` and `glareHue
     	<!-- Reduced glare -->
     	<HoverTilt glareIntensity={0.5}>
     	  <div class="card">glareIntensity: 0.5</div>
-    	</HoverTilt>
-
-    	<!-- Custom hue (cyan) -->
-    	<HoverTilt glareHue={180}>
-    	  <div class="card">glareHue: 180</div>
     	</HoverTilt>
 
     	<!-- Intense glare -->
@@ -242,11 +248,6 @@ Control the glare effect intensity and color with `glareIntensity` and `glareHue
     	  <div class="card">glare-intensity: 0.5</div>
     	</hover-tilt>
 
-    	<!-- Custom hue (cyan) -->
-    	<hover-tilt glare-hue="180">
-    	  <div class="card">glare-hue: 180</div>
-    	</hover-tilt>
-
     	<!-- Intense glare -->
     	<hover-tilt glare-intensity="1.5">
     	  <div class="card">glare-intensity: 1.5</div>
@@ -256,18 +257,57 @@ Control the glare effect intensity and color with `glareIntensity` and `glareHue
 
 </Tabs>
 
+### Glare Hue Customization
+
+Control the hue of the glare effect with `glareHue`. The hue is very mild, so it
+may not be noticeable on striking colours, but here's a demo showing how it appears.
+
+<GlareHueDemo client:only="svelte" />
+
+<Tabs>
+	<TabItem label="Svelte">
+		```svelte
+
+    	<!-- Default hue (lavender-ish) -->
+    	<HoverTilt>
+    	  <div class="card">Default</div>
+    	</HoverTilt>
+
+    	<!-- Custom hue (red) -->
+    	<HoverTilt glareHue={20}>
+    	  <div class="card">glareHue: 20</div>
+    	</HoverTilt>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<!-- Default hue (lavender-ish) -->
+		<hover-tilt>
+			<div class="card">Default</div>
+		</hover-tilt>
+
+		<!-- Custom hue (red) -->
+		<hover-tilt glare-hue="20">
+			<div class="card">glare-hue: 20</div>
+		</hover-tilt>
+		```
+	</TabItem>
+
+</Tabs>
+
 ## Spring Animations
 
-Customize the animation physics with `springOptions` and `tiltSpringOptions`. Control stiffness, damping, and precision for different animation feels.
+Customize the animation physics with `springOptions` and `tiltSpringOptions`. 
+Control stiffness & damping for different feeling interactions.
+
+- A stiffer spring will create more pronouced elastic effects (more 'boing-y')
+- More damping will smooth out the motion at the start and end (less 'zippy')
 
 <SpringDemo client:only="svelte" />
 
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- Default spring -->
     	<HoverTilt>
@@ -275,18 +315,13 @@ Customize the animation physics with `springOptions` and `tiltSpringOptions`. Co
     	</HoverTilt>
 
     	<!-- Fast spring -->
-    	<HoverTilt springOptions={{ stiffness: 0.5, damping: 0.6 }}>
+    	<HoverTilt springOptions={{ stiffness: 0.5, damping: 0.2 }}>
     	  <div class="card">stiffness: 0.5, damping: 0.6</div>
     	</HoverTilt>
 
     	<!-- Slow spring -->
-    	<HoverTilt springOptions={{ stiffness: 0.1, damping: 0.9 }}>
+    	<HoverTilt springOptions={{ stiffness: 0.05, damping: 0.9 }}>
     	  <div class="card">stiffness: 0.1, damping: 0.9</div>
-    	</HoverTilt>
-
-    	<!-- Custom tilt spring -->
-    	<HoverTilt tiltSpringOptions={{ stiffness: 0.3, damping: 0.7 }}>
-    	  <div class="card">tiltSpringOptions</div>
     	</HoverTilt>
     	```
     </TabItem>
@@ -298,18 +333,13 @@ Customize the animation physics with `springOptions` and `tiltSpringOptions`. Co
     	</hover-tilt>
 
     	<!-- Fast spring (requires JSON string) -->
-    	<hover-tilt spring-options='{"stiffness": 0.5, "damping": 0.6}'>
+    	<hover-tilt spring-options='{"stiffness": 0.5, "damping": 0.2}'>
     	  <div class="card">stiffness: 0.5, damping: 0.6</div>
     	</hover-tilt>
 
     	<!-- Slow spring -->
-    	<hover-tilt spring-options='{"stiffness": 0.1, "damping": 0.9}'>
+    	<hover-tilt spring-options='{"stiffness": 0.05, "damping": 0.9}'>
     	  <div class="card">stiffness: 0.1, damping: 0.9</div>
-    	</hover-tilt>
-
-    	<!-- Custom tilt spring -->
-    	<hover-tilt tilt-spring-options='{"stiffness": 0.3, "damping": 0.7}'>
-    	  <div class="card">tilt-spring-options</div>
     	</hover-tilt>
     	```
     </TabItem>
@@ -318,14 +348,13 @@ Customize the animation physics with `springOptions` and `tiltSpringOptions`. Co
 
 ## Exit Delay
 
-Control how long the component waits before animating back to the default state when the cursor leaves. Use `exitDelay` (in milliseconds) to create a smoother experience.
+Control how long the component waits before animating back to the default 
+state when the cursor leaves. Use `exitDelay` (in milliseconds) to 
+create a smoother experience.
 
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- Default exit delay (200ms) -->
     	<HoverTilt>
@@ -333,8 +362,8 @@ Control how long the component waits before animating back to the default state 
     	</HoverTilt>
 
     	<!-- Longer exit delay -->
-    	<HoverTilt exitDelay={500}>
-    	  <div class="card">exitDelay: 500ms</div>
+    	<HoverTilt exitDelay={1000}>
+    	  <div class="card">exitDelay: 1000ms</div>
     	</HoverTilt>
 
     	<!-- No exit delay -->
@@ -351,8 +380,8 @@ Control how long the component waits before animating back to the default state 
     	</hover-tilt>
 
     	<!-- Longer exit delay -->
-    	<hover-tilt exit-delay="500">
-    	  <div class="card">exit-delay: 500ms</div>
+    	<hover-tilt exit-delay="1000">
+    	  <div class="card">exit-delay: 1000ms</div>
     	</hover-tilt>
 
     	<!-- No exit delay -->
@@ -364,6 +393,8 @@ Control how long the component waits before animating back to the default state 
 
 </Tabs>
 
+<ExitDelayDemo client:only="svelte" />
+
 ## Blend Modes
 
 Change how the glare effect blends with the content using the `blendMode` prop. Common values include `overlay`, `screen`, `multiply`, `soft-light`, and more.
@@ -371,23 +402,20 @@ Change how the glare effect blends with the content using the `blendMode` prop. 
 <Tabs>
 	<TabItem label="Svelte">
 		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
 
     	<!-- Default blend mode (overlay) -->
     	<HoverTilt>
     	  <div class="card">Default (overlay)</div>
     	</HoverTilt>
 
-    	<!-- Screen blend mode -->
-    	<HoverTilt blendMode="screen">
-    	  <div class="card">blendMode: screen</div>
+    	<!-- Color dodge blend mode -->
+    	<HoverTilt blendMode="color-dodge">
+    	  <div class="card">blendMode: color-dodge</div>
     	</HoverTilt>
 
-    	<!-- Soft light blend mode -->
-    	<HoverTilt blendMode="soft-light">
-    	  <div class="card">blendMode: soft-light</div>
+    	<!-- Plus lighter blend mode -->
+    	<HoverTilt blendMode="plus-lighter">
+    	  <div class="card">blendMode: plus-lighter</div>
     	</HoverTilt>
     	```
     </TabItem>
@@ -398,66 +426,18 @@ Change how the glare effect blends with the content using the `blendMode` prop. 
     	  <div class="card">Default (overlay)</div>
     	</hover-tilt>
 
-    	<!-- Screen blend mode -->
-    	<hover-tilt blend-mode="screen">
-    	  <div class="card">blend-mode: screen</div>
+    	<!-- Luminosity blend mode -->
+    	<hover-tilt blend-mode="luminosity">
+    	  <div class="card">blend-mode: luminosity</div>
     	</hover-tilt>
 
-    	<!-- Soft light blend mode -->
-    	<hover-tilt blend-mode="soft-light">
-    	  <div class="card">blend-mode: soft-light</div>
-    	</hover-tilt>
-    	```
-    </TabItem>
-
-</Tabs>
-
-## Combined Example
-
-Here's an example combining multiple props for a rich, interactive experience:
-
-<CombinedDemo client:only="svelte" />
-
-<Tabs>
-	<TabItem label="Svelte">
-		```svelte
-		<script>
-		  import { HoverTilt } from 'hover-tilt';
-		</script>
-
-    	<HoverTilt
-    	  tiltFactor={1.5}
-    	  scaleFactor={1.1}
-    	  shadow
-    	  shadowBlur={30}
-    	  glareIntensity={1.2}
-    	  glareHue={200}
-    	  exitDelay={300}
-    	>
-    	  <div class="card">
-    	    <h3>Combined Effects</h3>
-    	    <p>Multiple props working together</p>
-    	  </div>
-    	</HoverTilt>
-    	```
-    </TabItem>
-    <TabItem label="Web Component">
-    	```html
-    	<hover-tilt
-    	  tilt-factor="1.5"
-    	  scale-factor="1.1"
-    	  shadow
-    	  shadow-blur="30"
-    	  glare-intensity="1.2"
-    	  glare-hue="200"
-    	  exit-delay="300"
-    	>
-    	  <div class="card">
-    	    <h3>Combined Effects</h3>
-    	    <p>Multiple props working together</p>
-    	  </div>
+    	<!-- Plus lighter blend mode -->
+    	<hover-tilt blend-mode="plus-lighter">
+    	  <div class="card">blend-mode: plus-lighter</div>
     	</hover-tilt>
     	```
     </TabItem>
 
 </Tabs>
+
+<BlendModeDemo client:only="svelte" />
