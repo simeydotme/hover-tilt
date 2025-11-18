@@ -33,7 +33,7 @@
   </div>
 
   <div class="gradient-wrapper">
-    <HoverTilt class="gradient-card luminance-beam" shadow scaleFactor={1.1} blendMode="luminance">
+    <HoverTilt class="gradient-card luminance-beam" shadow scaleFactor={1.1} blendMode="luminosity">
       <div
         class="card-surface bg-linear-to-br from-rose-500/60 to-amber-400/50 via-orange-500/40"
       >

@@ -24,11 +24,8 @@ export default defineConfig({
         {
           label: 'Options',
           items: [
-            {
-              label: 'Props Reference',
-              slug: 'options'
-            },
-            { label: 'CSS Class / Style', slug: 'css-class-style' }
+            { label: 'Props Reference', slug: 'options' },
+            { label: 'CSS Styling Reference', slug: 'css-class-style' }
           ]
         },
         {
@@ -40,12 +37,11 @@ export default defineConfig({
         },
         {
           label: 'Advanced',
-          collapsed: true,
           items: [
             { label: 'Shadows', slug: 'advanced/shadows' },
             { label: 'Custom Shadow', slug: 'advanced/custom-shadow' },
             { label: 'Custom Gradient', slug: 'advanced/custom-gradient' },
-            { label: 'Glare Masks', slug: 'advanced/glare-masks' },
+            { label: 'Glare Masks', slug: 'advanced/glare-masks' }
           ]
         }
       ],

@@ -1,10 +1,11 @@
 ---
 title: Glare Masks
-description: Precise control over Hover Tilt’s glare layer using custom mask images and blend modes.
+description: Precise control over glare layer using custom mask images and blend modes.
 ---
 
 import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
-import MaskGallery from '../../../components/demos/MaskGallery.svelte';
+import SimpleMaskDemo from '../../../components/demos/advanced/SimpleMaskDemo.svelte';
+import MaskOptionsGallery from '../../../components/demos/advanced/MaskOptionsGallery.svelte';
 
 export const singleMaskSvelte = String.raw`
 <script>
@@ -54,7 +55,7 @@ export const dualMaskSvelte = String.raw`
 
 <HoverTilt
   class="etched-card"
-  glareMask={`${etched}, ${foil}`}
+  glareMask={\`\${etched}, \${foil}\`}
   glareMaskMode="luminance"
   glareMaskComposite="intersect"
   glareIntensity={1.1}
@@ -79,16 +80,18 @@ export const dualMaskWebComponent = String.raw`
 </hover-tilt>
 `;
 
-## When to reach for masks
+Glare masks let you constrain the animated highlight to specific shapes, such as; foil borders, emboss lines, or gradients.
+It is possible to pair masks with `glareMaskMode` and `glareMaskComposite` to emulate multi-layer trading-card finishes!
 
-Glare masks let you constrain the animated highlight to very specific shapes—foil borders, emboss lines, or gradients that only reveal part of the card. Pair masks with `glareMaskMode` and `glareMaskComposite` to emulate multi-layer trading-card finishes.
+### Applying a glare mask
+
+The steps to apply a glare mask are as follows;
 
 <Steps>
 
 1. Export or create monochrome PNG/SVG assets representing the regions where the glare should appear.
-2. Reference those assets in the `glareMask` prop (comma-delimit multiple masks).
+2. Reference those assets in the `glareMask` prop.
 3. Tune `glareMaskMode` (`match-source`, `luminance`, or `alpha`) so the browser interprets the mask correctly.
-4. When stacking more than one mask, set `glareMaskComposite` (`add`, `intersect`, etc.) to define how they merge.
 
 </Steps>
 
@@ -97,39 +100,131 @@ Glare masks let you constrain the animated highlight to very specific shapes—f
   the CDN sends permissive CORS headers, otherwise the mask will silently fail.
 </Aside>
 
-## Gallery
+## Basic Example
 
-<MaskGallery client:only="svelte" />
-
-Each card above demonstrates a different combo of mask/mode/composite values. Inspect them in DevTools to see the live CSS variables that power the glare.
-
-## Implementation patterns
-
-### Single-mask highlight
-
-<Tabs syncKey="mask-single">
-  <TabItem label="Svelte">
-    <Code lang="svelte" title="FoilCard.svelte" code={singleMaskSvelte} />
-    <Code lang="css" title="styles.css" code={singleMaskCss} />
+<Tabs>
+  <TabItem label="Mask Example">
+    <SimpleMaskDemo client:only="svelte" />
+    The card above demonstrates a basic example of applying a PNG mask to the glare effect.
   </TabItem>
-  <TabItem label="Web Component">
-    <Code lang="html" title="index.html" code={singleMaskWebComponent} />
+  <TabItem label="Code">
+    <Tabs syncKey="api">
+      <TabItem label="Svelte">
+        ```svelte
+        <HoverTilt class="foil-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+          Your content here
+        </HoverTilt>
+        ```
+      </TabItem>
+      <TabItem label="Web Component">
+        ```html
+        <hover-tilt class="foil-card" glare-mask="url(/public/aztec-pattern.png)" glare-mask-mode="luminance">
+          Your content here
+        </hover-tilt>
+        ```
+      </TabItem>
+    </Tabs>
+    <Aside type="note" title="Important">
+      When using a black &amp; white PNG mask, the `glareMaskMode` should be set to `luminance`.
+    </Aside>
   </TabItem>
 </Tabs>
 
-### Layered masks with composite
+## Different Options
 
-<Tabs syncKey="mask-dual">
-  <TabItem label="Svelte">
-    <Code lang="svelte" title="FoilLayers.svelte" code={dualMaskSvelte} />
-  </TabItem>
-  <TabItem label="Web Component">
-    <Code lang="html" title="index.html" code={dualMaskWebComponent} />
-  </TabItem>
-</Tabs>
+<MaskOptionsGallery client:only="svelte" />
 
-### Reference
+### CSS Alpha Repeating Gradient
 
-- `glareMask` accepts any valid [`mask-image`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image) value(s). Comma-separated entries are evaluated left-to-right.
-- `glareMaskMode` defaults to `match-source`, which follows each source image’s alpha channel. Use `luminance` for black/white PNGs or `alpha` for pre-multiplied assets.
-- `glareMaskComposite` matches CSS [`mask-composite`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-composite). `intersect` is perfect for combining etched outlines with foil fills, while `add` simply stacks them.
+Utilizing **a CSS `repeating-radial-gradient()` as a mask**, and applying `glareMaskMode='alpha'`.
+
+Any css gradient can be used in this manner. You could also use a black &amp; white gradient 
+with `glareMaskMode="luminance"`.
+
+```html
+  <!-- Svelte -->
+  <HoverTilt
+    class="mask-card"
+    glareMask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
+    glareMaskMode="alpha"
+  >
+    Your content here
+  </HoverTilt>
+
+  <!-- Web Component -->
+  <hover-tilt
+    class="mask-card"
+    glare-mask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
+    glare-mask-mode="alpha"
+  >
+    Your content here
+  </hover-tilt>
+```
+
+### Black &amp; White PNG
+
+Using a **black &amp; white PNG sourced from a local folder**, with `glareMaskMode="luminance"`.
+
+Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transparent images could be used with `glareMaskMode="alpha"`.
+
+```html
+  <!-- Svelte -->
+  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+    Your content here
+  </HoverTilt>
+
+  <!-- Web Component -->
+  <hover-tilt class="mask-card" glare-mask="url(/public/aztec-pattern.png)" glare-mask-mode="luminance">
+    Your content here
+  </hover-tilt>
+```
+
+### Transparent SVG
+
+Using a **transparent SVG sourced from a local folder**, with `glareMaskMode="alpha"`.
+
+Just like the locally sourced PNG, except the SVG has a transparent background and so we use `glareMaskMode="alpha"`.
+
+```html
+  <!-- Svelte -->
+  <HoverTilt class="mask-card" glareMask="url(/public/circuit-board.svg)" glareMaskMode="alpha">
+    Your content here
+  </HoverTilt>
+
+  <!-- Web Component -->
+  <hover-tilt class="mask-card" glare-mask="url(/public/circuit-board.svg)" glare-mask-mode="alpha">
+    Your content here
+  </hover-tilt>
+```
+
+### SVG `url(#id)`
+
+Using an **SVG mask definition referenced by ID**, with `glareMaskMode="alpha"`.
+
+Here we first define the mask in an inline SVG definition, and then reference it using `url(#mask)`.
+See [MDN's guide on SVG masks](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask) for more information.
+
+```html
+  <!-- SVG Inline Definition -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
+        <rect x="0" y="0" width="24" height="24" />
+        <polygon fill="white" fill-rule="evenodd" points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4" />
+      </pattern>
+      <mask id="mask">
+        <rect x="0" y="0" width="500" height="500" fill="url(#pattern)"></rect>
+      </mask>
+    </defs>
+  </svg>
+
+  <!-- Svelte -->
+  <HoverTilt class="mask-card" glareMask="url(#mask)" glareMaskMode="alpha">
+    Your content here
+  </HoverTilt>
+
+  <!-- Web Component -->
+  <hover-tilt class="mask-card" glare-mask="url(#mask)" glare-mask-mode="alpha">
+    Your content here
+  </hover-tilt>
+```

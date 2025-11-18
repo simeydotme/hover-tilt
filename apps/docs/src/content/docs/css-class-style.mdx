@@ -9,7 +9,7 @@ import RadiusWebC from '../../chunks/class-style/RadiusWebC.astro';
 
 export const svelteExample = String.raw`
 <HoverTilt class="rounded-3xl">
-  <div class="rounded-3xl"> <!-- this radius matches the radius above -->
+  <div class="rounded-3xl"> <!-- this radius matches the container -->
     Your content here
   </div>
 </HoverTilt>
@@ -24,8 +24,8 @@ export const webComponentMarkup = String.raw`
 `;
 
 export const webComponentStyles = String.raw`
-.tilt-card::part(container),   /* the shadow container */
-.content-card {                /* the content */
+/* apply radius to both the container and the content */
+.tilt-card::part(container), .content-card {             
   border-radius: 24px;
 }
 `;
@@ -79,7 +79,12 @@ either apply a radius to the `::part(container)` or the `::part(tilt)`
 </TabItem>
 </Tabs>
 
-### Glare & `border-radius`
+## Other considerations
+
+There's a couple of other considerations to keep in mind when styling the component, due
+to the way it is structured and how web-components work.
+
+### `border-radius` on glare
 
 If you are applying a `border-radius` to the content, you may notice that the
 glare overflows the radius. This is because the glare is a pseudo-element
@@ -99,9 +104,9 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
     So as long as we apply the same `border-radius` to the container as the content,
     the glare will not overflow the radius.
 
-    <Code lang="svelte" title="Card.svelte" code={svelteExample} />
-
     <RadiusSvelte />
+
+    <Code lang="svelte" title="Card.svelte" code={svelteExample} />
 
   </TabItem>
 
@@ -110,12 +115,27 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
     only affect the host and not the internal container/tilt nodes. 
     
     Use the [CSS `::part()` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) to 
-    reach those internal elements:
-
-    <Code lang="html" title="index.html" code={webComponentMarkup} />
-    <Code lang="css" title="styles.css" code={webComponentStyles} />
+    reach those internal elements.
 
     <RadiusWebC />
+
+    <Tabs syncKey="css">
+      <TabItem label="Plain CSS">
+        <Code lang="html" title="index.html" code={webComponentMarkup} />
+        <Code lang="css" title="styles.css" code={webComponentStyles} />
+      </TabItem>
+      <TabItem label="Tailwind CSS">
+        With TailwindCSS it's a bit easier;
+
+        ```html title="index.html"
+        <hover-tilt class="[&::part(container)]:rounded-3xl">
+          <div class="content-card rounded-3xl">
+            Your content here
+          </div>
+        </hover-tilt>
+        ```
+      </TabItem>
+    </Tabs>
 
   </TabItem>
 
@@ -123,7 +143,7 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
 
 ---
 
-### Overflow on container
+### `overflow` on container
 
 Because the tilt element is inside of the container, if you apply an `overflow: hidden`
 to the container, the tilt effect will be cut off and look broken.

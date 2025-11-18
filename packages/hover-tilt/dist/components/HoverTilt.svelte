@@ -126,10 +126,10 @@
   const rotation = 10;
 </script>
 
-<div 
-  part="container" 
-  data-is-active={state.current >= 0.1} 
-  class="hover-tilt-container {containerClass}" 
+<div
+  part="container"
+  data-is-active={state.current >= 0.1}
+  class="hover-tilt-container {containerClass}"
   style:--hover-tilt-x={position.current.x}
   style:--hover-tilt-y={position.current.y}
   style:--hover-tilt-opacity={opacity}
@@ -142,7 +142,8 @@
   style:--hover-tilt-shadow-blur={shadowBlur}
   style:--hover-tilt-blend-mode={blendMode}
   style:--hover-tilt-glare-mask-mode={glareMaskMode}
-  style:--hover-tilt-glare-mask-composite={glareMaskComposite}>
+  style:--hover-tilt-glare-mask-composite={glareMaskComposite}
+>
   <div
     part="tilt"
     class="hover-tilt"
@@ -164,12 +165,11 @@
       --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
       --gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);
       --scale: var(--hover-tilt-scale, 1);
-      --rotation-x: calc(
-        var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)
-      );
-      --rotation-y: calc(
-        (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)
-      );
+      /* prettier-ignore */
+      --rotation-x: calc( var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg) );
+      /* prettier-ignore */
+      --rotation-y: calc( (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg) );
+      
       perspective: var(--hover-tilt-perspective, 600px);
     }
   }
@@ -205,13 +205,10 @@
   .hover-tilt-shadow {
     --shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);
     --shadow-blur-2: calc(var(--shadow-blur-1) / 2);
-    --hover-tilt-default-shadow:
-      calc(var(--shadow-x) * var(--shadow-blur-1))
-        calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2)
-        calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),
-      calc(var(--shadow-x) * var(--shadow-blur-2))
-        calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2)
-        calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));
+    /* prettier-ignore */
+    --hover-tilt-default-shadow: 
+      calc(var(--shadow-x) * var(--shadow-blur-1)) calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2) calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),
+      calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));
 
     box-shadow: var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));
     will-change: box-shadow;
