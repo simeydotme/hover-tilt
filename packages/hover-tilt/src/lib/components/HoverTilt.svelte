@@ -165,11 +165,13 @@
       --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
       --gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);
       --scale: var(--hover-tilt-scale, 1);
-      /* prettier-ignore */
-      --rotation-x: calc( var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg) );
-      /* prettier-ignore */
-      --rotation-y: calc( (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg) );
-      
+      --rotation-x: calc(
+        var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)
+      );
+      --rotation-y: calc(
+        (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)
+      );
+
       perspective: var(--hover-tilt-perspective, 600px);
     }
   }
