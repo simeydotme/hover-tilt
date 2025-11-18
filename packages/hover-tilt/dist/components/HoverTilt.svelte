@@ -126,25 +126,28 @@
   const rotation = 10;
 </script>
 
-<div class="hover-tilt-container {containerClass}" data-is-active={state.current !== 0} part="container">
+<div 
+  part="container" 
+  data-is-active={state.current >= 0.1} 
+  class="hover-tilt-container {containerClass}" 
+  style:--hover-tilt-x={position.current.x}
+  style:--hover-tilt-y={position.current.y}
+  style:--hover-tilt-opacity={opacity}
+  style:--hover-tilt-scale={scale.current}
+  style:--hover-tilt-rotation-x="{rotation * tiltFactor}deg"
+  style:--hover-tilt-rotation-y="{rotation * (tiltFactorY ?? tiltFactor)}deg"
+  style:--hover-tilt-glare-intensity={glareIntensity}
+  style:--hover-tilt-glare-hue={glareHue}
+  style:--hover-tilt-glare-mask={glareMask}
+  style:--hover-tilt-shadow-blur={shadowBlur}
+  style:--hover-tilt-blend-mode={blendMode}
+  style:--hover-tilt-glare-mask-mode={glareMaskMode}
+  style:--hover-tilt-glare-mask-composite={glareMaskComposite}>
   <div
-    class={`hover-tilt`}
+    part="tilt"
+    class="hover-tilt"
     class:hover-tilt-shadow={shadow}
     class:hover-tilt-glare-mask={glareMask}
-    part="tilt"
-    style:--hover-tilt-x={position.current.x}
-    style:--hover-tilt-y={position.current.y}
-    style:--hover-tilt-opacity={opacity}
-    style:--hover-tilt-scale={scale.current}
-    style:--hover-tilt-rotation-x="{rotation * tiltFactor}deg"
-    style:--hover-tilt-rotation-y="{rotation * (tiltFactorY ?? tiltFactor)}deg"
-    style:--hover-tilt-glare-intensity={glareIntensity}
-    style:--hover-tilt-glare-hue={glareHue}
-    style:--hover-tilt-glare-mask={glareMask}
-    style:--hover-tilt-shadow-blur={shadowBlur}
-    style:--hover-tilt-blend-mode={blendMode}
-    style:--hover-tilt-glare-mask-mode={glareMaskMode}
-    style:--hover-tilt-glare-mask-composite={glareMaskComposite}
     onpointermove={handlePointerMove}
     onpointerleave={handlePointerLeave}
     onpointerenter={handlePointerEnter}
@@ -156,26 +159,27 @@
 <style>
   @layer components {
     .hover-tilt-container {
+      --shadow-x: calc(var(--hover-tilt-x, 0) * 2 - 1);
+      --shadow-y: calc(var(--hover-tilt-y, 0) * 2 - 1);
+      --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
+      --gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);
+      --scale: var(--hover-tilt-scale, 1);
+      --rotation-x: calc(
+        var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)
+      );
+      --rotation-y: calc(
+        (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)
+      );
       perspective: var(--hover-tilt-perspective, 600px);
     }
   }
 
   .hover-tilt {
-    --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
-    --gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);
     --hover-tilt-default-gradient: radial-gradient(
       farthest-corner circle at var(--gradient-x) var(--gradient-y),
       lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,
       lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,
       lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%
-    );
-
-    --scale: var(--hover-tilt-scale, 1);
-    --rotation-x: calc(
-      var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)
-    );
-    --rotation-y: calc(
-      (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)
     );
 
     position: relative;
@@ -199,10 +203,8 @@
   }
 
   .hover-tilt-shadow {
-    --shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 22) * 1px);
+    --shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);
     --shadow-blur-2: calc(var(--shadow-blur-1) / 2);
-    --shadow-x: calc(var(--hover-tilt-x, 0.5) - 0.5);
-    --shadow-y: calc(var(--hover-tilt-y, 0.5) - 0.5);
     --hover-tilt-default-shadow:
       calc(var(--shadow-x) * var(--shadow-blur-1))
         calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2)

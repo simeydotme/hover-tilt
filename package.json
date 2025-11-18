@@ -15,6 +15,7 @@
 	"scripts": {
 		"dev": "pnpm --filter './packages/*' dev",
 		"dev:all": "pnpm --parallel --filter './{packages,apps}/*' dev",
+		"dev:docs": "pnpm --filter './apps/docs' dev",
 		"build": "pnpm --filter './packages/*' build",
 		"build:all": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
 		"lint": "pnpm --filter './packages/*' lint",

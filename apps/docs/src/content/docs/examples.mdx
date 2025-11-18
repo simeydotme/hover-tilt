@@ -5,15 +5,14 @@ description: Interactive examples showcasing Hover Tilt features
 
 import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
 import BasicDemo from '../../components/demos/BasicDemo.svelte';
-import TiltDemo from '../../components/demos/TiltDemo.svelte';
-import ScaleDemo from '../../components/demos/ScaleDemo.svelte';
-import ShadowDemo from '../../components/demos/ShadowDemo.svelte';
-import ShadowStaticDemo from '../../components/demos/ShadowStaticDemo.svelte';
-import GlareDemo from '../../components/demos/GlareDemo.svelte';
-import GlareHueDemo from '../../components/demos/GlareHueDemo.svelte';
-import SpringDemo from '../../components/demos/SpringDemo.svelte';
-import ExitDelayDemo from '../../components/demos/ExitDelayDemo.svelte';
-import BlendModeDemo from '../../components/demos/BlendModeDemo.svelte';
+import TiltDemo from '../../components/demos/usage-examples/TiltDemo.svelte';
+import ScaleDemo from '../../components/demos/usage-examples/ScaleDemo.svelte';
+import ShadowDemo from '../../components/demos/usage-examples/ShadowDemo.svelte';
+import GlareDemo from '../../components/demos/usage-examples/GlareDemo.svelte';
+import GlareHueDemo from '../../components/demos/usage-examples/GlareHueDemo.svelte';
+import SpringDemo from '../../components/demos/usage-examples/SpringDemo.svelte';
+import ExitDelayDemo from '../../components/demos/usage-examples/ExitDelayDemo.svelte';
+import BlendModeDemo from '../../components/demos/usage-examples/BlendModeDemo.svelte';
 
 ## Basic Usage
 
@@ -48,7 +47,7 @@ The simplest usage with default props. The component will apply a subtle tilt ef
 
 ## Tilt Factors
 
-Control the intensity of the tilt effect with `tiltFactor` and `tiltFactorY`. 
+Control the intensity of the tilt effect with `tiltFactor` and `tiltFactorY`.
 The `tiltFactor` controls tilt on both axes, while `tiltFactorY` overrides control of the vertical tilt.
 
 <TiltDemo client:only="svelte" />
@@ -198,20 +197,11 @@ Enable dynamic shadows that follow the cursor with the `shadow` prop. Control th
 
 </Tabs>
 
-If you want to add a static shadow to the component while the interaction is
-not happening, I would suggest to remove it during interaction using the `[data-is-active="false"]` selector.
-
-<ShadowStaticDemo client:only="svelte" />
-```css
-.demo-card:not(:hover) {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-	transition: box-shadow 0.3s ease-in-out;
-}
-```
+> Want a static resting shadow that gives way to the dynamic effect? See [Advanced → Shadows](/advanced/shadows/) for a deep dive and interactive demo.
 
 ## Glare Customization
 
-Control the glare effect intensity and color with `glareIntensity` and `glareHue`. 
+Control the glare effect intensity and color with `glareIntensity` and `glareHue`.
 The glare follows your cursor and adds a beautiful default lighting effect.
 
 <GlareDemo client:only="svelte" />
@@ -277,27 +267,27 @@ may not be noticeable on striking colours, but here's a demo showing how it appe
     	<HoverTilt glareHue={20}>
     	  <div class="card">glareHue: 20</div>
     	</HoverTilt>
-		```
-	</TabItem>
-	<TabItem label="Web Component">
-		```html
-		<!-- Default hue (lavender-ish) -->
-		<hover-tilt>
-			<div class="card">Default</div>
-		</hover-tilt>
+    	```
+    </TabItem>
+    <TabItem label="Web Component">
+    	```html
+    	<!-- Default hue (lavender-ish) -->
+    	<hover-tilt>
+    		<div class="card">Default</div>
+    	</hover-tilt>
 
-		<!-- Custom hue (red) -->
-		<hover-tilt glare-hue="20">
-			<div class="card">glare-hue: 20</div>
-		</hover-tilt>
-		```
-	</TabItem>
+    	<!-- Custom hue (red) -->
+    	<hover-tilt glare-hue="20">
+    		<div class="card">glare-hue: 20</div>
+    	</hover-tilt>
+    	```
+    </TabItem>
 
 </Tabs>
 
 ## Spring Animations
 
-Customize the animation physics with `springOptions` and `tiltSpringOptions`. 
+Customize the animation physics with `springOptions` and `tiltSpringOptions`.
 Control stiffness & damping for different feeling interactions.
 
 - A stiffer spring will create more pronouced elastic effects (more 'boing-y')
@@ -348,8 +338,8 @@ Control stiffness & damping for different feeling interactions.
 
 ## Exit Delay
 
-Control how long the component waits before animating back to the default 
-state when the cursor leaves. Use `exitDelay` (in milliseconds) to 
+Control how long the component waits before animating back to the default
+state when the cursor leaves. Use `exitDelay` (in milliseconds) to
 create a smoother experience.
 
 <Tabs>

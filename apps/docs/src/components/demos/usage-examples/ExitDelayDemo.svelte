@@ -24,7 +24,6 @@
 </div>
 
 <style>
-
   .demo-card {
     background: linear-gradient(135deg, #febb4f 0%, #94430d 100%);
   }

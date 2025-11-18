@@ -4,13 +4,11 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
-
 @layer custom {
   :root {
     --ec-brdRad: 6px;
     --ec-frm-edTabBrdRad: 6px;
   }
-
 
   .demo-container {
     display: flex;
@@ -54,5 +52,4 @@
     color: white;
     font-weight: 600;
   }
-
 }

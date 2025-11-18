@@ -1,0 +1,268 @@
+---
+title: Custom Gradient
+description: Override the default glare gradient with your own gradient implementation.
+---
+
+import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
+import GradientShowcase from '../../../components/demos/advanced/GradientShowcase.svelte';
+import { showcaseCssCode, cssGradientSyntax, cssGlareIntensitySyntax } from './custom-gradient.strings';
+
+export const gradientSvelte = String.raw`
+<script>
+  import { HoverTilt } from 'hover-tilt';
+</script>
+
+<HoverTilt
+  class="aurora-card"
+  shadow
+  glareHue={220}
+  style="
+    --hover-tilt-custom-gradient: conic-gradient(
+      from 45deg at var(--hover-tilt-x, 50%) var(--hover-tilt-y, 50%),
+      rgba(255,255,255,0.95),
+      rgba(59,130,246,0.6),
+      rgba(14,165,233,0.4),
+      transparent 70%
+    );
+    --hover-tilt-glare-intensity: 1.4;
+  "
+>
+  <div class="card"></div>
+</HoverTilt>
+`;
+
+export const gradientCss = String.raw`
+.aurora-card {
+  border-radius: 28px;
+}
+
+.aurora-card .card {
+border-radius: inherit;
+min-height: 320px;
+background: linear-gradient(130deg, rgb(15 23 42), rgb(76 29 149));
+}
+`;
+
+export const gradientWebComponent = String.raw`
+<hover-tilt
+  class="aurora-card"
+  shadow
+  glare-hue="220"
+  style="
+    --hover-tilt-custom-gradient: conic-gradient(
+      from 45deg at var(--hover-tilt-x, 50%) var(--hover-tilt-y, 50%),
+      rgba(255,255,255,0.95),
+      rgba(59,130,246,0.6),
+      rgba(14,165,233,0.4),
+      transparent 70%
+    );
+    --hover-tilt-glare-intensity: 1.4;
+  "
+>
+  <div class="card"></div>
+</hover-tilt>
+`;
+
+The `<HoverTilt />` component comes with a good default glare effect, using my experience in
+designing tilting cards as a basis.
+
+However, it's quite possible you may need a custom glare gradient effect, so we **expose `--hover-tilt-custom-gradient`**.
+This lets you replace the default glare look without having to roll your own component from scratch!
+
+You can use this to customise the gradient design to your needs.
+
+**The gradient CSS looks something like this;**
+
+```css
+.hover-tilt-container {
+  --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%); /* gradient X position (0% -> 100%) */
+  --gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%); /* gradient Y position (0% -> 100%) */
+}
+
+.hover-tilt {
+  --hover-tilt-default-gradient: radial-gradient(
+    farthest-corner circle at var(--gradient-x) var(--gradient-y),
+    lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,
+    lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,
+    lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%
+  );
+}
+
+.hover-tilt::before {
+  /* we look for a custom gradient first, falling back to the default gradient */
+  background-image: var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));
+}
+```
+
+The pointer coordinates are mirrored into CSS via `--gradient-x` and `--gradient-y`, to position the
+gradient wherever the pointer is on the card.
+
+### Crafting a custom Dynamic Gradient
+
+The steps for overriding the built-in dynamic gradient are;
+
+<Steps>
+
+1. Write your desired gradient code using CSS `calc()` with `var(--gradient-x)` / `var(--gradient-y)`. _(see below)_
+
+2. Assign it to `--hover-tilt-custom-gradient` using a CSS class.
+
+</Steps>
+
+## Gradient showcase
+
+Here's a bunch of custom gradient examples! While I won't go into detail for each one, I will explain a simple
+one below, and list out the CSS variables that can be used.
+
+<Tabs>
+  <TabItem label="Gradients">
+    <GradientShowcase client:only="svelte" />
+  </TabItem>
+  <TabItem label="Code">
+    <Aside title="Svelte / Web Component">
+      remember; if using the Web Component, you'll need to use the `.your-class::part(container)` selector to instead of the `:global(.your-class)` selector
+    </Aside>
+    <Code lang="css" title="styles.css" code={showcaseCssCode} />
+  </TabItem>
+</Tabs>
+
+Each card sets a unique `--hover-tilt-custom-gradient` value. Notice how the glare follows the pointer differently depending on whether the gradient is radial, conic, or directional.
+
+## Breakdown
+
+Here's a breakdown of a simple custom gradient, with each part and how it works.
+
+<Steps>
+
+1. First we need to call the component and set a `glareIntensity` value.
+
+   ```html
+   <!-- Svelte -->
+   <HoverTilt class="simple-card" glareIntensity={1}> ... </HoverTilt>
+
+   <!-- Web Component -->
+   <hover-tilt class="simple-card" glare-intensity="1"> ... </hover-tilt>
+   ```
+
+2. Then we need to create a CSS selector to target the container of the `<HoverTilt />` component.
+
+   ```css
+   /* Svelte */
+   :global(.simple-card) {
+     /* ... */
+   }
+
+   /* Web Component */
+   .simple-card::part(container) {
+     /* ... */
+   }
+   ```
+
+   We target the container of the `<HoverTilt />` component with the `:global()` selector in Svelte, or the `::part(container)` selector in Web Component.
+
+3. Next we assign the custom gradient to the `--hover-tilt-custom-gradient` CSS variable.
+
+   ```css
+   /* Svelte */
+   :global(.simple-card) {
+     --hover-tilt-custom-gradient: /* ... */;
+   }
+   
+   /* Web Component */
+   .simple-card::part(container) {
+     --hover-tilt-custom-gradient: /* ... */;
+   }
+   ```
+
+   This variable will be used to override the default gradient.
+
+4. To make the gradient move around dynamically based on the tilt effect, we use the `--gradient-x` and `--gradient-y` variables.
+
+   <Code lang="css" code={cssGradientSyntax} />
+
+   When the component has no tilt applied _(either inactive, or the user has perfect centering of the pointer)_, then
+   the `--gradient-x` and `--gradient-y` variables will be `50%`, so a gradient position of `50% 50%`.
+
+   But if the user tilts in the negative `x` direction, then `--gradient-x` will be `0%`, so a gradient position of `0% 50%`.
+   Likewise when tilted in the positive `x` direction, then `--gradient-x` will be `100%`, so a gradient position of `100% 50%`.
+
+5. Lastly we have access to the `--hover-tilt-glare-intensity` variable, which is the value of the input prop; `glareIntensity`.
+
+   <Code lang="css" code={cssGlareIntensitySyntax} />
+
+   So we can use this to control the opacity of the gradient color stops, optionally multiplying the `--hover-tilt-glare-intensity` 
+   value, with `calc()` by a factor to adjust the intensity. eg: `calc(var(--hover-tilt-glare-intensity, 1) * 0.5)`.
+
+</Steps>
+
+### Complete beakdown code
+
+And so the final (basic) custom gradient implementation looks like this;
+
+```css
+/* Svelte */
+:global(.simple-card) {
+  --hover-tilt-custom-gradient: radial-gradient( circle at var(--gradient-x) var(--gradient-y), rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%, transparent 70% );
+}
+
+/* Web Component */
+.simple-card::part(container) {
+  --hover-tilt-custom-gradient: radial-gradient( circle at var(--gradient-x) var(--gradient-y), rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%, transparent 70% );
+}
+```
+
+This may seem a little daunting and complex at first, but if you have experience with CSS `calc()` and `var()` functions, it should be relatively straightforward.
+
+<Aside type='tip'>
+  It's probably easier to create a static gradient first in the style you want,
+  and then replace each part of it with the CSS variables needed to make it dynamic!
+</Aside>
+
+## List of variables available
+
+These variables are available to customise the gradient appearance / position.
+
+They can also be used inside the content slot to customise the way your content reacts
+to the hover-tilt interactions!
+
+
+<table class="pb-4">
+  <thead>
+    <tr>
+      <th class="whitespace-nowrap">Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="whitespace-nowrap">
+        <code>--hover-tilt-custom-gradient</code>
+      </td>
+      <td class="text-sm">Override the default glare gradient with your own gradient.</td>
+    </tr>
+    <tr>
+      <td class="whitespace-nowrap">
+        <code>--gradient-x</code>
+      </td>
+      <td class="text-sm">Dynamic horizontal position (0%-100%) of the gradient focal point.</td>
+    </tr>
+    <tr>
+      <td class="whitespace-nowrap">
+        <code>--gradient-y</code>
+      </td>
+      <td class="text-sm">Dynamic vertical position (0%-100%) of the gradient focal point.</td>
+    </tr>
+    <tr>
+      <td class="whitespace-nowrap">
+        <code>--hover-tilt-glare-intensity</code>
+      </td>
+      <td class="text-sm">Mirrors the <code>glareIntensity</code> prop; handy for scaling gradient-stop opacities.</td>
+    </tr>
+    <tr>
+      <td class="whitespace-nowrap">
+        <code>--hover-tilt-glare-hue</code>
+      </td>
+      <td class="text-sm">Mirrors the <code>glareHue</code> prop; handy for a per-component hue setting.</td>
+    </tr>
+  </tbody>
+</table>

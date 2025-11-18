@@ -23,7 +23,6 @@
   </div>
 </div>
 
-
 <style>
   .demo-card {
     background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);

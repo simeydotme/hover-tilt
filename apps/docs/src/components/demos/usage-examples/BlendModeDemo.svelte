@@ -25,7 +25,7 @@
 
 <style>
   .demo-card {
-    background: linear-gradient(135deg, #FCF4C9 10%, #FEE3E2, #FBCDF2, #E8BEFA, #ABBFFF, #BBF3C0 90%);
+    background: linear-gradient(135deg, #fcf4c9 10%, #fee3e2, #fbcdf2, #e8befa, #abbfff, #bbf3c0 90%);
   }
   .demo-card code {
     color: #222;

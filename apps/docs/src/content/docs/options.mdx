@@ -180,6 +180,8 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Default**: `false`
 - **Description**: Enables dynamic shadow that moves with the tilt effect.
 
+> Need a resting shadow or bespoke multi-layer drop shadow? See [Advanced → Shadows](/advanced/shadows/) and [Advanced → Custom Shadow](/advanced/custom-shadow/) for detailed walkthroughs.
+
 ### `shadowBlur`
 
 <Tabs syncKey='api'>
@@ -199,9 +201,10 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Default**: `22`
 - **Description**: Blur radius for the shadow effect (in pixels). Only applies when `shadow` is `true`.
 
+> For precise control (multiple blur layers, neon rims, etc.) override `--hover-tilt-custom-shadow` as shown in [Advanced → Custom Shadow](/advanced/custom-shadow/).
 
 <Aside type="note">
-	**shadowBlur** can also be set by providing a `--hover-tilt-shadow-blur: 40;` css variable instead.
+  **shadowBlur** can also be set by providing a `--hover-tilt-shadow-blur: 40;` css variable instead.
 </Aside>
 
 ### `blendMode`
@@ -224,7 +227,7 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Description**: CSS blend mode for the glare effect. Common values: `overlay`, `screen`, `multiply`, `plus-lighter`, etc.
 
 <Aside type="note">
-	**blendMode** can also be set by providing a `--hover-tilt-blend-mode: overlay;` css variable instead.
+  **blendMode** can also be set by providing a `--hover-tilt-blend-mode: overlay;` css variable instead.
 </Aside>
 
 ### `glareIntensity`
@@ -266,7 +269,7 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Description**: Hue value (0-360) for the glare color. Adjusts the color of the glare effect.
 
 <Aside type="note">
-	**glareHue** can also be set by providing a `--hover-tilt-glare-hue: 180;` css variable instead.
+  **glareHue** can also be set by providing a `--hover-tilt-glare-hue: 180;` css variable instead.
 </Aside>
 
 ### `glareMask`
@@ -288,6 +291,8 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Default**: `undefined` _(no mask)_
 - **Description**: [CSS mask image](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-image) for the glare effect. Allows custom masking of the glare to specific areas.
 
+> See [Advanced → Glare Masks](/advanced/glare-masks/) for layered foil/etch examples and troubleshooting tips.
+
 ### `glareMaskMode`
 
 <Tabs syncKey='api'>
@@ -307,6 +312,8 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Default**: `undefined` _(browser default behavior is 'match-source')_
 - **Description**: [CSS `mask-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-mode) for the glare mask. Controls how the mask is interpreted.
 
+> The [Glare Masks guide](/advanced/glare-masks/) compares `match-source`, `luminance`, and `alpha` with visual callouts.
+
 ### `glareMaskComposite`
 
 <Tabs syncKey='api'>
@@ -325,3 +332,5 @@ adding a shadow, or increasing the intensity of the glare effect.
 - **Type**: `'add' | 'subtract' | 'exclude' | 'intersect' | undefined`
 - **Default**: `undefined` _(browser default behavior is 'add')_
 - **Description**: [Composite operation for multiple masks](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-composite). Only useful if applying multiple masks.
+
+> Visit [Advanced → Glare Masks](/advanced/glare-masks/) to see `add` vs `intersect` in action on Pokémon-style foil art.

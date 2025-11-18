@@ -1,0 +1,212 @@
+---
+title: Advanced Shadows
+description: Combine static CSS shadows with Hover Tilt's dynamic shadow system.
+---
+
+import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
+import ShadowAlwaysDemo from '../../../components/demos/advanced/ShadowAlwaysDemo.svelte';
+import ShadowStaticDemo from '../../../components/demos/advanced/ShadowStaticDemo.svelte';
+
+{/* -------------- ALWAYS SHADOW -------------- */}
+
+export const svelteAlwaysShadowMarkup = String.raw`
+<HoverTilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="card">
+    Content always has a subtle shadow
+  </div>
+</HoverTilt>
+
+<style>
+  .card {
+    box-shadow: 0px 10px 15px -3px rgba(0 0 0 / 0.2);
+  }
+</style>
+
+`;
+
+export const svelteAlwaysShadowTailwind = String.raw`
+<HoverTilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="shadow-lg">
+    Content always has a subtle shadow
+  </div>
+</HoverTilt>
+`;
+
+export const webcAlwaysShadowMarkup = String.raw`
+<hover-tilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="card">
+    Content always has a subtle shadow
+  </div>
+</hover-tilt>
+
+<style>
+  .card {
+    box-shadow: 0px 10px 15px -3px rgba(0 0 0 / 0.2);
+  }
+</style>
+
+`;
+
+export const webcAlwaysShadowTailwind = String.raw`
+<hover-tilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="shadow-lg">
+    Content always has a subtle shadow
+  </div>
+</hover-tilt>
+`;
+
+{/* -------------- STATIC SHADOW -------------- */}
+
+export const svelteStaticShadowMarkup = String.raw`
+<HoverTilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="card">
+    Custom shadow when inactive
+  </div>
+</HoverTilt>
+
+<style>
+  .shadow-card .card:not(:hover) {
+    /* transition to a static shadow when not hovering */
+    box-shadow: 0px 10px 15px -3px rgb(250 45 45 / 0.2) ;
+    transition: box-shadow 300ms ease 300ms;
+  }
+
+  .shadow-card:hover .card {
+    /* apply shadow immediately when hovering */
+    transition-delay: 0ms
+  }
+</style>
+
+`;
+
+export const svelteStaticShadowTailwind = String.raw`
+<HoverTilt shadow shadowBlur={30}>
+  <div class="shadow-red-500/20 transition-shadow delay-300 hover:delay-0 duration-300 [:not(:hover)]:shadow-lg">
+    Custom shadow when inactive
+  </div>
+</HoverTilt>
+`;
+
+export const webcShadowMarkup = String.raw`
+<hover-tilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="card">
+    Custom shadow when inactive
+  </div>
+</hover-tilt>
+
+<style>
+  .shadow-card .card:not(:hover) {
+    box-shadow: 0px 10px 15px -3px rgb(250 45 45 / 0.2);
+    transition: box-shadow 300ms ease 300ms;
+  }
+
+  .shadow-card:hover .card {
+    transition-delay: 0ms
+  }
+</style>
+
+`;
+
+export const webcShadowTailwind = String.raw`
+<hover-tilt class="shadow-card" shadow shadowBlur={30}>
+  <div class="shadow-red-500/20 transition-shadow delay-300 hover:delay-0 duration-300 [:not(:hover)]:shadow-lg">
+    Custom shadow when inactive
+  </div>
+</hover-tilt>
+`;
+
+A tilting element should have a shadow to look more believable, so
+**the `<HoverTilt />` component automatically applies a dynamic shadow** to the
+element when the `shadow` prop is enabled.
+
+However, there are two cases where you might feel this is not the solution for you;
+
+1. You want a static shadow even while not interacting.  
+   _See [Shadows while not active](#shadows-while-not-active) for more details._
+2. You need a custom shadow effect for your use case.  
+   _See [Custom dynamic shadows](#custom-dynamic-shadows) for more details._
+
+## Shadows while not active
+
+The built-in `shadow` prop produces a dynamic shadow driven by `--hover-tilt-x` and `--hover-tilt-y`.
+For cards that need depth even when idle there's two approaches;
+
+- add a static CSS [shadow that is always visible](#simple-content-shadow).
+- add a static CSS [shadow that hides itself the moment the interaction begins](#toggle-a-shadow-on-hover).
+
+<Aside type="tip" title="[data-is-active] attribute">
+  The outer container inside Hover Tilt sets `data-is-active="true"` whenever the component is animating. You can safely
+  scope selectors like `.shadow-card[data-is-active="false"] .card` or
+  `hover-tilt::part(container)[data-is-active="false"]` to modify CSS.
+</Aside>
+
+### Simple content shadow
+
+This is the simplest approach. Just add a static shadow to the slot contents.
+
+When the content shadow is subtle, it may be fine (or even desirable) to let the built-in dynamic shadow stack on top of it.
+
+<ShadowAlwaysDemo client:only="svelte" />
+
+<Tabs syncKey="advanced-shadow">
+  <TabItem label="Svelte">
+    <Tabs syncKey="language">
+      <TabItem label="Plain CSS">
+        <Code lang="svelte" title="ShadowCard.svelte" code={svelteAlwaysShadowMarkup} />
+      </TabItem>
+      <TabItem label="Tailwind CSS">
+        <Code lang="svelte" title="ShadowCard.svelte" code={svelteAlwaysShadowTailwind} />
+      </TabItem>
+    </Tabs>
+  </TabItem>
+  <TabItem label="Web Component">
+    <Tabs syncKey="language">
+      <TabItem label="Plain CSS">
+        <Code lang="html" title="index.html" code={webcAlwaysShadowMarkup} />
+      </TabItem>
+      <TabItem label="Tailwind CSS">
+        <Code lang="html" title="index.html" code={webcAlwaysShadowTailwind} />
+      </TabItem>
+    </Tabs>
+  </TabItem>
+</Tabs>
+
+### Toggle a shadow on hover
+
+The demo keeps a soft shadow under the card while idle, then suppresses it when the built-in dynamic shadow activates.
+
+<ShadowStaticDemo client:only="svelte" />
+
+<small class="-mt-4 mb-8 block text-center">
+  <em>I've made the static shadow red, so it is easier to see how the toggle is working.</em>
+</small>
+
+<Tabs syncKey="advanced-shadow">
+  <TabItem label="Svelte">
+    <Tabs syncKey="language">
+      <TabItem label="Plain CSS">
+        <Code lang="svelte" title="ShadowCard.svelte" code={svelteStaticShadowMarkup} />
+      </TabItem>
+      <TabItem label="Tailwind CSS">
+        <Code lang="svelte" title="ShadowCard.svelte" code={svelteStaticShadowTailwind} />
+      </TabItem>
+    </Tabs>
+  </TabItem>
+  <TabItem label="Web Component">
+    <Tabs syncKey="language">
+      <TabItem label="Plain CSS">
+        <Code lang="html" title="index.html" code={webcShadowMarkup} />
+      </TabItem>
+      <TabItem label="Tailwind CSS">
+        <Code lang="html" title="index.html" code={webcShadowTailwind} />
+      </TabItem>
+    </Tabs>
+  </TabItem>
+</Tabs>
+
+## Custom dynamic shadows
+
+If you need a specific shadow effect, it's posible to utilise the `--shadow-x` and `--shadow-y` variables,
+and override the built-in dynamic shadow by setting the `--hover-tilt-custom-shadow` CSS variable.
+
+See the [Custom Shadow](/advanced/custom-shadow/) page for more details.

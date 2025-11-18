@@ -30,7 +30,6 @@
 </div>
 
 <style>
-
   .demo-card {
     background: linear-gradient(135deg, #4fe4fe 0%, #0d6e94 100%);
   }

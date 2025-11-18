@@ -4390,7 +4390,7 @@ const whitespace = [...' \t\n\r\f\u00a0\u000b\ufeff'];
 function to_class(value, hash, directives) {
 	var classname = value == null ? '' : '' + value;
 
-	{
+	if (hash) {
 		classname = classname ? classname + ' ' + hash : hash;
 	}
 
@@ -5631,7 +5631,7 @@ var root = from_html(`<div part="container"><div part="tilt"><!></div></div>`);
 
 const $$css = {
 	hash: 'svelte-1g9r0vt',
-	code: '\n  @layer components {.hover-tilt-container.svelte-1g9r0vt {perspective:var(--hover-tilt-perspective, 600px);}\n  }.hover-tilt.svelte-1g9r0vt {--gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);--gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);--hover-tilt-default-gradient: radial-gradient(\n      farthest-corner circle at var(--gradient-x) var(--gradient-y),\n      lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n      lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n      lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n    );--scale: var(--hover-tilt-scale, 1);--rotation-x: calc(\n      var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)\n    );--rotation-y: calc(\n      (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)\n    );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y));will-change:transform;image-rendering:optimizeQuality;text-rendering:optimizeLegibility;}.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:opacity, background-image;}.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 22) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);--shadow-x: calc(var(--hover-tilt-x, 0.5) - 0.5);--shadow-y: calc(var(--hover-tilt-y, 0.5) - 0.5);--hover-tilt-default-shadow:\n      calc(var(--shadow-x) * var(--shadow-blur-1))\n        calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2)\n        calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n      calc(var(--shadow-x) * var(--shadow-blur-2))\n        calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2)\n        calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));will-change:box-shadow;}.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);mask-size:cover;mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-composite:var(--hover-tilt-glare-mask-composite, add);}'
+	code: '\n  @layer components {.hover-tilt-container.svelte-1g9r0vt {--shadow-x: calc(var(--hover-tilt-x, 0) * 2 - 1);--shadow-y: calc(var(--hover-tilt-y, 0) * 2 - 1);--gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);--gradient-y: calc(var(--hover-tilt-y, 0.5) * 100%);--scale: var(--hover-tilt-scale, 1);--rotation-x: calc(\n        var(--hover-tilt-y, 0) * var(--hover-tilt-rotation-y, 20deg) * 2 - var(--hover-tilt-rotation-y, 20deg)\n      );--rotation-y: calc(\n        (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg)\n      );perspective:var(--hover-tilt-perspective, 600px);}\n  }.hover-tilt.svelte-1g9r0vt {--hover-tilt-default-gradient: radial-gradient(\n      farthest-corner circle at var(--gradient-x) var(--gradient-y),\n      lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n      lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n      lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n    );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y));will-change:transform;image-rendering:optimizeQuality;text-rendering:optimizeLegibility;}.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:opacity, background-image;}.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);--hover-tilt-default-shadow:\n      calc(var(--shadow-x) * var(--shadow-blur-1))\n        calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2)\n        calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n      calc(var(--shadow-x) * var(--shadow-blur-2))\n        calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2)\n        calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));will-change:box-shadow;}.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);mask-size:cover;mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-composite:var(--hover-tilt-glare-mask-composite, add);}'
 };
 
 function HoverTilt($$anchor, $$props) {
@@ -5877,12 +5877,12 @@ function HoverTilt($$anchor, $$props) {
 	};
 
 	var div = root();
+	let styles;
 	var div_1 = child(div);
 	let classes;
 
 	div_1.__pointermove = handlePointerMove;
 
-	let styles;
 	var node_1 = child(div_1);
 
 	slot(node_1, $$props, 'default', {});
@@ -5890,15 +5890,10 @@ function HoverTilt($$anchor, $$props) {
 	reset(div);
 
 	template_effect(() => {
+		set_attribute(div, 'data-is-active', state.current >= 0.1);
 		set_class(div, 1, `hover-tilt-container ${containerClass() ?? ''}`, 'svelte-1g9r0vt');
-		set_attribute(div, 'data-is-active', state.current !== 0);
 
-		classes = set_class(div_1, 1, `hover-tilt`, 'svelte-1g9r0vt', classes, {
-			'hover-tilt-shadow': shadow(),
-			'hover-tilt-glare-mask': glareMask()
-		});
-
-		styles = set_style(div_1, '', styles, {
+		styles = set_style(div, '', styles, {
 			'--hover-tilt-x': position.current.x,
 			'--hover-tilt-y': position.current.y,
 			'--hover-tilt-opacity': get(opacity),
@@ -5912,6 +5907,11 @@ function HoverTilt($$anchor, $$props) {
 			'--hover-tilt-blend-mode': blendMode(),
 			'--hover-tilt-glare-mask-mode': glareMaskMode(),
 			'--hover-tilt-glare-mask-composite': glareMaskComposite()
+		});
+
+		classes = set_class(div_1, 1, 'hover-tilt svelte-1g9r0vt', null, classes, {
+			'hover-tilt-shadow': shadow(),
+			'hover-tilt-glare-mask': glareMask()
 		});
 	});
 

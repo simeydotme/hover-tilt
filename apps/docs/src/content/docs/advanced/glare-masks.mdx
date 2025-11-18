@@ -1,0 +1,135 @@
+---
+title: Glare Masks
+description: Precise control over Hover Tilt’s glare layer using custom mask images and blend modes.
+---
+
+import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
+import MaskGallery from '../../../components/demos/MaskGallery.svelte';
+
+export const singleMaskSvelte = String.raw`
+<script>
+  import { HoverTilt } from 'hover-tilt';
+  const foilMask =
+    'url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.foil.png)';
+</script>
+
+<HoverTilt class="foil-card" glareMask={foilMask} glareIntensity={1.35} glareHue={200} shadow>
+  <div class="card"></div>
+</HoverTilt>
+`;
+
+export const singleMaskCss = String.raw`
+.foil-card {
+  border-radius: 24px;
+  --hover-tilt-custom-gradient: radial-gradient(circle at 40% 20%, rgba(255,255,255,0.9), transparent 55%);
+}
+
+.foil-card .card {
+border-radius: inherit;
+min-height: 320px;
+background: url('/pokemon/base.png') center / cover;
+}
+`;
+
+export const singleMaskWebComponent = String.raw`
+<hover-tilt
+  class="foil-card"
+  glare-mask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.foil.png)"
+  glare-intensity="1.35"
+  glare-hue="200"
+  shadow
+>
+  <div class="card"></div>
+</hover-tilt>
+`;
+
+export const dualMaskSvelte = String.raw`
+<script>
+  import { HoverTilt } from 'hover-tilt';
+  const etched =
+    'url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.etch.png)';
+  const foil =
+    'url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.foil.png)';
+</script>
+
+<HoverTilt
+  class="etched-card"
+  glareMask={`${etched}, ${foil}`}
+  glareMaskMode="luminance"
+  glareMaskComposite="intersect"
+  glareIntensity={1.1}
+  glareHue={180}
+  shadow
+>
+  <div class="card"></div>
+</HoverTilt>
+`;
+
+export const dualMaskWebComponent = String.raw`
+<hover-tilt
+  class="etched-card"
+  glare-mask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.etch.png), url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/sv8-5/sv8-5_en_005_mph.foil.png)"
+  glare-mask-mode="luminance"
+  glare-mask-composite="intersect"
+  glare-intensity="1.1"
+  glare-hue="180"
+  shadow
+>
+  <div class="card"></div>
+</hover-tilt>
+`;
+
+## When to reach for masks
+
+Glare masks let you constrain the animated highlight to very specific shapes—foil borders, emboss lines, or gradients that only reveal part of the card. Pair masks with `glareMaskMode` and `glareMaskComposite` to emulate multi-layer trading-card finishes.
+
+<Steps>
+
+1. Export or create monochrome PNG/SVG assets representing the regions where the glare should appear.
+2. Reference those assets in the `glareMask` prop (comma-delimit multiple masks).
+3. Tune `glareMaskMode` (`match-source`, `luminance`, or `alpha`) so the browser interprets the mask correctly.
+4. When stacking more than one mask, set `glareMaskComposite` (`add`, `intersect`, etc.) to define how they merge.
+
+</Steps>
+
+<Aside type="caution" title="CORS matters">
+  Remote mask URLs must allow cross-origin image usage. Host masks in the same site (e.g., `/img/mask.png`) or ensure
+  the CDN sends permissive CORS headers, otherwise the mask will silently fail.
+</Aside>
+
+## Gallery
+
+<MaskGallery client:only="svelte" />
+
+Each card above demonstrates a different combo of mask/mode/composite values. Inspect them in DevTools to see the live CSS variables that power the glare.
+
+## Implementation patterns
+
+### Single-mask highlight
+
+<Tabs syncKey="mask-single">
+  <TabItem label="Svelte">
+    <Code lang="svelte" title="FoilCard.svelte" code={singleMaskSvelte} />
+    <Code lang="css" title="styles.css" code={singleMaskCss} />
+  </TabItem>
+  <TabItem label="Web Component">
+    <Code lang="html" title="index.html" code={singleMaskWebComponent} />
+  </TabItem>
+</Tabs>
+
+### Layered masks with composite
+
+<Tabs syncKey="mask-dual">
+  <TabItem label="Svelte">
+    <Code lang="svelte" title="FoilLayers.svelte" code={dualMaskSvelte} />
+  </TabItem>
+  <TabItem label="Web Component">
+    <Code lang="html" title="index.html" code={dualMaskWebComponent} />
+  </TabItem>
+</Tabs>
+
+### Reference
+
+- `glareMask` accepts any valid [`mask-image`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image) value(s). Comma-separated entries are evaluated left-to-right.
+- `glareMaskMode` defaults to `match-source`, which follows each source image’s alpha channel. Use `luminance` for black/white PNGs or `alpha` for pre-multiplied assets.
+- `glareMaskComposite` matches CSS [`mask-composite`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-composite). `intersect` is perfect for combining etched outlines with foil fills, while `add` simply stacks them.

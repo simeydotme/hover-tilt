@@ -37,6 +37,16 @@ export default defineConfig({
             { label: 'Usage Examples', slug: 'examples' },
             { label: 'Web Component', slug: 'web-component' }
           ]
+        },
+        {
+          label: 'Advanced',
+          collapsed: true,
+          items: [
+            { label: 'Shadows', slug: 'advanced/shadows' },
+            { label: 'Custom Shadow', slug: 'advanced/custom-shadow' },
+            { label: 'Custom Gradient', slug: 'advanced/custom-gradient' },
+            { label: 'Glare Masks', slug: 'advanced/glare-masks' },
+          ]
         }
       ],
       customCss: ['./src/styles/global.css'],
@@ -45,7 +55,7 @@ export default defineConfig({
           dark: { flavor: 'frappe', accent: 'sky' },
           light: { flavor: 'latte', accent: 'lavender' }
         })
-      ],
+      ]
     })
   ],
 
