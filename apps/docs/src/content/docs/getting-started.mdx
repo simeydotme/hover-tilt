@@ -4,8 +4,8 @@ description: Installation and basic usage for Hover Tilt
 ---
 
 import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
-import CodeWithPreview from '../../components/astro/CodeWithPreview.astro';
-import BasicDemo from '../../components/demos/BasicDemo.svelte';
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import BasicDemo from '@components/demos/BasicDemo.svelte';
 
 import GettingStartedSvelte from '../../chunks/getting-started/svelte.mdx';
 import GettingStartedWebc from '../../chunks/getting-started/webc.mdx';
@@ -32,9 +32,8 @@ Install the package using your preferred package manager:
 ## Usage
 
 Because `HoverTilt` is available both as a **Svelte Component (`<HoverTilt />`)** and
-a **Web Component (`<hover-tilt />`)**, there are two ways to use it;
+a **Web Component (`<hover-tilt />`)**, there are options for using it;
 
-<br />
 <br />
 
 <Tabs syncKey="api">
@@ -48,6 +47,7 @@ a **Web Component (`<hover-tilt />`)**, there are two ways to use it;
 
 ## Next Steps
 
-- Explore [Usage Examples](/examples/) to see different props in action
-- Check out the component props and their effects
-- Customize the animations and visual effects to match your design
+- Learn about all the [props and options](/options/props) available to customize the component
+- Dive into the [CSS Class / Style](/options/css) reference for styling the component
+- Explore [Usage Examples](/examples/usage) to see different props in action
+- Find help with [advanced use-cases](/advanced/shadows) in the advanced section

@@ -1,0 +1,64 @@
+---
+// Basic Credit Card Demo
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+import { Image } from 'astro:assets';
+import amexBlack from '@assets/amex.webp';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center mx-10 gap-4">
+  <div>
+    <h3 class="text-center text-balance text-gray-500 text-base font-bold mb-2">Holographic</h3>
+    <hover-tilt
+      class="clipped-with-chip-holo [&::part(container)]:rounded-[4%/6%]"
+      shadow
+      shadow-blur={30}
+      scale-factor={1.15}
+      glare-intensity={1}
+      blend-mode="hard-light"
+      glare-mask="url(/public/amex-pattern.png)"
+      glare-mask-mode="luminance"
+      glare-mask-composite="intersect"
+    >
+      <Image src={amexBlack} alt="Credit Card" class="rounded-[4%/6%]" alt="American Express Platinum" />
+    </hover-tilt>
+    <small class="block mt-4 text-center text-balance text-gray-500"
+      ><em>Dayummmm, that's shiny!</em></small
+    >
+  </div>
+</div>
+
+<style>
+  .clipped-with-chip-holo::part(tilt)::before {
+    clip-path: polygon(
+      5.5% 7.5%,
+      5.5% 95%,
+      11% 95%,
+      11% 32%,
+      26% 32%,
+      26% 52%,
+      11% 52%,
+      11% 95%,
+      94.5% 95%,
+      94.5% 7.5%
+    );
+  }
+
+  .clipped-with-chip-holo::part(tilt)::before {
+    mask-image: var(--hover-tilt-glare-mask), var(--hover-tilt-default-gradient);
+    background-image: linear-gradient(to top left, #f9b3eb, #e2a6fc, #88a2f8, #a2f5a9 90%);
+    background-size: 200% 200%;
+    background-position: var(--gradient-x) var(--gradient-y);
+  }
+  .clipped-with-chip-holo::part(tilt)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--hover-tilt-default-gradient);
+    mix-blend-mode: hard-light;
+    opacity: calc(var(--hover-tilt-opacity, 0) - 0.75);
+    will-change: opacity, background-image;
+  }
+</style>

@@ -152,7 +152,7 @@ adding a shadow, or increasing the intensity of the glare effect.
 		```
 		<Aside type="caution">
 			Classes on **the web component are applied to the host element**, not the internal container/tilt elements, and
-			thus **behave differently than the Svelte component**. See [CSS Class / Style](/css-class-style) for more details.
+			thus **behave differently than the Svelte component**. See [CSS Class / Style](/options/css) for more details.
 		</Aside>
 	</TabItem>
 </Tabs>
@@ -247,7 +247,7 @@ adding a shadow, or increasing the intensity of the glare effect.
 
 - **Type**: `number`
 - **Default**: `1`
-- **Description**: Intensity of the glare effect. Values greater than `1` increase intensity, values less than `1` decrease it.
+- **Description**: Intensity of the glare effect. Values greater than `1` increase intensity, values less than `1` decrease it. _(values over 4 will not really do anything with the [default glare gradient](/advanced/custom-gradient/))_
 
 ### `glareHue`
 

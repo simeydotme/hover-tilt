@@ -1,0 +1,34 @@
+---
+// Basic Credit Card Demo
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+import { Image } from 'astro:assets';
+import amexBlack from '@assets/amex.webp';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center mx-10 gap-4">
+  <div>
+    <h3 class="text-center text-balance text-gray-500 text-base font-bold mb-2">Clipped Border</h3>
+    <hover-tilt
+      class="clipped [&::part(container)]:rounded-[4%/6%]"
+      shadow
+      shadow-blur={30}
+      scale-factor={1.15}
+      glare-intensity={0.5}
+      blend-mode="difference"
+      glare-mask="url(/public/amex-pattern.png)"
+    >
+      <Image src={amexBlack} alt="Credit Card" class="rounded-[4%/6%]" alt="American Express Platinum" />
+    </hover-tilt>
+    <small class="block mt-4 text-center text-balance text-gray-500"
+      ><em>Notice how the edges of the card do not have a glare effect?</em></small
+    >
+  </div>
+</div>
+
+<style>
+  .clipped::part(tilt)::before {
+    clip-path: inset(7.5% 5.5% 5% 5.5% round 3% 4% 3% 4%);
+  }
+</style>

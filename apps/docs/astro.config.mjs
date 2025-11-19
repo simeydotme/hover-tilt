@@ -24,15 +24,15 @@ export default defineConfig({
         {
           label: 'Options',
           items: [
-            { label: 'Props Reference', slug: 'options' },
-            { label: 'CSS Styling Reference', slug: 'css-class-style' }
+            { label: 'Props Reference', slug: 'options/props' },
+            { label: 'CSS Styling Reference', slug: 'options/css' }
           ]
         },
         {
           label: 'Examples',
           items: [
-            { label: 'Usage Examples', slug: 'examples' },
-            { label: 'Web Component', slug: 'web-component' }
+            { label: 'Usage Examples', slug: 'examples/usage' },
+            { label: 'Web Component', slug: 'examples/web-component' }
           ]
         },
         {
@@ -41,7 +41,14 @@ export default defineConfig({
             { label: 'Shadows', slug: 'advanced/shadows' },
             { label: 'Custom Shadow', slug: 'advanced/custom-shadow' },
             { label: 'Custom Gradient', slug: 'advanced/custom-gradient' },
-            { label: 'Glare Masks', slug: 'advanced/glare-masks' }
+            { label: 'Glare Masks', slug: 'advanced/glare-masks' },
+          ]
+        },
+        {
+          label: 'Bespoke Ideas',
+          items: [
+            { label: 'Credit Cards', slug: 'bespoke/credit-cards' },
+            { label: 'Pokemon Cards', slug: 'bespoke/pokemon-cards' },
           ]
         }
       ],

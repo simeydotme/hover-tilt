@@ -4,8 +4,8 @@ description: Combine static CSS shadows with Hover Tilt's dynamic shadow system.
 ---
 
 import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
-import ShadowAlwaysDemo from '../../../components/demos/advanced/ShadowAlwaysDemo.svelte';
-import ShadowStaticDemo from '../../../components/demos/advanced/ShadowStaticDemo.svelte';
+import ShadowAlwaysDemo from '@components/demos/advanced/ShadowAlwaysDemo.svelte';
+import ShadowStaticDemo from '@components/demos/advanced/ShadowStaticDemo.svelte';
 
 {/* -------------- ALWAYS SHADOW -------------- */}
 
@@ -177,7 +177,7 @@ The demo keeps a soft shadow under the card while idle, then suppresses it when 
 
 <ShadowStaticDemo client:only="svelte" />
 
-<small class="-mt-4 mb-8 block text-center">
+<small class="block text-center text-balance text-gray-500 -mt-4 mb-8">
   <em>I've made the static shadow red, so it is easier to see how the toggle is working.</em>
 </small>
 

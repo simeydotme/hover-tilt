@@ -1,0 +1,20 @@
+---
+// Basic Credit Card Demo
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+import { Image } from 'astro:assets';
+import amexPlatinum from '@assets/amex-platinum.png';
+---
+
+<WebComponentLoader />
+
+<div class="flex justify-center items-center mx-10">
+  <hover-tilt
+    class="[&::part(container)]:rounded-[4%/6%]"
+    shadow
+    shadow-blur={30}
+    scale-factor={1.15}
+    glare-intensity={3}
+  >
+    <Image src={amexPlatinum} alt="Credit Card" class="rounded-[4%/6%]" alt="American Express Platinum" />
+  </hover-tilt>
+</div>

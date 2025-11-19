@@ -1,0 +1,257 @@
+---
+title: Credit Cards
+description: Some inspiration and advanced use-cases for credit cards.
+---
+
+import { Tabs, TabItem, Code, Aside, Steps } from '@astrojs/starlight/components';
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import BasicCreditCard from '@components/demos/bespoke/BasicCreditCard.astro';
+import CreditCardWithGlareMask from '@components/demos/bespoke/CreditCardWithGlareMask.astro';
+import CreditCardWithClipMask from '@components/demos/bespoke/CreditCardWithClipMask.astro';
+import CreditCardWithClipMaskChip from '@components/demos/bespoke/CreditCardWithClipMaskChip.astro';
+import CreditCardWithClipMaskChipHolo from '@components/demos/bespoke/CreditCardWithClipMaskChipHolo.astro';
+
+export const basicCreditCard = String.raw`
+<hover-tilt
+  class="[&::part(container)]:rounded-[4%/6%]"
+  shadow
+  shadow-blur={30}
+  scale-factor={1.15}
+  glare-intensity={2.5}
+>
+  <img 
+    src="/assets/amex-platinum.png" 
+    alt="Credit Card" 
+    class="rounded-[4%/6%]" 
+  />
+</hover-tilt>
+`;
+
+export const creditCardWithGlareMask = String.raw`
+<hover-tilt 
+  class="[&::part(container)]:rounded-[4%/6%]"
+  shadow
+  shadow-blur={30}
+  scale-factor={1.15}
+  glare-intensity={0.5}
+  glare-mask="url(/assets/amex-pattern.webp)"
+  blend-mode="difference"
+>
+  <img
+    src="/assets/amex.webp" 
+    alt="Credit Card" 
+    class="rounded-[4%/6%]" 
+  />
+</hover-tilt>
+`;
+
+export const creditCardWithClipMask = String.raw`
+<hover-tilt
+  class="clipped [&::part(container)]:rounded-[4%/6%]" 
+  shadow 
+  shadow-blur={30} 
+  scale-factor={1.15} 
+  glare-intensity={0.5} 
+  glare-mask="url(/assets/amex-pattern.webp)"
+  blend-mode="difference" 
+>
+  <img 
+    src="/assets/amex.webp" 
+    alt="Credit Card" 
+    class="rounded-[4%/6%]" 
+  />
+</hover-tilt>
+
+<style>
+  .clipped::part(tilt)::before {
+    clip-path: inset(8% 5.5% 8% 5.5% round 4% 6% 4% 6%);
+  }
+</style>
+
+`;
+
+export const creditCardWithClipMaskChip = String.raw`
+<hover-tilt 
+  class="clipped-with-chip [&::part(container)]:rounded-[4%/6%]" 
+  shadow 
+  shadow-blur={30} 
+  scale-factor={1.15} 
+  glare-intensity={0.5} 
+  blend-mode="difference" 
+  glare-mask="url(/assets/amex-pattern.png)"
+>
+  <img 
+    src="/assets/amex.webp" 
+    alt="Credit Card" 
+    class="rounded-[4%/6%]" 
+  />
+</hover-tilt>
+
+<style>
+  .clipped-with-chip::part(tilt)::before {
+    clip-path: polygon(5.5% 8%, 5.5% 95%, 11% 95%, 11% 32%, 26% 32%, 26% 52%, 11% 52%, 11% 95%, 94.5% 95%, 94.5% 8%);
+  }
+</style>
+
+`;
+
+export const creditCardWithClipMaskChipHolo = String.raw`
+<hover-tilt
+  class="clipped-with-chip holo [&::part(container)]:rounded-[4%/6%]"
+  shadow
+  shadow-blur={30}
+  scale-factor={1.15}
+  glare-intensity={1}
+  blend-mode="hard-light"
+  glare-mask="url(/public/amex-pattern.png)"
+  glare-mask-mode="luminance"
+  glare-mask-composite="intersect"
+>
+  <img 
+    src="/assets/amex.webp" 
+    alt="Credit Card" 
+    class="rounded-[4%/6%]" 
+  />
+</hover-tilt>
+
+<style>
+  .clipped-with-chip::part(tilt)::before {
+    clip-path: polygon(5.5% 8%, 5.5% 95%, 11% 95%, 11% 32%, 26% 32%, 26% 52%, 11% 52%, 11% 95%, 94.5% 95%, 94.5% 8%);
+  }
+  .holo::part(tilt)::before {
+    mask-image: var(--hover-tilt-glare-mask), var(--hover-tilt-default-gradient);
+    background-image: linear-gradient(to top left, #f9b3eb, #e2a6fc, #88a2f8, #a2f5a9 90%);
+    background-size: 200% 200%;
+    background-position: var(--gradient-x) var(--gradient-y);
+  }
+  .holo::part(tilt)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--hover-tilt-default-gradient);
+    mix-blend-mode: hard-light;
+    opacity: calc(var(--hover-tilt-opacity, 0) - 0.75);
+    will-change: opacity, background-image;
+  }
+</style>
+
+`;
+
+Let's create some credit cards!
+
+We will use a `<img />` with the credit card image as the background (slot-content), and let's also do a version where the glare is masked by a fancy pattern to give it some zesty flair!
+
+<Aside title="Web Components &amp; Tailwind">
+  I will **demonstrate these all as Web Components with TailwindCSS**, but using the information throughout the docs it
+  should be **fairly simple to re-purpose this code with Svelte and Vanilla CSS**.
+</Aside>
+
+## Basic Credit Card
+
+Here we put an image of a Credit Card inside the `<hover-tilt>` element, and use the component-props to make it pop!
+
+We want a really pronounced glare effect to make it look metallic, so we set the `glare-intensity` to `3`. Also we make it pop out of the frame with an exaggerated `scale-factor` of `1.15`. Border radius is set to `4%/6%` to match a credit card's rounded corners in a responsive manner.
+
+<CodeWithPreview lang="svelte" title="index.html" code={basicCreditCard}>
+  <BasicCreditCard />
+
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>Notice how the black parts of the card don't really glare as much as the metallic parts? That's due to the `blend-mode` being set to `overlay` by default. You can change this with the `blend-mode` prop.</em></small>
+</CodeWithPreview>
+
+## Credit Card with Glare Mask
+
+Here we add a `glare-mask` to the `<hover-tilt>` element, tweak the `glare-intensity` and set the `blend-mode` to `difference` to get a more interesting effect.
+
+The `glare-mask` is a transparent PNG with the American Express "world service" logo repeating pattern.
+
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={creditCardWithGlareMask}
+  ins={['0.5', 7, 8, '/assets/amex.webp']}
+>
+  <CreditCardWithGlareMask />
+</CodeWithPreview>
+
+### Adding a clip-mask to the glare
+
+The edges of the card look a bit strange with the pattern glare applied. Let's clip the glare mask to the edges of the card to give it a nice matte border effect.
+
+Using a bit of CSS we can also target the `.tilt::before` pseudo-element to clip the glare mask to the edges of the card. This will give us the desired matte border effect.
+
+**_TailwindCSS doesn't support CSS `clip-path` yet, so we have to use plain CSS in this scenario._**
+
+<CodeWithPreview lang="svelte" title="index.html" code={creditCardWithClipMask} ins={['clipped', 17, 18, 19, 20, 21]}>
+  <CreditCardWithClipMask />
+</CodeWithPreview>
+
+### Masking out the secuity chip
+
+Going even further, we can use a more advanced `polygon()` syntax to clip out the chip from the glare mask, too!
+
+_This could also be done by editing the `glare-mask` image so it already has a blank area for the chip._
+
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={creditCardWithClipMaskChip}
+  ins="-with-chip"
+  mark={[/polygon\(.*?\)/g]}
+>
+  <CreditCardWithClipMaskChip />
+</CodeWithPreview>
+
+## Going holographic!
+
+Let's go a bit crazy and add some custom CSS to really make things extra!
+
+<Aside type="tip" title="Unecessary?">
+  This is **not really how I expect 99% of users to use** this `<HoverTilt />` component. However I want to show that
+  the **base component can be modified heavily** with some **clever CSS** to achieve very special results!
+</Aside>
+
+Explainer and Demo below the code block! ↓
+
+### Adding a holo/rainbow gradient
+
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={creditCardWithClipMaskChipHolo}
+  ins={['holo', 9, 10, { range: '23-38' }]}
+>
+  <CreditCardWithClipMaskChipHolo />
+</CodeWithPreview>
+
+Let's break down the extra holographic bits step-by-step!
+
+<Steps>
+1. First we add the '.holo' class to the `<hover-tilt>` element.
+
+2. Next we modify the `glare-mask-mode` to `luminance` as we will be using 2 masks here.
+
+3. We also set the `glare-mask-composite` to `intersect` to ensure the 2 masks are combined correctly.
+
+4. Inside of the `::before` we re-assign `mask-image` to use both the `--hover-tilt-glare-mask` and the `--hover-tilt-default-gradient` CSS variables.
+
+    > _This is now our 'hologram' mask layer instead of glare layer. This will allow the mask to follow our cursor, just like the glare gradient does._
+
+5. We apply a rainbow-gradient `background-image` to the `::before` pseudo-element and set the position to the cursor with `--gradient-x` and `--gradient-y` CSS variables.
+
+    > _This allows the rainbow to move a little bit giving a more realistic holographic effect._
+
+6. Now we create a new pseudo-element `::after` which will hold the new glare effect.
+
+    > _We set a common `content: ''`, `position: absolute`, etc to ensure this layer covers the `.tilt` element._
+
+7. Finally we are applying the `var(--hover-tilt-default-gradient)` to the `background-image` and set the `mix-blend-mode` to `hard-light` to ensure the glare effect is visible.
+
+    > _Also setting `opacity` to `calc(var(--hover-tilt-opacity, 0) - 0.75)` reduces the glare's power._
+
+</Steps>
+
+---
+
+Again; this is very extra, and I expect only a few very eager users may want to go into this much detail. In reality
+they may want to create their very own custom component instead of using `<HoverTilt />`. But if they have the desire they could start with `<HoverTilt />` and use the CSS variables to create their own glare/holo design!
