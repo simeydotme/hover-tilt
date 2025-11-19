@@ -1,10 +1,265 @@
 ---
-title: Credit Cards
-description: Some inspiration and advanced use-cases for credit cards.
+title: Pokémon Cards Holographic
+description: Demonstrating the Hover Tilt component applied to Pokémon cards.
 ---
 
-import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import BasicPokemonCard from '@components/demos/bespoke/pokemon-cards/BasicPokemonCard.astro';
+import BasicPokemonReverseCard from '@components/demos/bespoke/pokemon-cards/BasicPokemonReverseCard.astro';
+import FoilFullArtPokemonCard from '@components/demos/bespoke/pokemon-cards/FoilFullArtPokemonCard.astro';
+import FullArtSparklesPokemonCard from '@components/demos/bespoke/pokemon-cards/FullArtSparklesPokemonCard.astro';
+import ReverseHoloPokemonCard from '@components/demos/bespoke/pokemon-cards/ReverseHoloPokemonCard.astro';
+import ReverseHoloPokemonCardExtra from '@components/demos/bespoke/pokemon-cards/ReverseHoloPokemonCardExtra.astro';
 
-## Credit Card
+export const basicPokemonCard = String.raw`
+<hover-tilt 
+  shadow
+  class="[&::part(container)]:rounded-[4.55%/3.5%]" 
+>
+  <img
+    src="/pokemon/sv3-5_en_035_std.png"
+    alt="Pokémon #0035: Clefairy"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+`;
 
-<CreditCardSvelte client:only="svelte" />
+export const basicPokemonReverseCard = String.raw`
+<hover-tilt  
+  shadow
+  glare-mask="url(/pokemon/sv3-5_en_035_ph.foil.png)"
+  glare-mask-mode="luminance"
+  glare-intensity={4}
+  blend-mode="luminosity"
+  class="[&::part(container)]:rounded-[4.55%/3.5%]"
+>
+  <img
+    src="/pokemon/sv3-5_en_035_std.png"
+    alt="Pokémon #0035: Clefairy Reverse Holo"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+`;
+
+export const foilFullArtPokemonCard = String.raw`
+<hover-tilt
+  shadow
+  scale-factor={1.1}
+  glare-mask="url(/pokemon/me1_en_169_std.foil.png)"
+  glare-mask-mode="luminance"
+  glare-intensity={2}
+  blend-mode="hard-light"
+  class="[&::part(container)]:rounded-[4.55%/3.5%]"
+>
+  <img
+    src="/pokemon/me1_en_169_std.png"
+    alt="Pokémon Trainer Lillie (Full Art)"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+`;
+
+export const fullArtSparklesPokemonCard = String.raw`
+<hover-tilt
+  shadow
+  scale-factor={1.2}
+  glare-mask="url(/pokemon/sv9_en_184_std.foil.png)"
+  glare-mask-mode="luminance"
+  glare-intensity={3}
+  blend-mode="hard-light"
+  class="sparkles [&::part(container)]:rounded-[4.55%/3.5%]"
+>
+  <img
+    src="/pokemon/sv9_en_184_std.png"
+    alt="Pokémon Trainer Lille's Clefairy (Special Illustration Art)"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+
+<style>
+  .sparkles::part(tilt)::before {
+    --sparkle-rainbow-gradient: linear-gradient(to top left, #f9b3eb, #e2a6fc, #88a2f8, #a2f5a9 90%);
+    --sparkles-image: url(/pokemon/sparkles.webp);
+    --sparkles-offset: calc(50% + var(--hover-tilt-x, 0) * 1.5px) calc(50% + var(--hover-tilt-y, 0) * 1.5px);
+    background-image: var(--sparkle-rainbow-gradient), var(--sparkles-image), var(--hover-tilt-default-gradient);
+    background-size: cover, 200px 200px, cover;
+    background-position: center, var(--sparkles-offset), center;
+    background-repeat: no-repeat, repeat, no-repeat;
+    background-blend-mode: color-burn, color-dodge;
+    opacity: calc(var(--hover-tilt-opacity, 0) * 0.6);
+    will-change: background-image, background-position, opacity;
+  }
+</style>
+`;
+
+export const reverseHoloPokemonCard = String.raw`
+<hover-tilt
+  shadow
+  shadow-blur={60}
+  scale-factor={1.5}
+  glare-mask="url(/pokemon/sv8-5_en_074_mph.etch.png), url(/pokemon/sv8-5_en_074_mph.foil.png)"
+  glare-mask-mode="luminance"
+  glare-intensity={4}
+  glare-mask-composite="intersect"
+  blend-mode="luminosity"
+  class="[&::part(container)]:rounded-[4.55%/3.5%]"
+>
+  <img
+    src="/pokemon/sv8-5_en_074_std.png"
+    alt="Pokémon #0133: Eevee Reverse Holo Masterball"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+`;
+
+export const reverseHoloPokemonCardExtra = String.raw`
+  <hover-tilt
+    shadow
+    shadow-blur={60}
+    scale-factor={1.5}
+    glare-mask="url(/pokemon/sv8-5_en_074_mph.foil.png)"
+    glare-mask-mode="luminance"
+    glare-intensity={2.5}
+    glare-mask-composite="intersect"
+    blend-mode="luminosity"
+    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%]"
+  >
+    <img
+      src="/pokemon/sv8-5_en_074_std.png"
+      alt="Pokémon #0133: Eevee Reverse Holo Masterball"
+      loading="lazy"
+      class="rounded-[inherit]"
+    />
+  </hover-tilt>
+
+<style>
+  .reverse-ball::part(tilt)::before {
+    background-image: var(--hover-tilt-default-gradient), url(/pokemon/sv8-5_en_074_mph.foil.png), url(/pokemon/sv8-5_en_074_mph.etch.png);
+    background-size: cover, cover, cover;
+    background-blend-mode: hard-light, overlay;
+    opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
+    will-change: background-image, background-position, opacity;
+  }
+</style>
+`;
+
+**_Gotta catch 'em all!_**
+
+Let's demonstrate the `<HoverTilt />` component applied to Pokémon cards! I'll show a few examples
+of basic cards and some more advanced foil effects if you're willing to customise some CSS!
+
+<Aside title="Good enough" type="tip">
+  These effects are going to be much simplified (and less realistic) versions of what I build [in my Poke-Holo tech
+  demo](https://poke-holo.simey.me). I am not trying to get 100% parity with the real-world cards, but create something
+  that is visually interesting and demonstrates the capabilities of the component.
+</Aside>
+
+<Aside title="Web Components &amp; Tailwind">
+  I will demonstrate these all **as Web Components with TailwindCSS**, but using the [information throughout the
+  docs](/examples/usage) it should be **fairly simple to re-purpose this code with Svelte and Vanilla CSS**.
+</Aside>
+
+## Basic card
+
+We simply wrap the Clefairy card `<img />` element inside `<hover-tilt>` with matching rounded corners. No extra props here, so you get the default overlay blend mode and subtle shadow.
+
+Using TailwindCSS we apply **a child-selector border radius (`[&::part(container)]:rounded-[4.55%/3.5%]`)** to the container element, and the **inner parts of the web-component will inherit** this radius. _(see [Styling Reference -> Border Radius](/options/css/#border-radius-on-glare) for more details)_
+
+<CodeWithPreview lang="svelte" title="index.html" code={basicPokemonCard}>
+  <BasicPokemonCard />
+</CodeWithPreview>
+
+## Reverse holo card
+
+Basic cards often come with a reverse-holo version! 
+
+So here we are using the `glare-mask` prop to point to a PNG that already matches the reverse-holo layout. 
+
+<Aside title="Malie.io">
+  Thanks to [Malie.io](https://malie.io) and [PKMNCards.com](https://pkmncards.com/), we have access to scraped images of the foil/etching masks used in the PTCG-Live game. 
+</Aside>
+
+The masks we got from PTCG-Live are luminance-based, so we set `glare-mask-mode="luminance"` to ensure the glare is only applied to the parts of the card that are not black.
+
+Finally we set the `blend-mode` to `luminosity` which combined with 
+`glare-intensity` of `4` gives us a nice shiny semi-metallic effect.
+
+<CodeWithPreview lang="svelte" title="index.html" code={basicPokemonReverseCard} ins={[{range: '3-6'}]} mark={[10,11]}>
+  <BasicPokemonReverseCard />
+</CodeWithPreview>
+
+## Full art Foil card
+
+Full Art cards have a metallic-style sheen to them, with complex masking.
+
+Setting `blend-mode="plus-lighter"` lets the foil texture add brightness, while a low `glare-intensity` keeps the glare controlled. We also point `glare-mask` to a PNG that already matches the foil layout.
+
+<CodeWithPreview lang="svelte" title="index.html" code={foilFullArtPokemonCard} ins={[3]} mark={[4, 6, 7, 11,12]}>
+  <FoilFullArtPokemonCard />
+</CodeWithPreview>
+
+## Special Illustration Art card
+
+So here's a very special, sparkly design!
+
+This type of card has a single foil mask but with some special effects applied to the glare layer with background images and blend modes.
+
+_This is not a 100% accurate representation of the real-world card, I have chosen to ignore the 'etching' here._
+
+I won't go into too much detail, but you can see the code and demo below. I'm basically layering three images on top of each other; **a rainbow gradient**, **a sparkles image**, and **the default glare gradient**. When blending effects are applied between these layers we end up with a pretty cool effect!
+
+`will-change` is used to hint to the browser that these properties are likely to change, so the browser can optimize the rendering of the element.
+
+<CodeWithPreview lang="svelte" title="index.html" code={fullArtSparklesPokemonCard} mark={[3, 4, 6, 11,12]} ins={["sparkles ", { range: '18-31'}]}>
+  <FullArtSparklesPokemonCard />
+</CodeWithPreview>
+
+
+
+
+
+
+
+## Card with multiple masks
+
+The Masterball holo cards have two masks; an etched pattern plus a foil plate. 
+
+We use multiple `glare-mask` values and combine them with `glare-mask-composite="intersect"` so only the overlapping areas shine.
+
+Here I'm also bumping the `glare-intensity`, `scale-factor` and `shadow-blur` to exaggerate the 'gallery' effect!
+
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={reverseHoloPokemonCard}
+  ins={[3, 8]} mark={[4, 5, 7, 9, 13,14]}
+>
+  <ReverseHoloPokemonCard />
+</CodeWithPreview>
+
+
+
+## Card with multiple masks (alternate)
+
+Here's an alternate version of the Masterball holo taking a slightly different approach.
+
+We still use the same two masks, but instead of applying the "etch" mask to the mask, we instead create a new style definition and use the etch as a background blend mode, mixed with the default gradient (glare) and the foil mask.
+
+Using `hard-light` gives it a slightly more metallic shine.
+
+The only real benefit to this version is that the masterball is correctly inverted. Aside from that there isn't a whole lot of difference.
+
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={reverseHoloPokemonCardExtra}
+  ins={[{range: '21-27'}, 'reverse-ball ']} mark={[5, 7]}
+>
+  <ReverseHoloPokemonCardExtra />
+</CodeWithPreview>

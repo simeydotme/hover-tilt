@@ -1,0 +1,38 @@
+---
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center">
+  <hover-tilt
+    shadow
+    shadow-blur={60}
+    scale-factor={1.5}
+    glare-mask="url(/pokemon/sv8-5_en_074_mph.foil.png)"
+    glare-mask-mode="luminance"
+    glare-intensity={2.5}
+    glare-mask-composite="intersect"
+    blend-mode="luminosity"
+    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90"
+  >
+    <img
+      src="/pokemon/sv8-5_en_074_std.png"
+      alt="Pokémon #0133: Eevee Reverse Holo Masterball"
+      loading="lazy"
+      class="rounded-[inherit]"
+    />
+  </hover-tilt>
+
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>Damn cute, tho.</em></small>
+</div>
+
+<style>
+  .reverse-ball::part(tilt)::before {
+    background-image: var(--hover-tilt-default-gradient), url(/pokemon/sv8-5_en_074_mph.foil.png), url(/pokemon/sv8-5_en_074_mph.etch.png);
+    background-size: cover, cover, cover;
+    background-blend-mode: hard-light, overlay;
+    opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
+    will-change: background-image, background-position, opacity;
+  }
+</style>

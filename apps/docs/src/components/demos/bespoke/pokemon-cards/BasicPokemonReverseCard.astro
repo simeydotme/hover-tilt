@@ -1,0 +1,25 @@
+---
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center">
+  <hover-tilt
+    shadow
+    glare-mask="url(/pokemon/sv3-5_en_035_ph.foil.png)"
+    glare-mask-mode="luminance"
+    glare-intensity={4}
+    blend-mode="luminosity"
+    class="[&::part(container)]:rounded-[4.55%/3.5%] max-w-90"
+  >
+    <img
+      src="/pokemon/sv3-5_en_035_std.png"
+      alt="Pokémon #0035: Clefairy Reverse Holo"
+      loading="lazy"
+      class="rounded-[inherit]"
+    />
+  </hover-tilt>
+
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>OoooOOoohhh... shiny!</em></small>
+</div>

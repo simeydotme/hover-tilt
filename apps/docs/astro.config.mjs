@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import starlight from '@astrojs/starlight';
 import svelte from '@astrojs/svelte';
@@ -63,9 +64,13 @@ export default defineConfig({
   ],
 
   vite: {
+    // @ts-ignore tailwindcss plugin types target Vite 7, but Vite 6 is in use here
     plugins: [tailwindcss()],
     resolve: {
-      conditions: ['browser']
+      conditions: ['browser'],
+      alias: {
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url))
+      }
     }
   }
 });

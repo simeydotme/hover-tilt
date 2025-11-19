@@ -1,0 +1,26 @@
+---
+import WebComponentLoader from '@components/WebComponentLoader.astro';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center">
+  <hover-tilt
+    shadow
+    scale-factor={1.1}
+    glare-mask="url(/pokemon/me1_en_169_std.foil.png)"
+    glare-mask-mode="luminance"
+    glare-intensity={2}
+    blend-mode="hard-light"
+    class="[&::part(container)]:rounded-[4.55%/3.5%] max-w-90"
+  >
+    <img
+      src="/pokemon/me1_en_169_std.png"
+      alt="Pokémon Trainer Lillie (Full Art)"
+      loading="lazy"
+      class="rounded-[inherit]"
+    />
+  </hover-tilt>
+
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>Lillie shows off her determination!</em></small>
+</div>
