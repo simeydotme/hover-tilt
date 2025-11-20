@@ -7,6 +7,7 @@ import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components
 import CustomShadowDemo from '@components/demos/advanced/CustomShadowDemo.svelte';
 import CustomShadowNeonDemo from '@components/demos/advanced/CustomShadowNeonDemo.svelte';
 import { cssShadowSyntax, cssShadowOpacitySyntax } from './custom-shadow.strings';
+import PropTable from '@components/astro/PropTable.astro';
 
 export const simpleShadowSvelte = String.raw`
 <HoverTilt class="simple-card" shadow scaleFactor={1.1} glareIntensity={0.3}>
@@ -264,9 +265,9 @@ And so the final (basic) custom shadow implementation looks like this;
 
 This probably looks a little daunting and complex at first, but if you have experience with CSS `calc()` and `var()` functions, it should be relatively straightforward.
 
-<Aside type='tip'>
-  It's generally easier to create a static shadow first in the style you want,
-  and then replace each part of it with the CSS variables needed to make it dynamic!
+<Aside type="tip">
+  It's generally easier to create a static shadow first in the style you want, and then replace each part of it with the
+  CSS variables needed to make it dynamic!
 </Aside>
 
 ## List of variables available
@@ -276,51 +277,48 @@ These variables are available to customise the shadow appearance / position.
 They can also be used inside the content slot to customise the way your content reacts
 to the hover-tilt interactions!
 
-<table class="pb-4">
-  <thead>
-    <tr>
-      <th class="whitespace-nowrap">Variable</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-custom-shadow</code>
-      </td>
-      <td class="text-sm">Override the default shadow with your own shadow.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--shadow-x</code>
-      </td>
-      <td class="text-sm">The current horizontal offset of the shadow based on the tilt effect.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--shadow-y</code>
-      </td>
-      <td class="text-sm">The current vertical offset of the shadow based on the tilt effect.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-opacity</code>
-      </td>
-      <td class="text-sm">The opacity of the shadow based on whether the component is active or not.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-shadow-blur</code>
-      </td>
-      <td class="text-sm">
-        The blur radius of the shadow as defined by the <code>shadowBlur</code> prop.
-      </td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-scale</code>
-      </td>
-      <td class="text-sm">The current scale of the component.</td>
-    </tr>
-  </tbody>
-</table>
+### Settable by you
+
+You can set these variables to override the default shadow with your own shadow.
+
+<PropTable columns={['Variable', 'Description']}>
+  <tr>
+    <td>`--hover-tilt-custom-shadow`</td>
+    <td>Set this to override the default shadow with your own shadow.</td>
+  </tr>
+</PropTable>
+
+### Set by the component
+
+The component will set these variables to control the shadow appearance / position. You may consume these in the `--hover-tilt-custom-shadow` variable.
+
+The variables are [exposed via `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your slotted content to customise the way your content reacts to the hover-tilt interactions!
+
+<PropTable columns={['Variable', 'Description']}>
+  <tr>
+    <td>`--shadow-x`</td>
+    <td>The current horizontal offset of the shadow based on the tilt effect.</td>
+  </tr>
+  <tr>
+    <td>`--shadow-y`</td>
+    <td>The current vertical offset of the shadow based on the tilt effect.</td>
+  </tr>
+  <tr>
+    <td class="whitespace-nowrap">`--shadow-y`</td>
+    <td class="text-sm">The current vertical offset of the shadow based on the tilt effect.</td>
+  </tr>
+  <tr>
+    <td class="whitespace-nowrap">`--hover-tilt-shadow-blur`</td>
+    <td class="text-sm">Matches the `shadowBlur` prop.</td>
+  </tr>
+  <tr>
+    <td class="whitespace-nowrap">`--hover-tilt-opacity`</td>
+    <td class="text-sm">The opacity of the shadow based on whether the component is active or not.</td>
+  </tr>
+  <tr>
+    <td class="whitespace-nowrap">`--hover-tilt-scale`</td>
+    <td class="text-sm">The current scale of the component.</td>
+  </tr>
+</PropTable>
+
+See all the positional variables available in the [Options → CSS](/options/css/#css-custom-properties) page.

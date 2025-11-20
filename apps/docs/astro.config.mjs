@@ -32,8 +32,8 @@ export default defineConfig({
         {
           label: 'Examples',
           items: [
+            { label: 'Web Component', slug: 'examples/web-component' },
             { label: 'Usage Examples', slug: 'examples/usage' },
-            { label: 'Web Component', slug: 'examples/web-component' }
           ]
         },
         {

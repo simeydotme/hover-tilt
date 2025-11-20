@@ -1,38 +1,104 @@
 ---
-import WebComponentLoader from '@components/WebComponentLoader.astro';
+import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
 ---
 
 <WebComponentLoader />
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex justify-center items-center not-content mx-auto gap-4 relative  z-90 transform-gpu">
+  <div>
+    <hover-tilt
+      shadow
+      shadow-blur={60}
+      scale-factor={1.5}
+      glare-mask="url(/pokemon/sv8-5_en_059_mph.foil.png)"
+      glare-mask-mode="luminance"
+      glare-mask-composite="intersect"
+      blend-mode="hard-light"
+      class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90 relative hover:z-10"
+      style="--hover-tilt-etch-image: url(/pokemon/sv8-5_en_059_mph.etch.png);"
+    >
+      <img
+        src="/pokemon/sv8-5_en_059_std.png"
+        alt="Pokémon #0197: Umbreon Reverse Holo Masterball"
+        loading="lazy"
+        class="rounded-[inherit] max-w-full block m-0"
+      />
+      <div class="reverse-ball-etch"></div>
+    </hover-tilt>
+
+    <small class="block mt-4 text-center text-balance text-gray-500"><em>Umbreon's the GOAT.</em></small>
+  </div>
+  <div>
   <hover-tilt
     shadow
     shadow-blur={60}
     scale-factor={1.5}
-    glare-mask="url(/pokemon/sv8-5_en_074_mph.foil.png)"
+    glare-mask="url(/pokemon/sv8-5_en_040_mph.foil.png)"
     glare-mask-mode="luminance"
-    glare-intensity={2.5}
     glare-mask-composite="intersect"
-    blend-mode="luminosity"
-    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90"
+    blend-mode="hard-light"
+    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90 relative hover:z-10"
+    style="--hover-tilt-etch-image: url(/pokemon/sv8-5_en_040_mph.etch.png);"
   >
     <img
-      src="/pokemon/sv8-5_en_074_std.png"
-      alt="Pokémon #0133: Eevee Reverse Holo Masterball"
+      src="/pokemon/sv8-5_en_040_std.png"
+      alt="Pokémon #0700: Sylveon Reverse Holo Masterball"
       loading="lazy"
-      class="rounded-[inherit]"
+      class="rounded-[inherit] max-w-full block m-0"
     />
+    <div class="reverse-ball-etch"></div>
   </hover-tilt>
 
-  <small class="block mt-4 text-center text-balance text-gray-500"><em>Damn cute, tho.</em></small>
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>Sylveon's cute, tho.</em></small>
+  </div>
 </div>
 
 <style>
-  .reverse-ball::part(tilt)::before {
-    background-image: var(--hover-tilt-default-gradient), url(/pokemon/sv8-5_en_074_mph.foil.png), url(/pokemon/sv8-5_en_074_mph.etch.png);
-    background-size: cover, cover, cover;
-    background-blend-mode: hard-light, overlay;
+  .reverse-ball::part(container) {
+    /* create a simple custom gradient for the glare / etch layers */
+    --hover-tilt-custom-gradient: radial-gradient(
+      farthest-corner circle at var(--gradient-x) var(--gradient-y),
+      rgb(237 237 245) 8%,
+      rgb(13 13 18) 90%
+    );
+  }
+
+  /* create a new layer inside the component slot, this is purely so
+    we can fade the opacity -- as layers with masks cannot set transparency */
+  .reverse-ball-etch {
+    position: absolute;
+    inset: 0;
+    border-radius: 4.55%/3.5%;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    /* set the opacity to the same as the glare layer, 
+    so that the etching image is visible while hovered over the card */
     opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
-    will-change: background-image, background-position, opacity;
+    will-change: opacity;
+  }
+
+  /* place the masked-layers inside the etching layer */
+  .reverse-ball-etch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    /* set the background image to the etching image and the radial gradient */
+    background-image: var(--hover-tilt-etch-image), var(--hover-tilt-custom-gradient);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    /* blend the etching image and the radial gradient in difference mode, so that
+      the etching image is has a kind of dark/light contrast effect */
+    background-blend-mode: difference;
+
+    /* mask the etching effect with the radial gradient (glare) */
+    mask-image: var(--hover-tilt-custom-gradient);
+    mask-size: cover;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-mode: var(--hover-tilt-glare-mask-mode);
+    will-change: background-image, mask-image, opacity;
   }
 </style>

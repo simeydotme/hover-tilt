@@ -4,8 +4,7 @@ description: Standalone web component examples - no Svelte required!
 ---
 
 import { Code } from '@astrojs/starlight/components';
-import WebComponentLoader from '@components/WebComponentLoader.astro';
-import WebComponentDemo from '@components/WebComponentDemo.astro';
+import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
 
 <WebComponentLoader />
 
@@ -27,21 +26,17 @@ and then applied to the DOM like this:
   lang="html"
   title="index.html"
   code={`
-<hover-tilt>
-		<div class="demo-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-			<h3>Basic Example</h3>
-			<p>Hover over this card to see the default tilt effect</p>
-		</div>
-</hover-tilt>
+  <hover-tilt shadow scale-factor={1.2}>
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <h3>Basic Example</h3>
+      <p>Hover over this card to see the default tilt effect</p>
+    </div>
+  </hover-tilt>
 `}
 />
 
-<WebComponentDemo>
-
-## Basic Example
-
-<div class="demo-container">
-  <hover-tilt>
+<div class="demo-container not-content">
+  <hover-tilt shadow scale-factor={1.2}>
     <div class="demo-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
       <h3>Basic Example</h3>
       <p>Hover over this card to see the default tilt effect</p>
@@ -49,62 +44,6 @@ and then applied to the DOM like this:
   </hover-tilt>
 </div>
 
-## With Scale Effect
-
-<div class="demo-container">
-  <hover-tilt scale-factor="1.1">
-    <div class="demo-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-      <h3>Scale Effect</h3>
-      <p>scale-factor="1.1"</p>
-    </div>
-  </hover-tilt>
-</div>
-
-## With Shadow
-
-<div class="demo-container">
-  <hover-tilt shadow shadow-blur="30">
-    <div class="demo-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-      <h3>Shadow Effect</h3>
-      <p>shadow shadow-blur="30"</p>
-    </div>
-  </hover-tilt>
-</div>
-
-## Custom Glare
-
-<div class="demo-container">
-  <hover-tilt glare-intensity="1.5" glare-hue="180">
-    <div class="demo-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-      <h3>Custom Glare</h3>
-      <p>glare-intensity="1.5" glare-hue="180"</p>
-    </div>
-  </hover-tilt>
-</div>
-
-## Combined Effects
-
-<div class="demo-container">
-  <hover-tilt
-    tilt-factor="1.5"
-    scale-factor="1.1"
-    shadow
-    shadow-blur="30"
-    glare-intensity="1.2"
-    glare-hue="200"
-    exit-delay="300"
-  >
-    <div class="demo-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-      <h3>Combined Effects</h3>
-      <p>Multiple props working together</p>
-    </div>
-  </hover-tilt>
-</div>
-
-</WebComponentDemo>
-
 ## View Source
 
 You can view the source of this page to see that it's pure HTML - no Svelte components, no build-time magic, just the web component working as intended.
-
-All examples above use the `<hover-tilt>` web component with standard HTML attributes. The component is loaded once at the top of the page and works throughout.

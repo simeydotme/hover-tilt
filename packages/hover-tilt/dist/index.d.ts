@@ -1,2 +1,2 @@
 export { default as HoverTilt } from './components/HoverTilt.svelte';
-export type { SpringOpts, StrictSpringOptions, ExitSpringOptions, HoverTiltProps } from './types.js';
+export type { SpringOpts, StrictSpringOptions, ExitSpringOptions, HoverTiltProps, XY, ElementBox, PointerPosition, PointerDerivatives, NormalizedInput } from './types.js';

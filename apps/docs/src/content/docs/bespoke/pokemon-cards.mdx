@@ -95,6 +95,7 @@ export const fullArtSparklesPokemonCard = String.raw`
     will-change: background-image, background-position, opacity;
   }
 </style>
+
 `;
 
 export const reverseHoloPokemonCard = String.raw`
@@ -119,34 +120,77 @@ export const reverseHoloPokemonCard = String.raw`
 `;
 
 export const reverseHoloPokemonCardExtra = String.raw`
-  <hover-tilt
-    shadow
-    shadow-blur={60}
-    scale-factor={1.5}
-    glare-mask="url(/pokemon/sv8-5_en_074_mph.foil.png)"
-    glare-mask-mode="luminance"
-    glare-intensity={2.5}
-    glare-mask-composite="intersect"
-    blend-mode="luminosity"
-    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%]"
-  >
-    <img
-      src="/pokemon/sv8-5_en_074_std.png"
-      alt="Pokémon #0133: Eevee Reverse Holo Masterball"
-      loading="lazy"
-      class="rounded-[inherit]"
-    />
-  </hover-tilt>
+<hover-tilt
+  shadow
+  shadow-blur={60}
+  scale-factor={1.5}
+  glare-mask="url(/pokemon/sv8-5_en_059_mph.foil.png)"
+  glare-mask-mode="luminance"
+  glare-mask-composite="intersect"
+  blend-mode="hard-light"
+  class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] hover:z-10"
+  style="--hover-tilt-etch-image: url(/pokemon/sv8-5_en_059_mph.etch.png);"
+>
+  <img
+    src="/pokemon/sv8-5_en_059_std.png"
+    alt="Pokémon #0197: Umbreon Reverse Holo Masterball"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+  <div class="reverse-ball-etch"></div>
+</hover-tilt>
 
 <style>
-  .reverse-ball::part(tilt)::before {
-    background-image: var(--hover-tilt-default-gradient), url(/pokemon/sv8-5_en_074_mph.foil.png), url(/pokemon/sv8-5_en_074_mph.etch.png);
-    background-size: cover, cover, cover;
-    background-blend-mode: hard-light, overlay;
+  
+  .reverse-ball::part(container) {
+    /* create a simple custom gradient for the glare / etch layers */
+    --hover-tilt-custom-gradient: radial-gradient(
+      farthest-corner circle at var(--gradient-x) var(--gradient-y),
+      rgb(237 237 245) 8%,
+      rgb(13 13 18) 90%
+    );
+  }
+
+  /* create a new layer inside the component slot, this is purely so
+      we can fade the opacity -- as layers with masks cannot set transparency */
+  .reverse-ball-etch {
+    position: absolute;
+    inset: 0;
+    border-radius: 4.55%/3.5%;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    /* set the opacity to the same as the glare layer, 
+        so that the etching image is visible while hovered over the card */
     opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
-    will-change: background-image, background-position, opacity;
+    will-change: opacity;
+  }
+
+  /* place the masked-layers inside the etching layer */
+  .reverse-ball-etch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    /* set the background image to the etching image and the radial gradient */
+    background-image: var(--hover-tilt-etch-image), var(--hover-tilt-custom-gradient);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    /* blend the etching image and the radial gradient in difference mode, so that
+        the etching image is has a kind of dark/light contrast effect */
+    background-blend-mode: difference;
+
+    /* mask the etching effect with the radial gradient (glare) */
+    mask-image: var(--hover-tilt-custom-gradient);
+    mask-size: cover;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-mode: var(--hover-tilt-glare-mask-mode);
+    will-change: background-image, mask-image, opacity;
   }
 </style>
+
 `;
 
 **_Gotta catch 'em all!_**
@@ -177,20 +221,27 @@ Using TailwindCSS we apply **a child-selector border radius (`[&::part(container
 
 ## Reverse holo card
 
-Basic cards often come with a reverse-holo version! 
+Basic cards often come with a reverse-holo version!
 
-So here we are using the `glare-mask` prop to point to a PNG that already matches the reverse-holo layout. 
+So here we are using the `glare-mask` prop to point to a PNG that already matches the reverse-holo layout.
 
 <Aside title="Malie.io">
-  Thanks to [Malie.io](https://malie.io) and [PKMNCards.com](https://pkmncards.com/), we have access to scraped images of the foil/etching masks used in the PTCG-Live game. 
+  Thanks to [Malie.io](https://malie.io) and [PKMNCards.com](https://pkmncards.com/), we have access to scraped images
+  of the foil/etching masks used in the PTCG-Live game.
 </Aside>
 
 The masks we got from PTCG-Live are luminance-based, so we set `glare-mask-mode="luminance"` to ensure the glare is only applied to the parts of the card that are not black.
 
-Finally we set the `blend-mode` to `luminosity` which combined with 
+Finally we set the `blend-mode` to `luminosity` which combined with
 `glare-intensity` of `4` gives us a nice shiny semi-metallic effect.
 
-<CodeWithPreview lang="svelte" title="index.html" code={basicPokemonReverseCard} ins={[{range: '3-6'}]} mark={[10,11]}>
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={basicPokemonReverseCard}
+  ins={[{ range: '3-6' }]}
+  mark={[10, 11]}
+>
   <BasicPokemonReverseCard />
 </CodeWithPreview>
 
@@ -200,7 +251,7 @@ Full Art cards have a metallic-style sheen to them, with complex masking.
 
 Setting `blend-mode="plus-lighter"` lets the foil texture add brightness, while a low `glare-intensity` keeps the glare controlled. We also point `glare-mask` to a PNG that already matches the foil layout.
 
-<CodeWithPreview lang="svelte" title="index.html" code={foilFullArtPokemonCard} ins={[3]} mark={[4, 6, 7, 11,12]}>
+<CodeWithPreview lang="svelte" title="index.html" code={foilFullArtPokemonCard} ins={[3]} mark={[4, 6, 7, 11, 12]}>
   <FoilFullArtPokemonCard />
 </CodeWithPreview>
 
@@ -216,19 +267,19 @@ I won't go into too much detail, but you can see the code and demo below. I'm ba
 
 `will-change` is used to hint to the browser that these properties are likely to change, so the browser can optimize the rendering of the element.
 
-<CodeWithPreview lang="svelte" title="index.html" code={fullArtSparklesPokemonCard} mark={[3, 4, 6, 11,12]} ins={["sparkles ", { range: '18-31'}]}>
+<CodeWithPreview
+  lang="svelte"
+  title="index.html"
+  code={fullArtSparklesPokemonCard}
+  mark={[3, 4, 6, 11, 12]}
+  ins={['sparkles ', { range: '18-31' }]}
+>
   <FullArtSparklesPokemonCard />
 </CodeWithPreview>
 
-
-
-
-
-
-
 ## Card with multiple masks
 
-The Masterball holo cards have two masks; an etched pattern plus a foil plate. 
+The Masterball holo cards have two masks; an etched pattern plus a foil plate.
 
 We use multiple `glare-mask` values and combine them with `glare-mask-composite="intersect"` so only the overlapping areas shine.
 
@@ -238,14 +289,13 @@ Here I'm also bumping the `glare-intensity`, `scale-factor` and `shadow-blur` to
   lang="svelte"
   title="index.html"
   code={reverseHoloPokemonCard}
-  ins={[3, 8]} mark={[4, 5, 7, 9, 13,14]}
+  ins={[3, 8]}
+  mark={[4, 5, 7, 9, 13, 14]}
 >
   <ReverseHoloPokemonCard />
 </CodeWithPreview>
 
-
-
-## Card with multiple masks (alternate)
+## Card with multiple masks (crazy)
 
 Here's an alternate version of the Masterball holo taking a slightly different approach.
 
@@ -253,13 +303,14 @@ We still use the same two masks, but instead of applying the "etch" mask to the 
 
 Using `hard-light` gives it a slightly more metallic shine.
 
-The only real benefit to this version is that the masterball is correctly inverted. Aside from that there isn't a whole lot of difference.
+The major benefit to this is that the masterball looks correctly inverted, and the foil feels more metallic.
+
+<ReverseHoloPokemonCardExtra />
 
 <CodeWithPreview
   lang="svelte"
   title="index.html"
   code={reverseHoloPokemonCardExtra}
-  ins={[{range: '21-27'}, 'reverse-ball ']} mark={[5, 7]}
->
-  <ReverseHoloPokemonCardExtra />
-</CodeWithPreview>
+  ins={[{ range: '21-69' }, 'reverse-ball ', 'hover:z-10', 10, 18]}
+  mark={[5, 8]}
+></CodeWithPreview>

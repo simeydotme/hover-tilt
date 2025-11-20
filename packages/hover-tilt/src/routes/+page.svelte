@@ -3,7 +3,6 @@
 </script>
 
 <main class="flex flex-wrap gap-5 bg-amber-100 p-25">
-
   <!-- a basic non-foil non-holo pokemon card with a the default settings -->
   <HoverTilt class="rounded-[4.55%/3.5%]">
     <div class="aspect-[0.718] w-90 rounded-[inherit] shadow-lg">
@@ -16,6 +15,8 @@
     class="rounded-[4.55%/3.5%]"
     scaleFactor={1}
     glareIntensity={0.8}
+    enterDelay={500}
+    exitDelay={500}
     shadow
     blendMode="plus-lighter"
     glareMask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.foil.png)"
@@ -47,7 +48,6 @@
       />
     </div>
   </HoverTilt>
-
 </main>
 
 <style>

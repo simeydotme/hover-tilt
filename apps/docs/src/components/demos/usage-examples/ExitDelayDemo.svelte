@@ -10,13 +10,13 @@
     </HoverTilt>
   </div>
   <div class="demo-item">
-    <h4>Subtle Scale</h4>
+    <h4>Long Exit Delay (1000ms)</h4>
     <HoverTilt exitDelay={1000}>
       <div class="demo-card"><code>exitDelay: 1000</code></div>
     </HoverTilt>
   </div>
   <div class="demo-item">
-    <h4>Prominent Scale</h4>
+    <h4>No Exit Delay (0ms)</h4>
     <HoverTilt exitDelay={0}>
       <div class="demo-card"><code>exitDelay: 0</code></div>
     </HoverTilt>

@@ -3,7 +3,7 @@ title: Usage Examples
 description: Interactive examples showcasing Hover Tilt features
 ---
 
-import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Code, Aside } from '@astrojs/starlight/components';
 import BasicDemo from '@components/demos/BasicDemo.svelte';
 import TiltDemo from '@components/demos/usage-examples/TiltDemo.svelte';
 import ScaleDemo from '@components/demos/usage-examples/ScaleDemo.svelte';
@@ -12,6 +12,7 @@ import GlareDemo from '@components/demos/usage-examples/GlareDemo.svelte';
 import GlareHueDemo from '@components/demos/usage-examples/GlareHueDemo.svelte';
 import SpringDemo from '@components/demos/usage-examples/SpringDemo.svelte';
 import ExitDelayDemo from '@components/demos/usage-examples/ExitDelayDemo.svelte';
+import EnterDelayDemo from '@components/demos/usage-examples/EnterDelayDemo.svelte';
 import BlendModeDemo from '@components/demos/usage-examples/BlendModeDemo.svelte';
 
 ## Basic Usage
@@ -336,6 +337,50 @@ Control stiffness & damping for different feeling interactions.
 
 </Tabs>
 
+
+## Enter Delay
+
+Control how long the component waits before activating and animating when the cursor enters. Can be used to prevent flickering when the cursor briefly enters the element.
+
+<Tabs>
+	<TabItem label="Svelte">
+		```svelte
+
+    	<!-- Default enter delay (0ms) -->
+    	<HoverTilt>
+    	  <div class="card">Default</div>
+    	</HoverTilt>
+
+    	<!-- Longer enter delay -->
+    	<HoverTilt enterDelay={300}>
+    	  <div class="card">enterDelay: 300ms</div>
+    	</HoverTilt>
+    	```
+    </TabItem>
+    <TabItem label="Web Component">
+    	```html
+    	<!-- Default enter delay (0ms) -->
+    	<hover-tilt>
+    	  <div class="card">Default</div>
+    	</hover-tilt>
+
+    	<!-- Longer enter delay -->
+    	<hover-tilt enter-delay="300">
+    	  <div class="card">enter-delay: 300ms</div>
+    	</hover-tilt>
+    	```
+    </TabItem>
+
+</Tabs>
+
+<EnterDelayDemo client:only="svelte" />
+
+<Aside type="note">
+  **`enterDelay`** respects the `exitDelay` and resting time of the component. So if the user
+	has previously activated (after the `enterDelay`) and then re-enters the element before the
+	component has come to rest, then it will immediately re-activate without waiting for the `enterDelay` again.
+</Aside>
+
 ## Exit Delay
 
 Control how long the component waits before animating back to the default
@@ -431,3 +476,13 @@ Change how the glare effect blends with the content using the `blendMode` prop. 
 </Tabs>
 
 <BlendModeDemo client:only="svelte" />
+
+---
+
+## More...
+
+For more examples of the advanced features, check here;
+- [Shadows](/advanced/shadows)
+- [Custom Shadow](/advanced/custom-shadow)
+- [Custom Gradient](/advanced/custom-gradient)
+- [Glare Masks](/advanced/glare-masks)

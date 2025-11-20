@@ -111,6 +111,25 @@ such as tilt factor, scale factor, and spring options.
 - **Default**: Uses `springOptions` if not specified
 - **Description**: Separate physics options for tilt animations. Allows different animation feel for tilt vs scale.
 
+### `enterDelay`
+
+<Tabs syncKey='api'>
+	<TabItem label="Svelte">
+		```svelte
+		<HoverTilt enterDelay={300}>
+		```
+	</TabItem>
+	<TabItem label="Web Component">
+		```html
+		<hover-tilt enter-delay="300">
+		```
+	</TabItem>
+</Tabs>
+
+- **Type**: `number`
+- **Default**: `0`
+- **Description**: Delay in milliseconds before activating the component when cursor enters. Helps prevent flickering when cursor briefly enters the element.
+
 ### `exitDelay`
 
 <Tabs syncKey='api'>

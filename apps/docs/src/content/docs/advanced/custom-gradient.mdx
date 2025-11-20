@@ -6,6 +6,7 @@ description: Override the default glare gradient with your own gradient implemen
 import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
 import GradientShowcase from '@components/demos/advanced/GradientShowcase.svelte';
 import { showcaseCssCode, cssGradientSyntax, cssGlareIntensitySyntax } from './custom-gradient.strings';
+import PropTable from '@components/astro/PropTable.astro';
 
 export const gradientSvelte = String.raw`
 <script>
@@ -120,7 +121,8 @@ one below, and list out the CSS variables that can be used.
   </TabItem>
   <TabItem label="Code">
     <Aside title="Svelte / Web Component">
-      remember; if using the Web Component, you'll need to use the `.your-class::part(container)` selector to instead of the `:global(.your-class)` selector
+      remember; if using the Web Component, you'll need to use the `.your-class::part(container)` selector to instead of
+      the `:global(.your-class)` selector
     </Aside>
     <Code lang="css" title="styles.css" code={showcaseCssCode} />
   </TabItem>
@@ -138,7 +140,7 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
    ```html
    <!-- Svelte -->
-   <HoverTilt class="simple-card" glareIntensity={1}> ... </HoverTilt>
+   <HoverTilt class="simple-card" glareIntensity="{1}"> ... </HoverTilt>
 
    <!-- Web Component -->
    <hover-tilt class="simple-card" glare-intensity="1"> ... </hover-tilt>
@@ -167,7 +169,7 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
    :global(.simple-card) {
      --hover-tilt-custom-gradient: /* ... */;
    }
-   
+
    /* Web Component */
    .simple-card::part(container) {
      --hover-tilt-custom-gradient: /* ... */;
@@ -190,7 +192,7 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
    <Code lang="css" code={cssGlareIntensitySyntax} />
 
-   So we can use this to control the opacity of the gradient color stops, optionally multiplying the `--hover-tilt-glare-intensity` 
+   So we can use this to control the opacity of the gradient color stops, optionally multiplying the `--hover-tilt-glare-intensity`
    value, with `calc()` by a factor to adjust the intensity. eg: `calc(var(--hover-tilt-glare-intensity, 1) * 0.5)`.
 
 </Steps>
@@ -202,20 +204,28 @@ And so the final (basic) custom gradient implementation looks like this;
 ```css
 /* Svelte */
 :global(.simple-card) {
-  --hover-tilt-custom-gradient: radial-gradient( circle at var(--gradient-x) var(--gradient-y), rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%, transparent 70% );
+  --hover-tilt-custom-gradient: radial-gradient(
+    circle at var(--gradient-x) var(--gradient-y),
+    rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
+    transparent 70%
+  );
 }
 
 /* Web Component */
 .simple-card::part(container) {
-  --hover-tilt-custom-gradient: radial-gradient( circle at var(--gradient-x) var(--gradient-y), rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%, transparent 70% );
+  --hover-tilt-custom-gradient: radial-gradient(
+    circle at var(--gradient-x) var(--gradient-y),
+    rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
+    transparent 70%
+  );
 }
 ```
 
 This may seem a little daunting and complex at first, but if you have experience with CSS `calc()` and `var()` functions, it should be relatively straightforward.
 
-<Aside type='tip'>
-  It's probably easier to create a static gradient first in the style you want,
-  and then replace each part of it with the CSS variables needed to make it dynamic!
+<Aside type="tip">
+  It's probably easier to create a static gradient first in the style you want, and then replace each part of it with
+  the CSS variables needed to make it dynamic!
 </Aside>
 
 ## List of variables available
@@ -225,44 +235,52 @@ These variables are available to customise the gradient appearance / position.
 They can also be used inside the content slot to customise the way your content reacts
 to the hover-tilt interactions!
 
+### Settable by you
 
-<table class="pb-4">
-  <thead>
-    <tr>
-      <th class="whitespace-nowrap">Variable</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-custom-gradient</code>
-      </td>
-      <td class="text-sm">Override the default glare gradient with your own gradient.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--gradient-x</code>
-      </td>
-      <td class="text-sm">Dynamic horizontal position (0%-100%) of the gradient focal point.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--gradient-y</code>
-      </td>
-      <td class="text-sm">Dynamic vertical position (0%-100%) of the gradient focal point.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-glare-intensity</code>
-      </td>
-      <td class="text-sm">Mirrors the <code>glareIntensity</code> prop; handy for scaling gradient-stop opacities.</td>
-    </tr>
-    <tr>
-      <td class="whitespace-nowrap">
-        <code>--hover-tilt-glare-hue</code>
-      </td>
-      <td class="text-sm">Mirrors the <code>glareHue</code> prop; handy for a per-component hue setting.</td>
-    </tr>
-  </tbody>
-</table>
+You can set these variables to override the default gradient with your own gradient.
+
+<PropTable columns={['Variable', 'Description']}>
+  <tr>
+    <td>`--hover-tilt-custom-gradient`</td>
+    <td>Override the default glare gradient with your own gradient.</td>
+  </tr>
+</PropTable>
+
+### Set by the component
+
+The component will set these variables to control the gradient appearance / position. You may consume these in the `--hover-tilt-custom-gradient` variable.
+
+The variables are [exposed via `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your slotted content to customise the way your content reacts to the hover-tilt interactions!
+
+<PropTable columns={['Variable', 'Description']}>
+  <tr>
+    <td>`--gradient-x`</td>
+    <td>Dynamic horizontal position (0%-100%) of the gradient focal point.</td>
+  </tr>
+  <tr>
+    <td>`--gradient-y`</td>
+    <td>Dynamic vertical position (0%-100%) of the gradient focal point.</td>
+  </tr>
+  <tr>
+    <td>`--hover-tilt-glare-intensity`</td>
+    <td>Mirrors the `glareIntensity` prop; handy for scaling gradient-stop opacities.</td>
+  </tr>
+  <tr>
+    <td>`--hover-tilt-glare-hue`</td>
+    <td>Mirrors the `glareHue` prop; handy for a per-component hue setting.</td>
+  </tr>
+  <tr>
+    <td>`--hover-tilt-angle`</td>
+    <td>Real-time pointer angle in degrees. Can rotate conic/linear gradients with it.</td>
+  </tr>
+  <tr>
+    <td>`--hover-tilt-from-center`</td>
+    <td>Distance from the center in pixels. Great for intensifying the gradient toward edges.</td>
+  </tr>
+  <tr>
+    <td>`--hover-tilt-at-edge`</td>
+    <td>Closeness (0&ndash;1) to any edge. Useful for edge-effects.</td>
+  </tr>
+</PropTable>
+
+See all the positional variables available in the [Options → CSS](/options/css/#css-custom-properties) page.
