@@ -1,6 +1,6 @@
 {
 	"name": "@hover-tilt/monorepo",
-	"version": "0.0.1",
+	"version": "0.2.0",
 	"private": true,
 	"type": "module",
 	"repository": {
@@ -25,6 +25,7 @@
 		"format:all": "pnpm --filter './{packages,apps}/*' format",
 		"check": "pnpm --filter './packages/*' check",
 		"check:all": "pnpm --filter './{packages,apps}/*' check",
+		"publish": "pnpm --filter hover-tilt publish",
 		"prepare": "husky"
 	},
 	"devDependencies": {

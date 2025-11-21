@@ -1,7 +1,8 @@
 {
   "name": "",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.2.0",
+  "private": true,
   "scripts": {
     "predev": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",
     "dev": "astro dev",

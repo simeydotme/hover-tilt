@@ -1,6 +1,6 @@
 {
   "name": "hover-tilt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component",
   "repository": {
     "type": "git",
@@ -26,25 +26,32 @@
   },
   "files": [
     "dist",
+    "src/lib",
     "!dist/**/*.test.*",
     "!dist/**/*.spec.*"
   ],
   "sideEffects": [
     "**/*.css"
   ],
+  "module": "./dist/hover-tilt.js",
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
+    ".": [
+      {
+        "types": "./dist/index.d.ts",
+        "svelte": "./dist/index.js",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      },
+      "./dist/index.js"
+    ],
+    "./web-component": "./dist/hover-tilt.js",
     "./types": {
       "types": "./dist/types.d.ts",
       "import": "./dist/types.js"
-    }
+    },
+    "./HoverTilt.svelte": "./src/lib/components/HoverTilt.svelte"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
