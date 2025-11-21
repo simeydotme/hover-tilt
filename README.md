@@ -1,7 +1,9 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/simeydotme/hover-tilt/main/apps/docs/src/assets/hover-tilt.svg" 
-    alt="Svelte Hover Tilt Logo" style="max-width: 500px; width: 100%; height: auto;">
+<a href="packages/hover-tilt/README.md">
+  <img src="https://raw.githubusercontent.com/simeydotme/hover-tilt/main/apps/docs/src/assets/hover-tilt.svg" 
+      alt="Svelte Hover Tilt Logo" width="400">
+</a>
 
   <h1 align="center">
     Svelte Hover Tilt
@@ -31,6 +33,14 @@ Works with any framework or vanilla JavaScript via the Web Component.
 <br>
 
 </div>
+
+> [!NOTE]
+> **Looking for the `<HoverTilt />` component documentation?**  
+> [👉 View the hover-tilt package README](packages/hover-tilt/README.md) for installation, usage, and API details.
+
+<a href="packages/hover-tilt/README.md">
+	<img src="https://raw.githubusercontent.com/simeydotme/hover-tilt/main/packages/hover-tilt/static/hover-tilt-example.gif" alt="Hover Tilt Demo" width="500">
+</a>
 
 ## Features
 

@@ -1,7 +1,7 @@
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/simeydotme/hover-tilt/main/apps/docs/src/assets/hover-tilt.svg" 
-    alt="Svelte Hover Tilt Logo" style="max-width: 500px; width: 100%; height: auto;">
+    alt="Svelte Hover Tilt Logo" width="400">
 
   <h1 align="center">
     Hover Tilt
@@ -17,7 +17,7 @@
     </a>
   </p>
 
-A beautiful hover tilt effect component for Svelte 5, available as both a **Svelte Component** and **Web Component**.  
+A beautiful tilt & glare component for Svelte 5, available as both a **Svelte Component** and **Web Component**.  
 Works with any framework or vanilla JavaScript via the Web Component.
 
  <img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" alt="Svelte Icon">
@@ -29,6 +29,8 @@ Works with any framework or vanilla JavaScript via the Web Component.
 
 <br>
 <br>
+
+<img src="./static/hover-tilt-example.gif" alt="Hover Tilt Demo" width="500">
 
 </div>
 
