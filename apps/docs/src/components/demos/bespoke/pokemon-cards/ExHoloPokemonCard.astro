@@ -1,0 +1,48 @@
+---
+import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
+---
+
+<WebComponentLoader />
+
+<div class="flex flex-col justify-center items-center">
+  <hover-tilt
+    shadow
+    scale-factor={1.1}
+    glare-mask="url(/pokemon/sv9_en_056_std.foil.png)"
+    glare-mask-mode="luminance"
+    glare-intensity={1.5}
+    blend-mode="hard-light"
+    class="ex-holo [&::part(container)]:rounded-[4.55%/3.5%] max-w-90"
+  >
+    <img
+      src="/pokemon/sv9_en_056_std.png"
+      alt="Pokémon Lillie's Clefairy (ex Holo)"
+      loading="lazy"
+      class="rounded-[inherit]"
+    />
+  </hover-tilt>
+
+  <small class="block mt-4 text-center text-balance text-gray-500"><em>Is it Clefairy's Birthday!?</em></small>
+</div>
+
+<style>
+  .ex-holo::part(tilt)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      url(https://poke-holo.b-cdn.net/foils/151/birthday-holo-dank-2.webp), var(--hover-tilt-default-gradient);
+    background-size:
+      120% 160%,
+      cover;
+    background-position:
+      calc(50% + var(--hover-tilt-x, 0) * 5px) calc(50% + var(--hover-tilt-y, 0) * 5px),
+      center;
+    background-repeat: no-repeat;
+    background-blend-mode: color-burn;
+    mix-blend-mode: soft-light;
+    opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
+    will-change: background-image, opacity;
+  }
+</style>

@@ -16,7 +16,7 @@
       glareHue: { attribute: 'glare-hue', type: 'Number' },
       glareMask: { attribute: 'glare-mask', type: 'String' },
       glareMaskMode: { attribute: 'glare-mask-mode', type: 'String' },
-      glareMaskComposite: { attribute: 'glare-mask-composite', type: 'String' },
+      glareMaskComposite: { attribute: 'glare-mask-composite', type: 'String' }
     }
   }}
 />
@@ -32,7 +32,7 @@
   } from '../types.js';
   import { Spring } from 'svelte/motion';
   import { derivePointerState, pointerPositionFromEvent, readElementBox, ZERO_POINTER_DERIVATIVES } from '../utils.js';
-    import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
   const defaultSpringOptions: StrictSpringOptions = {
     stiffness: 0.2,
@@ -170,7 +170,7 @@
         throw error;
       }
     }, exitDelay);
-  }
+  };
 
   const setExitSpringOptions = () => {
     const exitSpringOptions: ExitSpringOptions = {
@@ -278,6 +278,8 @@
   style={`${styleVariables} ${staticVariables} ${containerStyle}`}
 >
   {#if isWebComponent}
+    <!-- only render the slotted styles if the component is a web component, 
+        this is a performance concern in Svelte Components -->
     {@html slottedStyles}
   {/if}
 

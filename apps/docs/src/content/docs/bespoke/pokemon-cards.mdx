@@ -3,11 +3,12 @@ title: Pokémon Cards Holographic
 description: Demonstrating the Hover Tilt component applied to Pokémon cards.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Code } from '@astrojs/starlight/components';
 import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
 import BasicPokemonCard from '@components/demos/bespoke/pokemon-cards/BasicPokemonCard.astro';
 import BasicPokemonReverseCard from '@components/demos/bespoke/pokemon-cards/BasicPokemonReverseCard.astro';
 import FoilFullArtPokemonCard from '@components/demos/bespoke/pokemon-cards/FoilFullArtPokemonCard.astro';
+import ExHoloPokemonCard from '@components/demos/bespoke/pokemon-cards/ExHoloPokemonCard.astro';
 import FullArtSparklesPokemonCard from '@components/demos/bespoke/pokemon-cards/FullArtSparklesPokemonCard.astro';
 import ReverseHoloPokemonCard from '@components/demos/bespoke/pokemon-cards/ReverseHoloPokemonCard.astro';
 import ReverseHoloPokemonCardExtra from '@components/demos/bespoke/pokemon-cards/ReverseHoloPokemonCardExtra.astro';
@@ -193,6 +194,49 @@ export const reverseHoloPokemonCardExtra = String.raw`
 
 `;
 
+export const exHoloPokemonCard = String.raw`
+<hover-tilt
+  shadow
+  scale-factor={1.1}
+  glare-mask="url(/pokemon/sv9_en_056_std.foil.png)"
+  glare-mask-mode="luminance"
+  glare-intensity={1.5}
+  blend-mode="hard-light"
+  class="ex-holo [&::part(container)]:rounded-[4.55%/3.5%]"
+>
+
+  <img
+    src="/pokemon/sv9_en_056_std.png"
+    alt="Pokémon Lillie's Clefairy (ex Holo)"
+    loading="lazy"
+    class="rounded-[inherit]"
+  />
+</hover-tilt>
+
+<style>
+  .ex-holo::part(tilt)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: 
+      url(https://poke-holo.b-cdn.net/foils/151/birthday-holo-dank-2.webp), 
+      var(--hover-tilt-default-gradient);
+    background-size: 120% 160%, cover;
+    background-position: 
+      calc(50% + var(--hover-tilt-x, 0) * 5px) 
+      calc(50% + var(--hover-tilt-y, 0) * 5px), 
+      center;
+    background-repeat: no-repeat;
+    background-blend-mode: color-burn;
+    mix-blend-mode: soft-light;
+    opacity: calc(var(--hover-tilt-opacity, 0) * 0.75);
+    will-change: background-image, opacity;
+  }
+</style>
+
+`;
+
 **_Gotta catch 'em all!_**
 
 Let's demonstrate the `<HoverTilt />` component applied to Pokémon cards! I'll show a few examples
@@ -255,6 +299,29 @@ Setting `blend-mode="plus-lighter"` lets the foil texture add brightness, while 
   <FoilFullArtPokemonCard />
 </CodeWithPreview>
 
+## ex Holo Card
+
+To create a card that looks a little like the SV Era ex cards, we can utilise a linear gradient and a
+star-pattern image, as well as the radial gradient glare.
+
+I won't explain this fully, but the code is shown below.
+
+The main things to note are;
+
+- creating a new `::after` pseudo-element to apply the holo effect
+- using the `calc(50% + var(--hover-tilt-x, 0) * 5px)` function to move the holo image
+- applying `mix-blend-mode` and `background-blend-mode` for the holo effect
+
+<CodeWithPreview
+  lang="html"
+  title="index.html"
+  code={exHoloPokemonCard}
+  mark={[4, 6, 7, 11, 12]}
+  ins={['ex-holo ', { range: '18-34' }]}
+>
+  <ExHoloPokemonCard />
+</CodeWithPreview>
+
 ## Special Illustration Art card
 
 So here's a very special, sparkly design!
@@ -299,18 +366,18 @@ Here I'm also bumping the `glare-intensity`, `scale-factor` and `shadow-blur` to
 
 Here's an alternate version of the Masterball holo taking a slightly different approach.
 
-We still use the same two masks, but instead of applying the "etch" mask to the mask, we instead create a new style definition and use the etch as a background blend mode, mixed with the default gradient (glare) and the foil mask.
+We still use the same two masks, but instead of applying the "etch" mask to the gradient `::before` layer; we instead create a new layer (`.reverse-ball-etch`) and style definition, and blend the etch image with the radial gradient.
 
 Using `hard-light` gives it a slightly more metallic shine.
 
-The major benefit to this is that the masterball looks correctly inverted, and the foil feels more metallic.
+Again, this is a very advanced use-case, but it demonstrates the power of the component and the ability to create custom effects.
 
 <ReverseHoloPokemonCardExtra />
 
-<CodeWithPreview
+<Code
   lang="svelte"
   title="index.html"
   code={reverseHoloPokemonCardExtra}
-  ins={[{ range: '21-69' }, 'reverse-ball ', 'hover:z-10', 10, 18]}
+  ins={[{ range: '21-70' }, 'reverse-ball ', 'hover:z-10', 10, 18]}
   mark={[5, 8]}
-></CodeWithPreview>
+/>

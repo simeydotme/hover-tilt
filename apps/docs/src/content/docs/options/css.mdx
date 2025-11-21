@@ -3,7 +3,7 @@ title: CSS Class / Style
 description: Styling guidance for the Hover Tilt container and glare overlay.
 ---
 
-import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Code, Aside } from '@astrojs/starlight/components';
 import RadiusSvelte from '@chunks/class-style/RadiusSvelte.astro';
 import RadiusWebC from '@chunks/class-style/RadiusWebC.astro';
 import PropTable from '@components/astro/PropTable.astro';
@@ -153,7 +153,9 @@ Here's a look at the internal structure of the rendered component;
 gradients, or additional layers without writing extra JavaScript. These values are emitted on the
 container element (or `::part(container)` in the web component).
 
-The variables are [exposed via `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your slotted content.
+<Aside type="tip">
+  When used as a **Web Component**, the variables are [exposed via `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your slotted content.
+</Aside>
 
 <PropTable columns={['Variable', 'Description / Units']}>
   <tr>
@@ -287,6 +289,7 @@ If you need to change the perspective, you can apply it to the container with CS
 
 <Tabs syncKey="api">
   <TabItem label="Svelte">
+    <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
         ```html
@@ -309,8 +312,10 @@ If you need to change the perspective, you can apply it to the container with CS
         ```
       </TabItem>
     </Tabs>
+    </div>
   </TabItem>
   <TabItem label="Web Component">
+    <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
         ```html
@@ -333,12 +338,97 @@ If you need to change the perspective, you can apply it to the container with CS
         ```
       </TabItem>
     </Tabs>
+    </div>
   </TabItem>
 </Tabs>
 
 ---
 
-### `z-index` overlapping components
+### content over the glare
+
+You may notice that the glare effect sits on top of the slotted content, this means that if you have text inside the slotted content, it will be covered by the glare.
+
+While this is phsyically correct, it may not be visually desirable. So it's possible to move the slotted content up in the z-order to sit atop the glare.
+
+<div class="not-content mx-8 grid gap-4 md:grid-cols-2">
+  <hover-tilt>
+    <div class="demo-card min-w-0! from-amber-400! to-rose-400!">
+      <h3 class="rounded-md bg-slate-500 p-2 px-4 text-slate-50 shadow-md text-shadow-none">Behind Glare</h3>
+    </div>
+  </hover-tilt>
+  <hover-tilt>
+    <div class="demo-card min-w-0! from-amber-400! to-rose-400!">
+      <h3 class="z-10 rounded-md bg-slate-500 p-2 px-4 text-slate-50 shadow-md text-shadow-none">Over Glare</h3>
+    </div>
+  </hover-tilt>
+</div>
+
+All we need to do is apply a `z-index` to the slotted content to move it up in the z-order.
+
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    <div class="ml-4">
+    <Tabs syncKey="css">
+      <TabItem label="Plain CSS">
+        ```html
+        <HoverTilt class="my-component">
+          <div class="content-area">
+            Your content here
+          </div>
+        </HoverTilt>
+        ```
+        ```css
+        .my-component .content-area {
+          z-index: 10;
+        }
+        ```
+      </TabItem>
+      <TabItem label="TailwindCSS">
+        ```html
+        <HoverTilt>
+          <div class="z-10">
+            Your content here
+          </div>
+        </HoverTilt>
+        ```
+      </TabItem>
+    </Tabs>
+    </div>
+  </TabItem>
+  <TabItem label="Web Component">
+    <div class="ml-4">
+    <Tabs syncKey="css">
+      <TabItem label="Plain CSS">
+        ```html
+        <hover-tilt class="my-component">
+          <div class="content-area">
+            Your content here
+          </div>
+        </hover-tilt>
+        ```
+        ```css
+        .my-component .content-area {
+          z-index: 10;
+        }
+        ```
+      </TabItem>
+      <TabItem label="TailwindCSS">
+        ```html
+        <hover-tilt>
+          <div class="z-10">
+            Your content here
+          </div>
+        </hover-tilt>
+        ```
+      </TabItem>
+    </Tabs>
+    </div>
+  </TabItem>
+</Tabs>
+
+---
+
+### `z-index` adjacent components
 
 If you are using the `scaleFactor` prop, you may find that when the component zooms in, it overlaps with other components nearby. This will be especially noticeable in a gallery of scaling cards;
 
