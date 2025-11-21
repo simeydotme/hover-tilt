@@ -38,7 +38,8 @@ export default {
         declarationMap: false,
         allowImportingTsExtensions: false,
         outDir: undefined,
-        skipLibCheck: true
+        skipLibCheck: true,
+        lib: ['ES2015', 'DOM', 'DOM.Iterable']
       },
       tsconfig: false,
       include: ['src/lib/**/*', 'src/lib/**/*.d.ts'],
