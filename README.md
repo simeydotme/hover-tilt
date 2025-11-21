@@ -11,11 +11,11 @@
 
   <p>
     <a href="https://github.com/simeydotme/hover-tilt/releases">
-      <img src="https://img.shields.io/github/package-json/v/simeydotme/hover-tilt/main?label=&color=%234A40D4&logo=github" alt="Code Version">
+      <img src="https://img.shields.io/github/package-json/v/simeydotme/hover-tilt/main?label=&color=%235e73e7&logo=github" alt="Code Version">
     </a>
     <a href="https://www.npmjs.com/package/hover-tilt">
-      <img src="https://img.shields.io/npm/v/hover-tilt?color=%234A40D4&logo=npm&label=" alt="NPM version">
-      <img src="https://img.shields.io/npm/dm/hover-tilt?label=&color=%234A40D4" alt="NPM Downloads / Month">
+      <img src="https://img.shields.io/npm/v/hover-tilt?color=%235e73e7&logo=npm&label=" alt="NPM version">
+      <img src="https://img.shields.io/npm/dm/hover-tilt?label=&color=%235e73e7" alt="NPM Downloads / Month">
     </a>
   </p>
 
