@@ -1,9 +1,17 @@
 node_modules
 
-# Lock files (using Bun)
+# Lock files (using Pnpm)
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
+bun.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+bun-error.log*
 
 # Output
 .output
