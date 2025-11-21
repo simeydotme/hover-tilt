@@ -140,7 +140,7 @@ function MyComponent() {
 
 ## Documentation
 
-- **[Full Documentation](https://simeydotme.github.io/hover-tilt)** - Complete API reference and examples
+- **[Full Documentation](https://hover-tilt.simey.me)** - Complete API reference and examples
 
 ## Monorepo Structure
 
