@@ -30,7 +30,7 @@ Works with any framework or vanilla JavaScript via the Web Component.
 <br>
 <br>
 
-<img src="./static/hover-tilt-example.gif" alt="Hover Tilt Demo" width="500">
+<img src="https://raw.githubusercontent.com/simeydotme/hover-tilt/main/packages/hover-tilt/static/hover-tilt-example.gif" alt="Hover Tilt Demo" width="500">
 
 </div>
 
