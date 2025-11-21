@@ -4,7 +4,7 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@chunks/*": ["./src/chunks/*"],
-      "@assets/*": ["./src/assets/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*"],

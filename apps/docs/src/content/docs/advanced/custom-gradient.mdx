@@ -6,7 +6,14 @@ description: Override the default glare gradient with your own gradient implemen
 import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
 import GradientShowcase from '@components/demos/advanced/GradientShowcase.svelte';
 import { showcaseCssCode, cssGradientSyntax, cssGlareIntensitySyntax } from './custom-gradient.strings';
-import { steps1Svelte, steps1WebComponent, steps3Svelte, steps3WebComponent, steps4Svelte, steps4WebComponent } from './custom-gradient.strings';
+import {
+  steps1Svelte,
+  steps1WebComponent,
+  steps3Svelte,
+  steps3WebComponent,
+  steps4Svelte,
+  steps4WebComponent
+} from './custom-gradient.strings';
 import PropTable from '@components/astro/PropTable.astro';
 
 The `<HoverTilt />` component comes with a good default glare effect, using my experience in
@@ -85,16 +92,10 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
    <Tabs syncKey="api">
      <TabItem label="Svelte">
-       <Code
-         lang="svelte"
-         code={steps1Svelte}
-       />
+       <Code lang="svelte" code={steps1Svelte} />
      </TabItem>
      <TabItem label="Web Component">
-       <Code
-         lang="html"
-         code={steps1WebComponent}
-       />
+       <Code lang="html" code={steps1WebComponent} />
      </TabItem>
    </Tabs>
 
@@ -102,10 +103,7 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
    <Tabs syncKey="api">
      <TabItem label="Svelte">
-       <Code
-         lang="css"
-         code={`:global(.simple-card) {/* ... */}`}
-       />
+       <Code lang="css" code={`:global(.simple-card) {/* ... */}`} />
      </TabItem>
      <TabItem label="Web Component">
        <Code lang="css" code={`.simple-card::part(container) {/* ... */}`} />

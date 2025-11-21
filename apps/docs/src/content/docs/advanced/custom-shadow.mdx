@@ -7,10 +7,14 @@ import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components
 import CustomShadowDemo from '@components/demos/advanced/CustomShadowDemo.svelte';
 import CustomShadowNeonDemo from '@components/demos/advanced/CustomShadowNeonDemo.svelte';
 import { cssShadowSyntax, cssShadowOpacitySyntax } from './custom-shadow.strings';
-import { simpleShadowSvelte, simpleShadowWebComponent, neonShadowSvelte, neonShadowWebComponent } from './custom-shadow.strings';
+import {
+  simpleShadowSvelte,
+  simpleShadowWebComponent,
+  neonShadowSvelte,
+  neonShadowWebComponent
+} from './custom-shadow.strings';
 import { steps3Svelte, steps3WebComponent, steps4Svelte, steps4WebComponent } from './custom-shadow.strings';
 import PropTable from '@components/astro/PropTable.astro';
-
 
 When the `shadow` prop is enabled, `<HoverTilt />` sets `box-shadow` on the tilt element using two CSS variables:
 

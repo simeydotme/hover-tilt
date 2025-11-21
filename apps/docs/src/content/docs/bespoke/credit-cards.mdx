@@ -235,19 +235,19 @@ Let's break down the extra holographic bits step-by-step!
 
 4. Inside of the `::before` we re-assign `mask-image` to use both the `--hover-tilt-glare-mask` and the `--hover-tilt-default-gradient` CSS variables.
 
-    > _This is now our 'hologram' mask layer instead of glare layer. This will allow the mask to follow our cursor, just like the glare gradient does._
+   > _This is now our 'hologram' mask layer instead of glare layer. This will allow the mask to follow our cursor, just like the glare gradient does._
 
 5. We apply a rainbow-gradient `background-image` to the `::before` pseudo-element and set the position to the cursor with `--gradient-x` and `--gradient-y` CSS variables.
 
-    > _This allows the rainbow to move a little bit giving a more realistic holographic effect._
+   > _This allows the rainbow to move a little bit giving a more realistic holographic effect._
 
 6. Now we create a new pseudo-element `::after` which will hold the new glare effect.
 
-    > _We set a common `content: ''`, `position: absolute`, etc to ensure this layer covers the `.tilt` element._
+   > _We set a common `content: ''`, `position: absolute`, etc to ensure this layer covers the `.tilt` element._
 
 7. Finally we are applying the `var(--hover-tilt-default-gradient)` to the `background-image` and set the `mix-blend-mode` to `hard-light` to ensure the glare effect is visible.
 
-    > _Also setting `opacity` to `calc(var(--hover-tilt-opacity, 0) - 0.75)` reduces the glare's power._
+   > _Also setting `opacity` to `calc(var(--hover-tilt-opacity, 0) - 0.75)` reduces the glare's power._
 
 </Steps>
 

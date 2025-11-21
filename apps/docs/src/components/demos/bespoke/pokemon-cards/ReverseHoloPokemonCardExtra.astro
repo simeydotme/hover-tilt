@@ -4,7 +4,7 @@ import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
 
 <WebComponentLoader />
 
-<div class="flex justify-center items-center not-content mx-auto gap-4 relative  z-90 transform-gpu">
+<div class="flex justify-center items-center not-content mx-auto gap-4 relative z-90 transform-gpu">
   <div>
     <hover-tilt
       shadow
@@ -29,27 +29,27 @@ import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
     <small class="block mt-4 text-center text-balance text-gray-500"><em>Umbreon's the GOAT.</em></small>
   </div>
   <div>
-  <hover-tilt
-    shadow
-    shadow-blur={60}
-    scale-factor={1.2}
-    glare-mask="url(/pokemon/sv8-5_en_040_mph.foil.webp)"
-    glare-mask-mode="luminance"
-    glare-mask-composite="intersect"
-    blend-mode="hard-light"
-    class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90 relative hover:z-10"
-    style="--hover-tilt-etch-image: url(/pokemon/sv8-5_en_040_mph.etch.webp);"
-  >
-    <img
-      src="/pokemon/sv8-5_en_040_std.webp"
-      alt="Pokémon #0700: Sylveon Reverse Holo Masterball"
-      loading="lazy"
-      class="rounded-[inherit] max-w-full block m-0"
-    />
-    <div class="reverse-ball-etch"></div>
-  </hover-tilt>
+    <hover-tilt
+      shadow
+      shadow-blur={60}
+      scale-factor={1.2}
+      glare-mask="url(/pokemon/sv8-5_en_040_mph.foil.webp)"
+      glare-mask-mode="luminance"
+      glare-mask-composite="intersect"
+      blend-mode="hard-light"
+      class="reverse-ball [&::part(container)]:rounded-[4.55%/3.5%] max-w-90 relative hover:z-10"
+      style="--hover-tilt-etch-image: url(/pokemon/sv8-5_en_040_mph.etch.webp);"
+    >
+      <img
+        src="/pokemon/sv8-5_en_040_std.webp"
+        alt="Pokémon #0700: Sylveon Reverse Holo Masterball"
+        loading="lazy"
+        class="rounded-[inherit] max-w-full block m-0"
+      />
+      <div class="reverse-ball-etch"></div>
+    </hover-tilt>
 
-  <small class="block mt-4 text-center text-balance text-gray-500"><em>Sylveon's cute, tho.</em></small>
+    <small class="block mt-4 text-center text-balance text-gray-500"><em>Sylveon's cute, tho.</em></small>
   </div>
 </div>
 

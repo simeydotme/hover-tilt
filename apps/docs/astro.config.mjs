@@ -15,18 +15,16 @@ export default defineConfig({
       description: 'A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component',
       logo: {
         src: './src/assets/hover-tilt.svg',
-        replacesTitle: true,
+        replacesTitle: true
       },
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/simeydotme/hover-tilt' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/simeydotme' },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/simeydotme/hover-tilt' },
+        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/simeydotme' }
       ],
       sidebar: [
         {
           label: 'Getting Started',
-          items: [
-            { label: 'Introduction', slug: 'index' },
-            { label: 'Installation', slug: 'getting-started' }
-          ]
+          items: [{ label: 'Installation', slug: 'getting-started' }]
         },
         {
           label: 'Options',
@@ -39,7 +37,7 @@ export default defineConfig({
           label: 'Examples',
           items: [
             { label: 'Web Component', slug: 'examples/web-component' },
-            { label: 'Usage Examples', slug: 'examples/usage' },
+            { label: 'Usage Examples', slug: 'examples/usage' }
           ]
         },
         {
@@ -48,14 +46,14 @@ export default defineConfig({
             { label: 'Shadows', slug: 'advanced/shadows' },
             { label: 'Custom Shadow', slug: 'advanced/custom-shadow' },
             { label: 'Custom Gradient', slug: 'advanced/custom-gradient' },
-            { label: 'Glare Masks', slug: 'advanced/glare-masks' },
+            { label: 'Glare Masks', slug: 'advanced/glare-masks' }
           ]
         },
         {
           label: 'Bespoke Ideas',
           items: [
             { label: 'Credit Cards', slug: 'bespoke/credit-cards' },
-            { label: 'Pokemon Cards', slug: 'bespoke/pokemon-cards' },
+            { label: 'Pokemon Cards', slug: 'bespoke/pokemon-cards' }
           ]
         }
       ],

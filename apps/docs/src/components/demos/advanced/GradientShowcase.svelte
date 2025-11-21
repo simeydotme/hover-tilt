@@ -23,9 +23,7 @@
 
   <div class="gradient-wrapper">
     <HoverTilt class="gradient-card aurora-sweep" shadow scaleFactor={1.1}>
-      <div
-        class="card-surface bg-linear-to-br from-indigo-400 to-purple-400"
-      >
+      <div class="card-surface bg-linear-to-br from-indigo-400 to-purple-400">
         <h3>Aurora Sweep</h3>
         <p>A conic gradient that pivots around the center.</p>
       </div>
@@ -34,9 +32,7 @@
 
   <div class="gradient-wrapper">
     <HoverTilt class="gradient-card luminance-beam" shadow scaleFactor={1.1} blendMode="luminosity">
-      <div
-        class="card-surface bg-linear-to-br from-rose-500/60 to-amber-400/50 via-orange-500/40"
-      >
+      <div class="card-surface bg-linear-to-br from-rose-500/60 via-orange-500/40 to-amber-400/50">
         <h3>Luminance Beam</h3>
         <p>A directional beam that fades across the card.</p>
       </div>
@@ -45,9 +41,7 @@
 
   <div class="gradient-wrapper">
     <HoverTilt class="gradient-card inverted-gradient" shadow scaleFactor={1.1}>
-      <div
-        class="card-surface bg-linear-to-br from-sky-400 to-indigo-400"
-      >
+      <div class="card-surface bg-linear-to-br from-sky-400 to-indigo-400">
         <h3>Inverted Gradient</h3>
         <p>The glare is at the edges, instead of the pointer.</p>
       </div>
@@ -65,23 +59,23 @@
     padding: 2rem;
   }
 
-:global(.custom-gradient) {
-  --hover-tilt-custom-gradient: radial-gradient(
-    circle at var(--gradient-x, 50%) var(--gradient-y, 50%),
-    rgba(125, 255, 194, calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
-    rgba(255, 255, 255, 0) 80%,
-    transparent 70%
-  );
-}
+  :global(.custom-gradient) {
+    --hover-tilt-custom-gradient: radial-gradient(
+      circle at var(--gradient-x, 50%) var(--gradient-y, 50%),
+      rgba(125, 255, 194, calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
+      rgba(255, 255, 255, 0) 80%,
+      transparent 70%
+    );
+  }
 
-.custom-gradient::part(container) {
-  --hover-tilt-custom-gradient: radial-gradient(
-    circle at var(--gradient-x, 50%) var(--gradient-y, 50%),
-    rgba(125, 255, 194, calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
-    rgba(255, 255, 255, 0) 80%,
-    transparent 70%
-  );
-}
+  .custom-gradient::part(container) {
+    --hover-tilt-custom-gradient: radial-gradient(
+      circle at var(--gradient-x, 50%) var(--gradient-y, 50%),
+      rgba(125, 255, 194, calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
+      rgba(255, 255, 255, 0) 80%,
+      transparent 70%
+    );
+  }
 
   :global(.specular-highlight) {
     --hover-tilt-custom-gradient: radial-gradient(

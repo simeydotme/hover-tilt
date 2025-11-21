@@ -22,7 +22,9 @@ import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
     />
   </hover-tilt>
 
-  <small class="block mt-4 text-center text-balance text-gray-500"><em>Clefairy shows off it's signature derpy tooth.</em></small>
+  <small class="block mt-4 text-center text-balance text-gray-500"
+    ><em>Clefairy shows off it's signature derpy tooth.</em></small
+  >
 </div>
 
 <style>
@@ -31,7 +33,10 @@ import WebComponentLoader from '@components/astro/WebComponentLoader.astro';
     --sparkles-image: url(/pokemon/sparkles.webp);
     --sparkles-offset: calc(50% + var(--hover-tilt-x, 0) * 1.5px) calc(50% + var(--hover-tilt-y, 0) * 1.5px);
     background-image: var(--sparkle-rainbow-gradient), var(--sparkles-image), var(--hover-tilt-default-gradient);
-    background-size: cover, 200px 200px, cover;
+    background-size:
+      cover,
+      200px 200px,
+      cover;
     background-position: center, var(--sparkles-offset), center;
     background-repeat: no-repeat, repeat, no-repeat;
     background-blend-mode: color-burn, color-dodge;

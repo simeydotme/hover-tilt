@@ -24,6 +24,8 @@ cd hover-tilt
 pnpm install
 ```
 
+   This will automatically set up git hooks via the `prepare` script. The hooks will run linting checks before each commit.
+
 ## Monorepo Structure
 
 ```
@@ -40,55 +42,37 @@ pnpm install
 
 ```bash
 # Development mode
-pnpm --filter hover-tilt dev
+pnpm dev
 
 # Build
-pnpm --filter hover-tilt build
+pnpm build
 
 # Type check
-pnpm --filter hover-tilt check
+pnpm check
 
 # Lint
-pnpm --filter hover-tilt lint
+pnpm lint
 ```
 
 ### Documentation Site
 
 ```bash
 # Development mode
-pnpm --filter ./apps/docs dev
+pnpm dev:docs
 
 # Build
-pnpm --filter ./apps/docs build
-```
-
-### Root Scripts
-
-You can also run scripts across all packages from the root:
-
-```bash
-# Run dev servers for all packages
-pnpm dev
-
-# Build all packages
-pnpm build
-
-# Lint all packages
-pnpm lint
-
-# Format all packages
-pnpm format
+pnpm build:docs
 ```
 
 ## Adding New Examples
 
 ### Documentation Examples
 
-Documentation examples are in `apps/docs/src/content/`. To add a new example:
+Documentation examples are in `apps/docs/src/content/`. It's running on
+Astro + Starlight. To add a new example:
 
 1. Edit the relevant markdown file in `apps/docs/src/content/`
-2. Use the `DemoContainer` component for interactive examples
-3. Import the component: `import { HoverTilt } from 'hover-tilt';`
+2. Reference existing patterns to create the new example
 
 ## Code Style
 
@@ -99,7 +83,12 @@ We use Prettier for code formatting. The configuration is shared across all pack
 
 ### Pre-commit Hooks
 
-Pre-commit hooks are configured to run linting before commits. Make sure your code is properly formatted before committing.
+Pre-commit hooks are automatically set up when you run `pnpm install`. They will run `pnpm lint:all` before each commit to ensure your code is properly formatted.
+
+**If hooks aren't working:**
+1. Make sure you've run `pnpm install` (this sets up the hooks automatically)
+2. If needed, manually run `pnpm prepare` to reinstall the hooks
+3. The hooks will prevent commits if linting fails - format your code with `pnpm format:all` and try again
 
 ## Testing
 

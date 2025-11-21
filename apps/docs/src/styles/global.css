@@ -44,7 +44,7 @@
     min-height: 150px;
     min-width: 300px;
     aspect-ratio: 1.6;
-    @apply bg-linear-to-br from-slate-500 to-slate-700 text-white text-shadow-xs text-shadow-black/50;
+    @apply bg-linear-to-br from-slate-500 to-slate-700 text-white text-shadow-black/50 text-shadow-xs;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;

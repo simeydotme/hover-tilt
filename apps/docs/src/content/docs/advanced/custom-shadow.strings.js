@@ -90,7 +90,6 @@ export const steps3WebComponent = String.raw`
 }
 `;
 
-
 export const cssShadowSyntax = String.raw`
 /*** 
  CSS box-shadow syntax: 
@@ -116,7 +115,6 @@ export const cssShadowOpacitySyntax = String.raw`
                                                                                                        └─ a black shadow ────────────┘
 ***/
 `;
-
 
 export const steps4Svelte = String.raw`
 :global(.simple-card) {

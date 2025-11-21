@@ -13,11 +13,12 @@
   </div>
 </div>
 
-
 <style>
   :global(.simple-card) {
     --hover-tilt-custom-shadow:
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 6px + 6px) calc(10px + var(--hover-tilt-opacity, 0) * 12px) 0px, 
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 2px + 2px) calc(2px + var(--hover-tilt-opacity, 0) * 4px) 0px;
+      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 6px + 6px)
+        calc(10px + var(--hover-tilt-opacity, 0) * 12px) 0px,
+      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 2px + 2px)
+        calc(2px + var(--hover-tilt-opacity, 0) * 4px) 0px;
   }
 </style>

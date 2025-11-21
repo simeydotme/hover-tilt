@@ -10,13 +10,10 @@ const { columns, class: className } = Astro.props;
 <table class="pb-4 text-sm [&_tr_td:first-child]:whitespace-nowrap {className}">
   <thead>
     <tr>
-      {columns.map((column) => (
-        <th class={column === columns[0] ? "whitespace-nowrap" : ""}>{column}</th>
-      ))}
+      {columns.map((column) => <th class={column === columns[0] ? 'whitespace-nowrap' : ''}>{column}</th>)}
     </tr>
   </thead>
   <tbody>
     <slot />
   </tbody>
 </table>
-

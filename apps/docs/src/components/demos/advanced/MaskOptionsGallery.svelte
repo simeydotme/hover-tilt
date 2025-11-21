@@ -8,28 +8,44 @@
     glareMask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
     glareMaskMode="alpha"
   >
-    <a href="#css-alpha-repeating-gradient" class="card-surface bg-linear-to-br from-emerald-300 to-indigo-400" title="view the code example">
+    <a
+      href="#css-alpha-repeating-gradient"
+      class="card-surface bg-linear-to-br from-emerald-300 to-indigo-400"
+      title="view the code example"
+    >
       <h3>CSS Gradient</h3>
       <p>Repeating radial gradient with <strong><code>alpha</code></strong> mask-mode.</p>
     </a>
   </HoverTilt>
 
   <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
-    <a href="#black--white-png" class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400" title="view the code example">
+    <a
+      href="#black--white-png"
+      class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400"
+      title="view the code example"
+    >
       <h3>Black &amp; White Bitmap</h3>
       <p>Linked WEBP/PNG with <strong><code>luminance</code></strong> mask-mode.</p>
     </a>
   </HoverTilt>
 
   <HoverTilt class="mask-card" glareMask="url(/public/circuit-board.svg)" glareMaskMode="alpha">
-    <a href="#transparent-svg" class="card-surface bg-linear-to-br from-orange-300 to-rose-400" title="view the code example">
+    <a
+      href="#transparent-svg"
+      class="card-surface bg-linear-to-br from-orange-300 to-rose-400"
+      title="view the code example"
+    >
       <h3>Transparent SVG</h3>
       <p>Linked SVG with <strong><code>alpha</code></strong> mask-mode.</p>
     </a>
   </HoverTilt>
 
   <HoverTilt class="mask-card" glareMask="url(#mask)">
-    <a href="#svg-urlid" class="card-surface bg-linear-to-br from-teal-400/65 to-green-500/65" title="view the code example">
+    <a
+      href="#svg-urlid"
+      class="card-surface bg-linear-to-br from-teal-400/65 to-green-500/65"
+      title="view the code example"
+    >
       <h3>SVG <code>url(#id)</code></h3>
       <p>References an inline SVG mask definition using <strong><code>url(#...)</code></strong>.</p>
     </a>

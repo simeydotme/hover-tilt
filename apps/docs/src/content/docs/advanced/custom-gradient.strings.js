@@ -1,6 +1,3 @@
-
-
-
 export const showcaseCssCode = String.raw`
 
 /* Custom Colored Gradient */
@@ -78,9 +75,6 @@ export const cssGlareIntensitySyntax = String.raw`
 ***/
 `;
 
-
-
-
 export const gradientSvelte = String.raw`
 <script>
   import { HoverTilt } from 'hover-tilt';
@@ -137,8 +131,6 @@ export const gradientWebComponent = String.raw`
 </hover-tilt>
 `;
 
-
-
 export const steps1Svelte = String.raw`
   <HoverTilt class="simple-card" glareIntensity="{1}">
     ...
@@ -150,7 +142,6 @@ export const steps1WebComponent = String.raw`
     ...
   </hover-tilt>
 `;
-
 
 export const steps3Svelte = String.raw`
   :global(.simple-card) {

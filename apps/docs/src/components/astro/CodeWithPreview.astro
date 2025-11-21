@@ -3,32 +3,28 @@ import { Code } from '@astrojs/starlight/components';
 import type { MarkerDefinition } from '@astrojs/starlight/expressive-code';
 
 interface Props {
-	lang: string;
-	title: string;
-	code: string;
+  lang: string;
+  title: string;
+  code: string;
   previewTitle?: string;
   mark?: MarkerDefinition;
   ins?: MarkerDefinition;
   del?: MarkerDefinition;
-
 }
 
 const { lang, title, code, mark, ins, del, previewTitle = 'Preview' } = Astro.props;
 ---
 
-
-
 <Code lang={lang} title={title} code={code} mark={mark} ins={ins} del={del} />
 
-<div class="preview"> 
+<div class="preview">
   <figcaption>
     {previewTitle}
-  </figcaption> 
+  </figcaption>
   <div class="preview-content">
     <slot />
-  </div> 
+  </div>
 </div>
-
 
 <style lang="postcss">
   @reference "tailwindcss";

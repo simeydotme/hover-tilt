@@ -1,5 +1,6 @@
 <script lang="ts">
   import HoverTilt from '$lib/components/HoverTilt.svelte';
+  import InteractiveDemo from './InteractiveDemo.svelte';
 </script>
 
 <main class="flex flex-wrap gap-5 bg-amber-100 p-25">
@@ -48,6 +49,9 @@
       />
     </div>
   </HoverTilt>
+
+  <!-- Interactive Props Demo -->
+  <InteractiveDemo />
 </main>
 
 <style>

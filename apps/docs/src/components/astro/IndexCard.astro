@@ -3,87 +3,97 @@ import { Icon, LinkButton } from '@astrojs/starlight/components';
 import type { StarlightIcon } from '@astrojs/starlight/types';
 
 interface Props {
-	icon?: StarlightIcon;
-	title: string;
-	iconColor?: string;
-	url?: string;
+  icon?: StarlightIcon;
+  title: string;
+  iconColor?: string;
+  url?: string;
 }
 
 const { icon, title, iconColor, url } = Astro.props;
 ---
 
 <article class="card sl-flex">
-	<p class="title sl-flex justify-center">
-		{icon && (
-			<span 
-				class="icon-wrapper"
-				style={iconColor ? `--icon-color: hsla(from ${iconColor} h s 90% / 0.5);` : undefined}
-			>
-				<Icon name={icon} class="icon" />
-			</span>
-		)}
-		<span set:html={title} />
-	</p>
-	<div class="body">
-		<slot />
-		{url && (
-			<LinkButton href={url} variant="secondary" class="text-white p-2 px-4 pr-3" icon="right-arrow" iconPlacement='end'>
-				Learn more
-			</LinkButton>
-		)}
-	</div>
+  <p class="title sl-flex justify-center">
+    {
+      icon && (
+        <span
+          class="icon-wrapper"
+          style={iconColor ? `--icon-color: hsla(from ${iconColor} h s 90% / 0.5);` : undefined}
+        >
+          <Icon name={icon} class="icon" />
+        </span>
+      )
+    }
+    <span set:html={title} />
+  </p>
+  <div class="body">
+    <slot />
+    {
+      url && (
+        <LinkButton
+          href={url}
+          variant="secondary"
+          class="text-white p-2 px-4 pr-3"
+          icon="right-arrow"
+          iconPlacement="end"
+        >
+          Learn more
+        </LinkButton>
+      )
+    }
+  </div>
 </article>
 
 <style>
-	@layer starlight.components {
-		.card {
-			--sl-card-border: var(--sl-color-purple);
-			--sl-card-bg: var(--sl-color-purple-low);
-			gap: clamp(0.5rem, calc(0.125rem + 1vw), 1rem);
-			flex-direction: column;
-			padding-top: 2rem;
-		}
-		.card:nth-child(4n + 1) {
-			--sl-card-border: var(--sl-color-orange);
-			--sl-card-bg: var(--sl-color-orange-low);
-		}
-		.card:nth-child(4n + 3) {
-			--sl-card-border: var(--sl-color-green);
-			--sl-card-bg: var(--sl-color-green-low);
-		}
-		.card:nth-child(4n + 4) {
-			--sl-card-border: var(--sl-color-red);
-			--sl-card-bg: var(--sl-color-red-low);
-		}
-		.card:nth-child(4n + 5) {
-			--sl-card-border: var(--sl-color-blue);
-			--sl-card-bg: var(--sl-color-blue-low);
-		}
-		.title {
-			font-weight: 600;
-			font-size: var(--sl-text-h4);
-			line-height: var(--sl-line-height-headings);
-			gap: 1rem;
-			align-items: center;
-		}
-		.icon-wrapper {
+  @layer starlight.components {
+    .card {
+      --sl-card-border: var(--sl-color-purple);
+      --sl-card-bg: var(--sl-color-purple-low);
+      gap: clamp(0.5rem, calc(0.125rem + 1vw), 1rem);
+      flex-direction: column;
+      padding-top: 2rem;
+    }
+    .card:nth-child(4n + 1) {
+      --sl-card-border: var(--sl-color-orange);
+      --sl-card-bg: var(--sl-color-orange-low);
+    }
+    .card:nth-child(4n + 3) {
+      --sl-card-border: var(--sl-color-green);
+      --sl-card-bg: var(--sl-color-green-low);
+    }
+    .card:nth-child(4n + 4) {
+      --sl-card-border: var(--sl-color-red);
+      --sl-card-bg: var(--sl-color-red-low);
+    }
+    .card:nth-child(4n + 5) {
+      --sl-card-border: var(--sl-color-blue);
+      --sl-card-bg: var(--sl-color-blue-low);
+    }
+    .title {
+      font-weight: 600;
+      font-size: var(--sl-text-h4);
+      line-height: var(--sl-line-height-headings);
+      gap: 1rem;
+      align-items: center;
+    }
+    .icon-wrapper {
       position: absolute;
       top: 0;
       right: 0;
-			display: inline-flex;
-			flex-shrink: 0;
+      display: inline-flex;
+      flex-shrink: 0;
       overflow: hidden;
-		}
-		.card .icon {
-			color: var(--icon-color);
+    }
+    .card .icon {
+      color: var(--icon-color);
       width: 5em;
       height: 5em;
       transform: translate(10%, -10%) rotate(5deg);
-		}
-		.card .body {
-			margin: 0;
-			font-size: clamp(var(--sl-text-sm), calc(0.5rem + 1vw), var(--sl-text-body));
+    }
+    .card .body {
+      margin: 0;
+      font-size: clamp(var(--sl-text-sm), calc(0.5rem + 1vw), var(--sl-text-body));
       line-height: 1.25;
-		}
-	}
+    }
+  }
 </style>

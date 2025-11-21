@@ -18,28 +18,26 @@
 		"dev:docs": "pnpm --filter './apps/docs' dev",
 		"build": "pnpm --filter './packages/*' build",
 		"build:all": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
+		"build:docs": "pnpm --filter './apps/docs' build",
 		"lint": "pnpm --filter './packages/*' lint",
 		"lint:all": "pnpm --filter './{packages,apps}/*' lint",
 		"format": "pnpm --filter './packages/*' format",
 		"format:all": "pnpm --filter './{packages,apps}/*' format",
 		"check": "pnpm --filter './packages/*' check",
-		"check:all": "pnpm --filter './{packages,apps}/*' check"
+		"check:all": "pnpm --filter './{packages,apps}/*' check",
+		"prepare": "husky"
 	},
 	"devDependencies": {
-		"pre-commit": "^1.2.2",
+		"husky": "^9.1.7",
 		"prettier": "^3.6.2",
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.7.1",
 		"prettier-plugin-astro": "0.14.1",
 		"typescript": "^5.9.3"
 	},
-	"pre-commit": [
-		"lint"
-	],
 	"pnpm": {
 		"onlyBuiltDependencies": [
 			"esbuild",
-			"pre-commit",
 			"sharp",
 			"svelte-preprocess",
 			"workerd"
