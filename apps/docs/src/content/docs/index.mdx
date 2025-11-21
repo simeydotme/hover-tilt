@@ -9,8 +9,8 @@ hero:
       link: /getting-started/
       icon: right-arrow
       variant: primary
-    - text: View Examples
-      link: /examples/
+    - text: Documentation
+      link: /options/props/
       icon: document
       variant: minimal
 ---
@@ -19,29 +19,37 @@ import { CardGrid } from '@astrojs/starlight/components';
 import IndexCard from '@components/astro/IndexCard.astro';
 import BasicDemo from '@components/demos/BasicDemo.svelte';
 
+
+<div class="text-center md:text-left md:px-10">
+### Easy to use, and powerful.
+
+Use either as a **Svelte5 component**, or as **a Web Component**. &nbsp;&nbsp; [Learn how &rarr;](/getting-started/)
+
+</div>
+
 <div class="px-6 py-10 -mx-4 overflow-hidden">
 	<CardGrid stagger>
 
     	<BasicDemo client:only="svelte" gradientColor1="#dc8754" gradientColor2="#ff3e00" >
-    		<IndexCard title="Svelte 5 Component" icon="seti:svelte" iconColor="#ff3e00">
+    		<IndexCard title="Svelte 5 Component" icon="seti:svelte" iconColor="#ff3e00" url="/getting-started/#usage">
     			Native **Svelte 5** component with full **TypeScript support** and slotted content!
     		</IndexCard>
     	</BasicDemo>
 
     	<BasicDemo client:only="svelte" >
-    		<IndexCard title="Web Component" icon="seti:html" iconColor="#667eea">
+    		<IndexCard title="Web Component" icon="seti:html" iconColor="#667eea" url="/getting-started/#usage">
     			Use it in **any framework** or vanilla HTML with the **Web Components** API!
     		</IndexCard>
     	</BasicDemo>
 
     	<BasicDemo client:only="svelte" gradientColor1="rgb(132, 221, 93)" gradientColor2="rgb(75, 162, 162)" >
-    		<IndexCard title="Spring Animations" icon="star" iconColor="rgb(132, 221, 93)">
+    		<IndexCard title="Spring Animations" icon="star" iconColor="rgb(132, 221, 93)" url="/examples/usage/#spring-animations">
     			**Smooth**, customizable physics-based **animations** allow you to create the exact effect you want!
     		</IndexCard>
     	</BasicDemo>
 
     	<BasicDemo client:only="svelte" gradientColor1="rgb(86, 219, 219)" gradientColor2="rgb(0, 100, 255)" >
-    		<IndexCard title="Highly Customizable" icon="setting" iconColor="rgb(86, 219, 219)">
+    		<IndexCard title="Highly Customizable" icon="setting" iconColor="rgb(86, 219, 219)" url="/bespoke/credit-cards/">
     			Extensive props for **tilt**, **scale**, **glare**, **shadow**, and **animation** control. Even
     			allows a custom mask and blend-mode!
     		</IndexCard>

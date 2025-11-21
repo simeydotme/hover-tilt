@@ -11,14 +11,6 @@
       </div>
     </HoverTilt>
   </div>
-  <div class="gradient-wrapper">
-    <hover-tilt class="gradient-card custom-gradient" shadow scale-factor={1.1}>
-      <div class="card-surface bg-linear-to-br from-gray-400 to-gray-500">
-        <h3>Custom Gradient</h3>
-        <p>A simple custom radial gradient.</p>
-      </div>
-    </hover-tilt>
-  </div>
 
   <div class="gradient-wrapper">
     <HoverTilt class="gradient-card specular-highlight" shadow scaleFactor={1.1} glareIntensity={0.5}>
@@ -93,7 +85,7 @@
 
   :global(.specular-highlight) {
     --hover-tilt-custom-gradient: radial-gradient(
-      120% 120% at var(--gradient-x, 50%) var(--gradient-y, 50%),
+      80% 100% at var(--gradient-x, 50%) var(--gradient-y, 50%),
       rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1))) 50%,
       transparent 55%
     );
@@ -101,7 +93,7 @@
 
   :global(.aurora-sweep) {
     --hover-tilt-custom-gradient: conic-gradient(
-      from calc((var(--hover-tilt-x) + var(--hover-tilt-y)) * 90deg + 135deg) at center center,
+      from calc(var(--hover-tilt-angle, 0)) at center center,
       rgba(255, 255, 255, calc(var(--hover-tilt-glare-intensity, 1) * 0.9)),
       rgba(6, 182, 212, calc(var(--hover-tilt-glare-intensity, 1) * 0.7)),
       rgba(255, 255, 255, calc(var(--hover-tilt-glare-intensity, 1) * 0.9))

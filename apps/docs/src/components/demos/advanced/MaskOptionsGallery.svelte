@@ -14,10 +14,10 @@
     </a>
   </HoverTilt>
 
-  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
     <a href="#black--white-png" class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400" title="view the code example">
-      <h3>Black &amp; White PNG</h3>
-      <p>Linked PNG with <strong><code>luminance</code></strong> mask-mode.</p>
+      <h3>Black &amp; White Bitmap</h3>
+      <p>Linked WEBP/PNG with <strong><code>luminance</code></strong> mask-mode.</p>
     </a>
   </HoverTilt>
 

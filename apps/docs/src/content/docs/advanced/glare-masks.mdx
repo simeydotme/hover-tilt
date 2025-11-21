@@ -28,7 +28,7 @@ export const singleMaskCss = String.raw`
 .foil-card .card {
 border-radius: inherit;
 min-height: 320px;
-background: url('/pokemon/base.png') center / cover;
+background: url('/pokemon/base.webp') center / cover;
 }
 `;
 
@@ -111,14 +111,14 @@ The steps to apply a glare mask are as follows;
     <Tabs syncKey="api">
       <TabItem label="Svelte">
         ```svelte
-        <HoverTilt class="foil-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+        <HoverTilt class="foil-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
           Your content here
         </HoverTilt>
         ```
       </TabItem>
       <TabItem label="Web Component">
         ```html
-        <hover-tilt class="foil-card" glare-mask="url(/public/aztec-pattern.png)" glare-mask-mode="luminance">
+        <hover-tilt class="foil-card" glare-mask="url(/public/aztec-pattern.webp)" glare-mask-mode="luminance">
           Your content here
         </hover-tilt>
         ```
@@ -161,20 +161,20 @@ with `glareMaskMode="luminance"`.
   </hover-tilt>
 ```
 
-### Black &amp; White PNG
+### Black &amp; White WEBP
 
-Using a **black &amp; white PNG sourced from a local folder**, with `glareMaskMode="luminance"`.
+Using a **black &amp; white WEBP sourced from a local folder**, with `glareMaskMode="luminance"`.
 
 Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transparent images could be used with `glareMaskMode="alpha"`.
 
 ```html
   <!-- Svelte -->
-  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
     Your content here
   </HoverTilt>
 
   <!-- Web Component -->
-  <hover-tilt class="mask-card" glare-mask="url(/public/aztec-pattern.png)" glare-mask-mode="luminance">
+  <hover-tilt class="mask-card" glare-mask="url(/public/aztec-pattern.webp)" glare-mask-mode="luminance">
     Your content here
   </hover-tilt>
 ```

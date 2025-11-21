@@ -7,87 +7,10 @@ import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components
 import CustomShadowDemo from '@components/demos/advanced/CustomShadowDemo.svelte';
 import CustomShadowNeonDemo from '@components/demos/advanced/CustomShadowNeonDemo.svelte';
 import { cssShadowSyntax, cssShadowOpacitySyntax } from './custom-shadow.strings';
+import { simpleShadowSvelte, simpleShadowWebComponent, neonShadowSvelte, neonShadowWebComponent } from './custom-shadow.strings';
+import { steps3Svelte, steps3WebComponent, steps4Svelte, steps4WebComponent } from './custom-shadow.strings';
 import PropTable from '@components/astro/PropTable.astro';
 
-export const simpleShadowSvelte = String.raw`
-<HoverTilt class="simple-card" shadow scaleFactor={1.1} glareIntensity={0.3}>
-  <div class="demo-card">
-    Simple Custom Shadow
-  </div>
-</HoverTilt>
-
-<style>
-  /* access the .simple-card with the :global() svelte selector */
-  :global(.simple-card) {
-    /* define the custom shadow */
-    --hover-tilt-custom-shadow:
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 6px + 6px) calc(10px + var(--hover-tilt-opacity, 0) * 12px) 0px, 
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 2px + 2px) calc(2px + var(--hover-tilt-opacity, 0) * 4px) 0px;
-  }
-</style>
-
-`;
-
-export const simpleShadowWebComponent = String.raw`
-<hover-tilt class="simple-card" shadow scaleFactor={1.1} glareIntensity={0.3}>
-  <div class="demo-card">
-    Simple Custom Shadow
-  </div>
-</hover-tilt>
-
-<style>
-  /* access the .simple-card with the ::part(container) web component selector */
-  .simple-card::part(container) {
-    /* define the custom shadow */
-    --hover-tilt-custom-shadow:
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 6px + 6px) calc(10px + var(--hover-tilt-opacity, 0) * 12px) 0px, 
-      hsl(210 75% 15% / 0.4) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 2px + 2px) calc(2px + var(--hover-tilt-opacity, 0) * 4px) 0px;
-  }
-</style>
-
-`;
-
-export const neonShadowSvelte = String.raw`
-<HoverTilt class="neon-card" shadow scaleFactor={1.1} glareIntensity={0.3}>
-  <div class="demo-card">
-    Neon Underglow
-  </div>
-</HoverTilt>
-
-<style>
-  /* access the .neon-card with the :global() svelte selector */
-  :global(.neon-card) {
-    /* define the custom shadow */
-    --hover-tilt-custom-shadow: 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.41 + 0.05)) calc(var(--shadow-x) * 2px) calc(var(--shadow-y) * 4px + 1px) 0px 2px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.31 + 0.05)) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 8px + 2px) 0px 4px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.21 + 0.05)) calc(var(--shadow-x) * 6px) calc(var(--shadow-y) * 12px + 3px) 0px 6px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.11 + 0.05)) calc(var(--shadow-x) * 8px) calc(var(--shadow-y) * 16px + 4px) 0px 8px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.05 + 0.05)) calc(var(--shadow-x) * 10px) calc(var(--shadow-y) * 20px + 5px) 0px 10px;
-  }
-</style>
-
-`;
-
-export const neonShadowWebComponent = String.raw`
-<hover-tilt class="neon-card" shadow scaleFactor={1.1} glareIntensity={0.3}>
-  <div class="demo-card">
-    Neon Underglow
-  </div>
-</hover-tilt>
-
-<style>
-  .neon-card::part(container) {
-    --hover-tilt-custom-shadow: 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.41 + 0.05)) calc(var(--shadow-x) * 2px) calc(var(--shadow-y) * 4px + 1px) 0px 2px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.31 + 0.05)) calc(var(--shadow-x) * 4px) calc(var(--shadow-y) * 8px + 2px) 0px 4px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.21 + 0.05)) calc(var(--shadow-x) * 6px) calc(var(--shadow-y) * 12px + 3px) 0px 6px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.11 + 0.05)) calc(var(--shadow-x) * 8px) calc(var(--shadow-y) * 16px + 4px) 0px 8px, 
-      hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.05 + 0.05)) calc(var(--shadow-x) * 10px) calc(var(--shadow-y) * 20px + 5px) 0px 10px;
-  }
-</style>
-
-`;
 
 When the `shadow` prop is enabled, `<HoverTilt />` sets `box-shadow` on the tilt element using two CSS variables:
 
@@ -185,45 +108,40 @@ Here's a breakdown of a simple custom shadow, with each part and how it works.
 
 1. First we need to call the component and apply the `shadow` prop to enable the dynamic shadow.
 
-   ```html
-   <!-- Svelte -->
-   <HoverTilt class="simple-card" shadow> ... </HoverTilt>
-
-   <!-- Web Component -->
-   <hover-tilt class="simple-card" shadow> ... </hover-tilt>
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code lang="svelte" code={'<HoverTilt class="simple-card" shadow> ... </HoverTilt>'} />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code lang="html" code={'<hover-tilt class="simple-card" shadow> ... </hover-tilt>'} />
+     </TabItem>
+   </Tabs>
 
    This tells the component to render the shadow layer and emit the necessary CSS variables.
 
 2. Then we need to create a CSS selector to target the container of the `<HoverTilt />` component.
 
-   ```css
-   /* Svelte */
-   :global(.simple-card) {
-     /* ... */
-   }
-
-   /* Web Component */
-   .simple-card::part(container) {
-     /* ... */
-   }
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code lang="css" code={`:global(.simple-card) {/* ... */}`} />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code lang="css" code={`.simple-card::part(container) {/* ... */}`} />
+     </TabItem>
+   </Tabs>
 
    We target the container of the `<HoverTilt />` component with the `:global()` selector in Svelte, or the `::part(container)` selector in Web Component.
 
 3. Next we assign the custom shadow to the `--hover-tilt-custom-shadow` CSS variable.
 
-   ```css
-   /* Svelte */
-   :global(.simple-card) {
-     --hover-tilt-custom-shadow: /* ... */;
-   }
-
-   /* Web Component */
-   .simple-card::part(container) {
-     --hover-tilt-custom-shadow: /* ... */;
-   }
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code lang="css" code={steps3Svelte} />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code lang="css" code={steps3WebComponent} />
+     </TabItem>
+   </Tabs>
 
    This variable will be used to override the default shadow.
 
@@ -249,19 +167,14 @@ Here's a breakdown of a simple custom shadow, with each part and how it works.
 
 And so the final (basic) custom shadow implementation looks like this;
 
-```css
-/* Svelte */
-:global(.simple-card) {
-  --hover-tilt-custom-shadow: calc(var(--shadow-x) * 10px) calc(var(--shadow-y) * 10px + 5px) 5px 10px
-    hsl(0 0% 0% / calc(var(--hover-tilt-opacity, 0) * 0.5 + 0.2));
-}
-
-/* Web Component */
-.simple-card::part(container) {
-  --hover-tilt-custom-shadow: calc(var(--shadow-x) * 10px) calc(var(--shadow-y) * 10px + 5px) 5px 10px
-    hsl(0 0% 0% / calc(var(--hover-tilt-opacity, 0) * 0.5 + 0.2));
-}
-```
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    <Code lang="css" code={steps4Svelte} />
+  </TabItem>
+  <TabItem label="Web Component">
+    <Code lang="css" code={steps4WebComponent} />
+  </TabItem>
+</Tabs>
 
 This probably looks a little daunting and complex at first, but if you have experience with CSS `calc()` and `var()` functions, it should be relatively straightforward.
 

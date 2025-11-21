@@ -6,63 +6,8 @@ description: Override the default glare gradient with your own gradient implemen
 import { Tabs, TabItem, Code, Steps, Aside } from '@astrojs/starlight/components';
 import GradientShowcase from '@components/demos/advanced/GradientShowcase.svelte';
 import { showcaseCssCode, cssGradientSyntax, cssGlareIntensitySyntax } from './custom-gradient.strings';
+import { steps1Svelte, steps1WebComponent, steps3Svelte, steps3WebComponent, steps4Svelte, steps4WebComponent } from './custom-gradient.strings';
 import PropTable from '@components/astro/PropTable.astro';
-
-export const gradientSvelte = String.raw`
-<script>
-  import { HoverTilt } from 'hover-tilt';
-</script>
-
-<HoverTilt
-  class="aurora-card"
-  shadow
-  glareHue={220}
-  style="
-    --hover-tilt-custom-gradient: conic-gradient(
-      from 45deg at var(--hover-tilt-x, 50%) var(--hover-tilt-y, 50%),
-      rgba(255,255,255,0.95),
-      rgba(59,130,246,0.6),
-      rgba(14,165,233,0.4),
-      transparent 70%
-    );
-    --hover-tilt-glare-intensity: 1.4;
-  "
->
-  <div class="card"></div>
-</HoverTilt>
-`;
-
-export const gradientCss = String.raw`
-.aurora-card {
-  border-radius: 28px;
-}
-
-.aurora-card .card {
-border-radius: inherit;
-min-height: 320px;
-background: linear-gradient(130deg, rgb(15 23 42), rgb(76 29 149));
-}
-`;
-
-export const gradientWebComponent = String.raw`
-<hover-tilt
-  class="aurora-card"
-  shadow
-  glare-hue="220"
-  style="
-    --hover-tilt-custom-gradient: conic-gradient(
-      from 45deg at var(--hover-tilt-x, 50%) var(--hover-tilt-y, 50%),
-      rgba(255,255,255,0.95),
-      rgba(59,130,246,0.6),
-      rgba(14,165,233,0.4),
-      transparent 70%
-    );
-    --hover-tilt-glare-intensity: 1.4;
-  "
->
-  <div class="card"></div>
-</hover-tilt>
-`;
 
 The `<HoverTilt />` component comes with a good default glare effect, using my experience in
 designing tilting cards as a basis.
@@ -138,43 +83,47 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
 1. First we need to call the component and set a `glareIntensity` value.
 
-   ```html
-   <!-- Svelte -->
-   <HoverTilt class="simple-card" glareIntensity="{1}"> ... </HoverTilt>
-
-   <!-- Web Component -->
-   <hover-tilt class="simple-card" glare-intensity="1"> ... </hover-tilt>
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code
+         lang="svelte"
+         code={steps1Svelte}
+       />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code
+         lang="html"
+         code={steps1WebComponent}
+       />
+     </TabItem>
+   </Tabs>
 
 2. Then we need to create a CSS selector to target the container of the `<HoverTilt />` component.
 
-   ```css
-   /* Svelte */
-   :global(.simple-card) {
-     /* ... */
-   }
-
-   /* Web Component */
-   .simple-card::part(container) {
-     /* ... */
-   }
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code
+         lang="css"
+         code={`:global(.simple-card) {/* ... */}`}
+       />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code lang="css" code={`.simple-card::part(container) {/* ... */}`} />
+     </TabItem>
+   </Tabs>
 
    We target the container of the `<HoverTilt />` component with the `:global()` selector in Svelte, or the `::part(container)` selector in Web Component.
 
 3. Next we assign the custom gradient to the `--hover-tilt-custom-gradient` CSS variable.
 
-   ```css
-   /* Svelte */
-   :global(.simple-card) {
-     --hover-tilt-custom-gradient: /* ... */;
-   }
-
-   /* Web Component */
-   .simple-card::part(container) {
-     --hover-tilt-custom-gradient: /* ... */;
-   }
-   ```
+   <Tabs syncKey="api">
+     <TabItem label="Svelte">
+       <Code lang="css" code={steps3Svelte} />
+     </TabItem>
+     <TabItem label="Web Component">
+       <Code lang="css" code={steps3WebComponent} />
+     </TabItem>
+   </Tabs>
 
    This variable will be used to override the default gradient.
 
@@ -201,25 +150,14 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 
 And so the final (basic) custom gradient implementation looks like this;
 
-```css
-/* Svelte */
-:global(.simple-card) {
-  --hover-tilt-custom-gradient: radial-gradient(
-    circle at var(--gradient-x) var(--gradient-y),
-    rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
-    transparent 70%
-  );
-}
-
-/* Web Component */
-.simple-card::part(container) {
-  --hover-tilt-custom-gradient: radial-gradient(
-    circle at var(--gradient-x) var(--gradient-y),
-    rgb(255 255 255 / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 10%,
-    transparent 70%
-  );
-}
-```
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    <Code lang="css" code={steps4Svelte} />
+  </TabItem>
+  <TabItem label="Web Component">
+    <Code lang="css" code={steps4WebComponent} />
+  </TabItem>
+</Tabs>
 
 This may seem a little daunting and complex at first, but if you have experience with CSS `calc()` and `var()` functions, it should be relatively straightforward.
 

@@ -9,7 +9,6 @@
       <div class="demo-card"><code>Default</code></div>
     </HoverTilt>
   </div>
-  <br />
   <div class="demo-item">
     <h4>Fast Spring</h4>
     <HoverTilt springOptions={{ stiffness: 0.5, damping: 0.2 }}>

@@ -13,7 +13,13 @@ export default defineConfig({
     starlight({
       title: 'Hover Tilt',
       description: 'A beautiful hover tilt effect component for Svelte 5 and web components',
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/simeydotme/hover-tilt' }],
+      logo: {
+        src: './src/assets/hover-tilt.svg',
+        replacesTitle: true,
+      },
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/simeydotme/hover-tilt' },
+        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/simeydotme' },
+      ],
       sidebar: [
         {
           label: 'Getting Started',

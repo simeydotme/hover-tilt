@@ -3,7 +3,7 @@
 </script>
 
 <div class="mask-grid not-content leading-snug text-shadow-xs">
-  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.png)" glareMaskMode="luminance">
+  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
     <div class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400">
       <h3>Aztec Pattern</h3>
       <p>Single PNG mask keeps the glare inside the pattern.</p>

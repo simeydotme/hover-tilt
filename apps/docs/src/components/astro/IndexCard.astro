@@ -1,14 +1,15 @@
 ---
-import { Icon } from '@astrojs/starlight/components';
+import { Icon, LinkButton } from '@astrojs/starlight/components';
 import type { StarlightIcon } from '@astrojs/starlight/types';
 
 interface Props {
 	icon?: StarlightIcon;
 	title: string;
 	iconColor?: string;
+	url?: string;
 }
 
-const { icon, title, iconColor } = Astro.props;
+const { icon, title, iconColor, url } = Astro.props;
 ---
 
 <article class="card sl-flex">
@@ -23,7 +24,14 @@ const { icon, title, iconColor } = Astro.props;
 		)}
 		<span set:html={title} />
 	</p>
-	<div class="body"><slot /></div>
+	<div class="body">
+		<slot />
+		{url && (
+			<LinkButton href={url} variant="secondary" class="text-white p-2 px-4 pr-3" icon="right-arrow" iconPlacement='end'>
+				Learn more
+			</LinkButton>
+		)}
+	</div>
 </article>
 
 <style>
@@ -33,6 +41,7 @@ const { icon, title, iconColor } = Astro.props;
 			--sl-card-bg: var(--sl-color-purple-low);
 			gap: clamp(0.5rem, calc(0.125rem + 1vw), 1rem);
 			flex-direction: column;
+			padding-top: 2rem;
 		}
 		.card:nth-child(4n + 1) {
 			--sl-card-border: var(--sl-color-orange);
