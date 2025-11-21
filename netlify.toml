@@ -1,0 +1,9 @@
+[build]
+  base = "/"
+  publish = "apps/docs/dist"
+  command = "pnpm --filter ./apps/docs build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "10"
+
