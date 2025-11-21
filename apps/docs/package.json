@@ -1,7 +1,7 @@
 {
   "name": "",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "predev": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",

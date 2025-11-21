@@ -1,6 +1,6 @@
 {
   "name": "hover-tilt",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "build": "pnpm prepack && rollup -c",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "prepack": "svelte-kit sync && svelte-package && publint",
+    "prepack": "svelte-kit sync && svelte-package && rollup -c && publint",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
@@ -37,15 +37,12 @@
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": [
-      {
-        "types": "./dist/index.d.ts",
-        "svelte": "./dist/index.js",
-        "import": "./dist/index.js",
-        "default": "./dist/index.js"
-      },
-      "./dist/index.js"
-    ],
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
     "./web-component": "./dist/hover-tilt.js",
     "./types": {
       "types": "./dist/types.d.ts",
