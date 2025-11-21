@@ -151,7 +151,7 @@ Here's a look at the internal structure of the rendered component;
 
 `<HoverTilt />` mirrors its internal properties into CSS variables so you can style content,
 gradients, or additional layers without writing extra JavaScript. These values are emitted on the
-container element (or `::part(container)` in the web component).
+container element (or `::part(container)` in the Web Component).
 
 <Aside type="tip">
   When used as a **Web Component**, the variables are [exposed via `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your slotted content.
@@ -226,7 +226,7 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
 <Tabs syncKey="api">
 
   <TabItem label="Svelte">
-    The Svelte component exposes a `class` prop on the container. And the 
+    The Svelte Component exposes a `class` prop on the container. And the 
     `tilt` and `::before` elements both inherit the `border-radius` of the container.
 
     So as long as we apply the same `border-radius` to the container as the content,

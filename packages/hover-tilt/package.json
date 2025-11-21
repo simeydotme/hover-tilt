@@ -1,7 +1,7 @@
 {
   "name": "hover-tilt",
-  "version": "0.0.1",
-  "description": "A beautiful hover tilt effect component for Svelte 5, available as both a Svelte component and web component",
+  "version": "0.1.0",
+  "description": "A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/simeydotme/hover-tilt.git"

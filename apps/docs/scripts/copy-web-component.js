@@ -19,6 +19,6 @@ try {
   copyFileSync(sourceFile, destFile);
   console.log(`✓ Copied ${sourceFile} to ${destFile}`);
 } catch (error) {
-  console.error('Error copying web component file:', error.message);
+  console.error('Error copying Web Component file:', error.message);
   process.exit(1);
 }

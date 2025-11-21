@@ -1,10 +1,10 @@
 # Svelte Hover Tilt
 
-A beautiful hover tilt effect component for Svelte 5, available as both a Svelte component and web component.
+A beautiful hover tilt effect component for Svelte 5, available as both a Svelte Component and Web Component.
 
 ## Features
 
-- **Svelte 5 Component** - Native Svelte component with full TypeScript support
+- **Svelte 5 Component** - Native Svelte Component with full TypeScript support
 - **Web Component** - Use it in any framework or vanilla HTML
 - **Spring Animations** - Smooth, physics-based animations using Svelte's spring store
 - **Customizable** - Extensive props for tilt, scale, glare, shadow, and more
@@ -52,7 +52,6 @@ yarn add hover-tilt
 ## Documentation
 
 - **[Full Documentation](https://simeydotme.github.io/hover-tilt)** - Complete API reference and examples
-- **[Storybook](apps/storybook)** - Interactive component playground
 
 ## Monorepo Structure
 
@@ -60,7 +59,6 @@ This repository is a monorepo containing:
 
 - **`packages/hover-tilt`** - The main library package
 - **`apps/docs`** - Documentation site built with Astro + Starlight
-- **`apps/storybook`** - Storybook for component development and testing
 
 ## Development
 
@@ -84,7 +82,7 @@ pnpm install
 # Run dev server for packages only (library)
 pnpm dev
 
-# Run dev servers for all packages and apps (library, docs, storybook)
+# Run dev servers for all packages and apps (library, docs)
 pnpm dev:all
 ```
 
@@ -138,9 +136,6 @@ pnpm --filter hover-tilt dev
 
 # Documentation
 pnpm --filter ./apps/docs dev
-
-# Storybook
-pnpm --filter ./apps/storybook dev
 ```
 
 ## Contributing

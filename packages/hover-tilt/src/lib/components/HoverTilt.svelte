@@ -278,7 +278,7 @@
   style={`${styleVariables} ${staticVariables} ${containerStyle}`}
 >
   {#if isWebComponent}
-    <!-- only render the slotted styles if the component is a web component, 
+    <!-- only render the slotted styles if the component is a Web Component, 
         this is a performance concern in Svelte Components -->
     {@html slottedStyles}
   {/if}

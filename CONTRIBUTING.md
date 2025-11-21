@@ -31,8 +31,7 @@ pnpm install
 ├── packages/
 │   └── hover-tilt/            # Main library package
 ├── apps/
-│   ├── docs/                   # Starlight-powered documentation site
-│   └── storybook/              # Storybook for component testing
+│   └── docs/                   # Starlight-powered documentation site
 ```
 
 ## Running Packages
@@ -63,16 +62,6 @@ pnpm --filter ./apps/docs dev
 pnpm --filter ./apps/docs build
 ```
 
-### Storybook
-
-```bash
-# Development mode
-pnpm --filter ./apps/storybook dev
-
-# Build
-pnpm --filter ./apps/storybook build
-```
-
 ### Root Scripts
 
 You can also run scripts across all packages from the root:
@@ -91,37 +80,7 @@ pnpm lint
 pnpm format
 ```
 
-## Adding New Stories/Examples
-
-### Storybook
-
-Stories are located in `apps/storybook/src/`. To add a new story:
-
-1. Create or edit a `.stories.ts` file in `apps/storybook/src/`
-2. Use CSF3 format (Component Story Format 3)
-3. Export stories with different prop combinations
-
-Example:
-```typescript
-import type { Meta, StoryObj } from '@storybook/svelte';
-import HoverTilt from 'hover-tilt';
-
-const meta = {
-	title: 'Components/HoverTilt',
-	component: HoverTilt,
-	tags: ['autodocs']
-} satisfies Meta<HoverTilt>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const MyNewStory: Story = {
-	args: {
-		tiltFactor: 2,
-		scaleFactor: 1.2
-	}
-};
-```
+## Adding New Examples
 
 ### Documentation Examples
 
@@ -146,7 +105,6 @@ Pre-commit hooks are configured to run linting before commits. Make sure your co
 
 Currently, we rely on:
 - Type checking with `svelte-check`
-- Manual testing via Storybook
 - Visual testing in the documentation site
 
 ## Pull Request Process
@@ -163,7 +121,6 @@ Currently, we rely on:
 - [ ] Type checking passes (`pnpm check`)
 - [ ] All packages build successfully (`pnpm build`)
 - [ ] Documentation is updated if needed
-- [ ] Storybook examples are added/updated if adding new features
 
 ## Questions?
 

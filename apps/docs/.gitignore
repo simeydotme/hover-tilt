@@ -3,7 +3,7 @@ dist/
 # generated types
 .astro/
 
-# generated web component (copied from packages/hover-tilt/dist)
+# generated Web Component (copied from packages/hover-tilt/dist)
 public/hover-tilt.js
 
 # dependencies

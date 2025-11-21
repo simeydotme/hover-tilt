@@ -25,7 +25,7 @@ export const simpleShadowWebComponent = String.raw`
 </hover-tilt>
 
 <style>
-  /* access the .simple-card with the ::part(container) web component selector */
+  /* access the .simple-card with the ::part(container) Web Component selector */
   .simple-card::part(container) {
     /* define the custom shadow */
     --hover-tilt-custom-shadow:

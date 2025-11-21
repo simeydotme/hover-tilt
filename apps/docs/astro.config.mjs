@@ -12,7 +12,7 @@ export default defineConfig({
     svelte(),
     starlight({
       title: 'Hover Tilt',
-      description: 'A beautiful hover tilt effect component for Svelte 5 and web components',
+      description: 'A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component',
       logo: {
         src: './src/assets/hover-tilt.svg',
         replacesTitle: true,
