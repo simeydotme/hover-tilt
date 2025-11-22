@@ -212,8 +212,13 @@
   const rotationX = $derived(ROTATION * tiltFactor);
   const rotationY = $derived(ROTATION * (tiltFactorY ?? tiltFactor));
 
-  // store the style variables so can use them for both the shadow-dom and the slotted elements
-  const styleVariables = $derived(`
+  // Unique identifier for scoping styles in regular Svelte components
+  // This prevents style leakage when using {@html} to inject style blocks
+  // Set only on client to avoid hydration mismatches
+  let componentId = $state<string | null>(null);
+
+  // Dynamic Properties - change every frame during animation
+  const dynamicStyleVariables = $derived(`
     --hover-tilt-x: ${position.current.x};
     --hover-tilt-y: ${position.current.y};
     --hover-tilt-opacity: ${opacity};
@@ -223,16 +228,23 @@
     --hover-tilt-angle: ${pointerState.angle}deg;
     --hover-tilt-from-center: ${pointerState.distance}px;
     --hover-tilt-at-edge: ${pointerState.edge};
+  `);
+
+  // Input properties - derived from props but don't change during animation
+  // These can't be updated with the dynamic properties, or browsers will re-fetch mask images
+  // Uses $derived so it updates when props change, but not during animation
+  const inputProperties = $derived(`
     --hover-tilt-shadow-blur: ${shadowBlur ?? 12};
     --hover-tilt-blend-mode: ${blendMode ?? 'overlay'};
     --hover-tilt-glare-intensity: ${glareIntensity};
     --hover-tilt-glare-hue: ${glareHue};
-    --hover-tilt-glare-mask: ${glareMask ?? 'none'};
-    --hover-tilt-glare-mask-mode: ${glareMaskMode ?? 'match-source'};
-    --hover-tilt-glare-mask-composite: ${glareMaskComposite ?? 'add'};
+    ${glareMask ? `--hover-tilt-glare-mask: ${glareMask};` : ''}
+    ${glareMaskMode ? `--hover-tilt-glare-mask-mode: ${glareMaskMode};` : ''}
+    ${glareMaskComposite ? `--hover-tilt-glare-mask-composite: ${glareMaskComposite};` : ''}
   `);
 
-  const staticVariables = `
+  // Static properties - calc'd variables that don't change
+  const staticProperties = `
     --shadow-x: calc(var(--hover-tilt-x, 0) * 2 - 1);
     --shadow-y: calc(var(--hover-tilt-y, 0) * 2 - 1);
     --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
@@ -242,11 +254,33 @@
     --rotation-y: calc( (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg) );
   `;
 
-  const slottedStyles = $derived(`
+  // Combined style block for container - includes only input properties
+  // Static properties (calc'd variables) are applied inline so they can reference dynamic variables
+  // Uses :host for web components (shadow DOM scoped) and unique id for regular Svelte components
+  const containerStaticStyles = $derived(`
+    <style>
+      :host${componentId ? `, #${componentId}` : ''} {
+        ${inputProperties}
+      }
+    </style>
+  `);
+
+  // Slotted styles for web components - includes input and static, but dynamic goes inline
+  // Uses $derived so it updates when props change, but not during animation
+  const slottedStaticStyles = $derived(`
     <style>
       ::slotted(*) {
-        ${styleVariables}
-        ${staticVariables}
+        ${inputProperties}
+        ${staticProperties}
+      }
+    </style>
+  `);
+
+  // Dynamic slotted styles - only the frame-by-frame changing variables
+  const slottedDynamicStyles = $derived(`
+    <style>
+      ::slotted(*) {
+        ${dynamicStyleVariables}
       }
     </style>
   `);
@@ -267,20 +301,27 @@
   let isWebComponent = $state(false);
   onMount(() => {
     isWebComponent = !!(container?.parentNode instanceof ShadowRoot);
+    // Generate ID only on client to avoid hydration mismatches
+    if (!isWebComponent && !componentId) {
+      componentId = `hover-tilt-${Math.random().toString(36).substring(2, 9)}`;
+    }
   });
 </script>
 
 <div
   bind:this={container}
+  id={componentId ?? undefined}
   part="container"
   data-is-active={activation.current >= 0.1}
   class="hover-tilt-container {containerClass}"
-  style={`${styleVariables} ${staticVariables} ${containerStyle}`}
+  style={`${dynamicStyleVariables} ${staticProperties} ${containerStyle}`}
 >
+  {@html containerStaticStyles}
   {#if isWebComponent}
     <!-- only render the slotted styles if the component is a Web Component, 
         this is a performance concern in Svelte Components -->
-    {@html slottedStyles}
+    {@html slottedStaticStyles}
+    {@html slottedDynamicStyles}
   {/if}
 
   <div
@@ -329,6 +370,10 @@
       mix-blend-mode: var(--hover-tilt-blend-mode, overlay);
       opacity: var(--hover-tilt-opacity, 0);
       will-change: opacity, background-image;
+      /* Safari fixes: prevent flickering and ensure proper rendering during transforms */
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      isolation: isolate;
     }
 
     .hover-tilt-shadow {
@@ -345,9 +390,21 @@
 
     .hover-tilt-glare-mask::before {
       mask-image: var(--hover-tilt-glare-mask, none);
+      /* Safari fix: ensure mask-size is calculated correctly on transformed elements */
+      /* Use both standard and webkit prefix for better Safari support */
+      -webkit-mask-size: cover;
       mask-size: cover;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-mode: var(--hover-tilt-glare-mask-mode, match-source);
       mask-mode: var(--hover-tilt-glare-mask-mode, match-source);
+      -webkit-mask-composite: var(--hover-tilt-glare-mask-composite, add);
       mask-composite: var(--hover-tilt-glare-mask-composite, add);
+      /* Force Safari to recalculate mask relative to pseudo-element, not transformed parent */
+      width: 100%;
+      height: 100%;
     }
   }
 </style>

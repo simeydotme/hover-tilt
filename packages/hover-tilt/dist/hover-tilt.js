@@ -12,6 +12,9 @@ const PROPS_IS_UPDATED = 1 << 2;
 const PROPS_IS_BINDABLE = 1 << 3;
 const PROPS_IS_LAZY_INITIAL = 1 << 4;
 
+const TEMPLATE_FRAGMENT = 1;
+const TEMPLATE_USE_IMPORT_NODE = 1 << 1;
+
 const HYDRATION_START = '[';
 /** used to indicate that an `{:else}...` block was rendered */
 const HYDRATION_START_ELSE = '[!';
@@ -118,6 +121,7 @@ const ERROR_VALUE = 1 << 23;
 
 const STATE_SYMBOL = Symbol('$state');
 const LEGACY_PROPS = Symbol('legacy props');
+const LOADING_ATTR_SYMBOL = Symbol('');
 
 /** allow users to ignore aborted signal errors if `reason.name === 'StaleReactionError` */
 const STALE_REACTION = new (class StaleReactionError extends Error {
@@ -4221,6 +4225,8 @@ function assign_nodes(start, end) {
  */
 /*#__NO_SIDE_EFFECTS__*/
 function from_html(content, flags) {
+	var is_fragment = (flags & TEMPLATE_FRAGMENT) !== 0;
+	var use_import_node = (flags & TEMPLATE_USE_IMPORT_NODE) !== 0;
 
 	/** @type {Node} */
 	var node;
@@ -4239,39 +4245,24 @@ function from_html(content, flags) {
 
 		if (node === undefined) {
 			node = create_fragment_from_html(has_start ? content : '<!>' + content);
-			node = /** @type {Node} */ (get_first_child(node));
+			if (!is_fragment) node = /** @type {Node} */ (get_first_child(node));
 		}
 
 		var clone = /** @type {TemplateNode} */ (
-			is_firefox ? document.importNode(node, true) : node.cloneNode(true)
+			use_import_node || is_firefox ? document.importNode(node, true) : node.cloneNode(true)
 		);
 
-		{
+		if (is_fragment) {
+			var start = /** @type {TemplateNode} */ (get_first_child(clone));
+			var end = /** @type {TemplateNode} */ (clone.lastChild);
+
+			assign_nodes(start, end);
+		} else {
 			assign_nodes(clone, clone);
 		}
 
 		return clone;
 	};
-}
-
-/**
- * @returns {TemplateNode | DocumentFragment}
- */
-function comment() {
-	// we're not delegating to `template` here for performance reasons
-	if (hydrating) {
-		assign_nodes(hydrate_node, null);
-		return hydrate_node;
-	}
-
-	var frag = document.createDocumentFragment();
-	var start = document.createComment('');
-	var anchor = create_text();
-	frag.append(start, anchor);
-
-	assign_nodes(start, anchor);
-
-	return frag;
 }
 
 /**
@@ -5132,9 +5123,27 @@ function set_attribute(element, attribute, value, skip_warning) {
 
 	if (hydrating) {
 		attributes[attribute] = element.getAttribute(attribute);
+
+		if (
+			attribute === 'src' ||
+			attribute === 'srcset' ||
+			(attribute === 'href' && element.nodeName === 'LINK')
+		) {
+
+			// If we reset these attributes, they would result in another network request, which we want to avoid.
+			// We assume they are the same between client and server as checking if they are equal is expensive
+			// (we can't just compare the strings as they can be different between client and server but result in the
+			// same url, so we would need to create hidden anchor elements to compare them)
+			return;
+		}
 	}
 
 	if (attributes[attribute] === (attributes[attribute] = value)) return;
+
+	if (attribute === 'loading') {
+		// @ts-expect-error
+		element[LOADING_ATTR_SYMBOL] = value;
+	}
 
 	if (value == null) {
 		element.removeAttribute(attribute);
@@ -6309,11 +6318,12 @@ var closenessToEdge = function (half, dx, dy) {
     return clamp(1 / Math.min(kx, ky), 0, 1);
 };
 
-var root = from_html(`<div part="container"><!> <div part="tilt"><!></div></div>`);
+var root_1 = from_html(`<!> <!>`, 1);
+var root = from_html(`<div part="container"><!> <!> <div part="tilt"><!></div></div>`);
 
 const $$css = {
 	hash: 'svelte-1g9r0vt',
-	code: '\n  @layer components {.hover-tilt-container.svelte-1g9r0vt {\n      /* perspective defaults to 600px, but can be overridden on the container element */perspective:600px;}.hover-tilt.svelte-1g9r0vt {--hover-tilt-default-gradient: radial-gradient(\n        farthest-corner circle at var(--gradient-x) var(--gradient-y),\n        lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n        lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n        lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n      );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y));will-change:transform;image-rendering:optimizeQuality;text-rendering:optimizeLegibility;}.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:opacity, background-image;}.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);\n      /* prettier-ignore */--hover-tilt-default-shadow: \n        calc(var(--shadow-x) * var(--shadow-blur-1)) calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2) calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n        calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));will-change:box-shadow;}.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);mask-size:cover;mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-composite:var(--hover-tilt-glare-mask-composite, add);}\n  }'
+	code: '\n  @layer components {.hover-tilt-container.svelte-1g9r0vt {\n      /* perspective defaults to 600px, but can be overridden on the container element */perspective:600px;}.hover-tilt.svelte-1g9r0vt {--hover-tilt-default-gradient: radial-gradient(\n        farthest-corner circle at var(--gradient-x) var(--gradient-y),\n        lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n        lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n        lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n      );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y));will-change:transform;image-rendering:optimizeQuality;text-rendering:optimizeLegibility;}.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:opacity, background-image;\n      /* Safari fixes: prevent flickering and ensure proper rendering during transforms */transform:translateZ(0);backface-visibility:hidden;isolation:isolate;}.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);\n      /* prettier-ignore */--hover-tilt-default-shadow: \n        calc(var(--shadow-x) * var(--shadow-blur-1)) calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2) calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n        calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));will-change:box-shadow;}.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);\n      /* Safari fix: ensure mask-size is calculated correctly on transformed elements */\n      /* Use both standard and webkit prefix for better Safari support */-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-mode:var(--hover-tilt-glare-mask-mode, match-source);-webkit-mask-composite:var(--hover-tilt-glare-mask-composite, add);mask-composite:var(--hover-tilt-glare-mask-composite, add);\n      /* Force Safari to recalculate mask relative to pseudo-element, not transformed parent */width:100%;height:100%;}\n  }'
 };
 
 function HoverTilt($$anchor, $$props) {
@@ -6505,8 +6515,13 @@ function HoverTilt($$anchor, $$props) {
 	const rotationX = user_derived(() => ROTATION * tiltFactor());
 	const rotationY = user_derived(() => ROTATION * (tiltFactorY() ?? tiltFactor()));
 
-	// store the style variables so can use them for both the shadow-dom and the slotted elements
-	const styleVariables = user_derived(() => `
+	// Unique identifier for scoping styles in regular Svelte components
+	// This prevents style leakage when using {@html} to inject style blocks
+	// Set only on client to avoid hydration mismatches
+	let componentId = state(null);
+
+	// Dynamic Properties - change every frame during animation
+	const dynamicStyleVariables = user_derived(() => `
     --hover-tilt-x: ${position.current.x};
     --hover-tilt-y: ${position.current.y};
     --hover-tilt-opacity: ${get(opacity)};
@@ -6516,16 +6531,27 @@ function HoverTilt($$anchor, $$props) {
     --hover-tilt-angle: ${get(pointerState).angle}deg;
     --hover-tilt-from-center: ${get(pointerState).distance}px;
     --hover-tilt-at-edge: ${get(pointerState).edge};
+  `);
+
+	// Input properties - derived from props but don't change during animation
+	// These can't be updated with the dynamic properties, or browsers will re-fetch mask images
+	// Uses $derived so it updates when props change, but not during animation
+	const inputProperties = user_derived(() => `
     --hover-tilt-shadow-blur: ${shadowBlur() ?? 12};
     --hover-tilt-blend-mode: ${blendMode() ?? 'overlay'};
     --hover-tilt-glare-intensity: ${glareIntensity()};
     --hover-tilt-glare-hue: ${glareHue()};
-    --hover-tilt-glare-mask: ${glareMask() ?? 'none'};
-    --hover-tilt-glare-mask-mode: ${glareMaskMode() ?? 'match-source'};
-    --hover-tilt-glare-mask-composite: ${glareMaskComposite() ?? 'add'};
+    ${glareMask() ? `--hover-tilt-glare-mask: ${glareMask()};` : ''}
+    ${glareMaskMode()
+		? `--hover-tilt-glare-mask-mode: ${glareMaskMode()};`
+		: ''}
+    ${glareMaskComposite()
+		? `--hover-tilt-glare-mask-composite: ${glareMaskComposite()};`
+		: ''}
   `);
 
-	const staticVariables = `
+	// Static properties - calc'd variables that don't change
+	const staticProperties = `
     --shadow-x: calc(var(--hover-tilt-x, 0) * 2 - 1);
     --shadow-y: calc(var(--hover-tilt-y, 0) * 2 - 1);
     --gradient-x: calc(var(--hover-tilt-x, 0.5) * 100%);
@@ -6535,11 +6561,33 @@ function HoverTilt($$anchor, $$props) {
     --rotation-y: calc( (1 - var(--hover-tilt-x, 0)) * var(--hover-tilt-rotation-x, 20deg) * 2 - var(--hover-tilt-rotation-x, 20deg) );
   `;
 
-	const slottedStyles = user_derived(() => `
+	// Combined style block for container - includes only input properties
+	// Static properties (calc'd variables) are applied inline so they can reference dynamic variables
+	// Uses :host for web components (shadow DOM scoped) and unique id for regular Svelte components
+	const containerStaticStyles = user_derived(() => `
+    <style>
+      :host${get(componentId) ? `, #${get(componentId)}` : ''} {
+        ${get(inputProperties)}
+      }
+    </style>
+  `);
+
+	// Slotted styles for web components - includes input and static, but dynamic goes inline
+	// Uses $derived so it updates when props change, but not during animation
+	const slottedStaticStyles = user_derived(() => `
     <style>
       ::slotted(*) {
-        ${get(styleVariables)}
-        ${staticVariables}
+        ${get(inputProperties)}
+        ${staticProperties}
+      }
+    </style>
+  `);
+
+	// Dynamic slotted styles - only the frame-by-frame changing variables
+	const slottedDynamicStyles = user_derived(() => `
+    <style>
+      ::slotted(*) {
+        ${get(dynamicStyleVariables)}
       }
     </style>
   `);
@@ -6561,6 +6609,11 @@ function HoverTilt($$anchor, $$props) {
 
 	onMount(() => {
 		set(isWebComponent, !!(container?.parentNode instanceof ShadowRoot));
+
+		// Generate ID only on client to avoid hydration mismatches
+		if (!get(isWebComponent) && !get(componentId)) {
+			set(componentId, `hover-tilt-${Math.random().toString(36).substring(2, 9)}`);
+		}
 	});
 
 	var $$exports = {
@@ -6721,36 +6774,45 @@ function HoverTilt($$anchor, $$props) {
 	var div = root();
 	var node_1 = child(div);
 
+	html(node_1, () => get(containerStaticStyles));
+
+	var node_2 = sibling(node_1, 2);
+
 	{
 		var consequent = ($$anchor) => {
-			var fragment = comment();
-			var node_2 = first_child(fragment);
+			var fragment = root_1();
+			var node_3 = first_child(fragment);
 
-			html(node_2, () => get(slottedStyles));
+			html(node_3, () => get(slottedStaticStyles));
+
+			var node_4 = sibling(node_3, 2);
+
+			html(node_4, () => get(slottedDynamicStyles));
 			append($$anchor, fragment);
 		};
 
-		if_block(node_1, ($$render) => {
+		if_block(node_2, ($$render) => {
 			if (get(isWebComponent)) $$render(consequent);
 		});
 	}
 
-	var div_1 = sibling(node_1, 2);
+	var div_1 = sibling(node_2, 2);
 	let classes;
 
 	div_1.__pointermove = handlePointerMove;
 
-	var node_3 = child(div_1);
+	var node_5 = child(div_1);
 
-	slot(node_3, $$props, 'default', {});
+	slot(node_5, $$props, 'default', {});
 	reset(div_1);
 	reset(div);
 	bind_this(div, ($$value) => container = $$value, () => container);
 
 	template_effect(() => {
+		set_attribute(div, 'id', get(componentId) ?? undefined);
 		set_attribute(div, 'data-is-active', activation.current >= 0.1);
 		set_class(div, 1, `hover-tilt-container ${containerClass() ?? ''}`, 'svelte-1g9r0vt');
-		set_style(div, `${get(styleVariables)} ${staticVariables} ${containerStyle()}`);
+		set_style(div, `${get(dynamicStyleVariables)} ${staticProperties} ${containerStyle()}`);
 
 		classes = set_class(div_1, 1, 'hover-tilt svelte-1g9r0vt', null, classes, {
 			'hover-tilt-shadow': shadow(),

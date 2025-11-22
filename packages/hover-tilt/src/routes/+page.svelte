@@ -20,6 +20,7 @@
     exitDelay={500}
     shadow
     blendMode="plus-lighter"
+    glareMaskMode="luminance"
     glareMask="url(https://cdn.malie.io/file/malie-io/tcgl/cards/png/en/me1/me1_en_169_std.foil.png)"
   >
     <div class="aspect-[0.718] w-90 rounded-[inherit]">
