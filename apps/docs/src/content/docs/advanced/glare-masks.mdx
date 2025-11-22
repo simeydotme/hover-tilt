@@ -111,14 +111,14 @@ The steps to apply a glare mask are as follows;
     <Tabs syncKey="api">
       <TabItem label="Svelte">
         ```svelte
-        <HoverTilt class="foil-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
+        <HoverTilt class="foil-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
           Your content here
         </HoverTilt>
         ```
       </TabItem>
       <TabItem label="Web Component">
         ```html
-        <hover-tilt class="foil-card" glare-mask="url(/public/aztec-pattern.webp)" glare-mask-mode="luminance">
+        <hover-tilt class="foil-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
           Your content here
         </hover-tilt>
         ```
@@ -169,12 +169,12 @@ Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transp
 
 ```html
 <!-- Svelte -->
-<HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
+<HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
   Your content here
 </HoverTilt>
 
 <!-- Web Component -->
-<hover-tilt class="mask-card" glare-mask="url(/public/aztec-pattern.webp)" glare-mask-mode="luminance">
+<hover-tilt class="mask-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
   Your content here
 </hover-tilt>
 ```
@@ -187,12 +187,10 @@ Just like the locally sourced PNG, except the SVG has a transparent background a
 
 ```html
 <!-- Svelte -->
-<HoverTilt class="mask-card" glareMask="url(/public/circuit-board.svg)" glareMaskMode="alpha">
-  Your content here
-</HoverTilt>
+<HoverTilt class="mask-card" glareMask="url(/circuit-board.svg)" glareMaskMode="alpha"> Your content here </HoverTilt>
 
 <!-- Web Component -->
-<hover-tilt class="mask-card" glare-mask="url(/public/circuit-board.svg)" glare-mask-mode="alpha">
+<hover-tilt class="mask-card" glare-mask="url(/circuit-board.svg)" glare-mask-mode="alpha">
   Your content here
 </hover-tilt>
 ```

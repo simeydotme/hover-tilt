@@ -18,7 +18,7 @@
     </a>
   </HoverTilt>
 
-  <HoverTilt class="mask-card" glareMask="url(/public/aztec-pattern.webp)" glareMaskMode="luminance">
+  <HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
     <a
       href="#black--white-png"
       class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400"
@@ -29,7 +29,7 @@
     </a>
   </HoverTilt>
 
-  <HoverTilt class="mask-card" glareMask="url(/public/circuit-board.svg)" glareMaskMode="alpha">
+  <HoverTilt class="mask-card" glareMask="url(/circuit-board.svg)" glareMaskMode="alpha">
     <a
       href="#transparent-svg"
       class="card-surface bg-linear-to-br from-orange-300 to-rose-400"
