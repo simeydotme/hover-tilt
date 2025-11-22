@@ -52,7 +52,9 @@
   </HoverTilt>
 </div>
 
-<svg width="0" height="0" aria-hidden="true" focusable="false">
+<!-- SVG must be in document scope (not inside component) for Safari compatibility -->
+<!-- Safari has limitations with url(#id) fragment identifiers in mask-image -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute;">
   <defs>
     <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
       <rect x="0" y="0" width="24" height="24" />

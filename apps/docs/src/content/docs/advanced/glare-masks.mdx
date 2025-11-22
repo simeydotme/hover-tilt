@@ -202,6 +202,11 @@ Using an **SVG mask definition referenced by ID**, with `glareMaskMode="alpha"`.
 Here we first define the mask in an inline SVG definition, and then reference it using `url(#mask)`.
 See [MDN's guide on SVG masks](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask) for more information.
 
+<Aside type="caution" title="Safari Limitations">
+  Safari has known issues with SVG fragment identifiers in mask-image. This will not work, consider using an inline svg,
+  or a linked svg.
+</Aside>
+
 ```html
 <!-- SVG Inline Definition -->
 <svg width="0" height="0" aria-hidden="true" focusable="false">
