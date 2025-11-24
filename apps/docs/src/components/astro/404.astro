@@ -1,0 +1,24 @@
+---
+import BasicDemo from '@components/demos/BasicDemo.svelte';
+---
+
+<section class="flex items-center justify-center">
+  <BasicDemo
+    client:only="svelte"
+    gradientColor1="grey"
+    gradientColor2="coral"
+    textColor="white"
+    containerClass="w-[min(90%,600px)]"
+  >
+    <h1 class="text-[clamp(2rem,10vw,4rem)] mb-0 leading-none">404</h1>
+    <p class="text-[clamp(1rem,5vw,2rem)] m-0 leading-none">Page not found.</p>
+  </BasicDemo>
+</section>
+
+<style lang="postcss">
+  @reference "tailwindcss";
+  :global(main .hero, main footer) {
+    @apply sr-only;
+  }
+  
+</style>

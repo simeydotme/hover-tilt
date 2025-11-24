@@ -339,11 +339,19 @@
 
 <style>
   @layer components {
+    /* the container element */
     .hover-tilt-container {
       /* perspective defaults to 600px, but can be overridden on the container element */
       perspective: 600px;
+      transform: translate3d(0, 0, 0.01px);
+      transform-style: preserve-3d;
+      isolation: isolate;
+      will-change: transform;
+      /* prevent pinch/double-tap zooms on card */
+      touch-action: none;
     }
 
+    /* the main tilt element */
     .hover-tilt {
       --hover-tilt-default-gradient: radial-gradient(
         farthest-corner circle at var(--gradient-x) var(--gradient-y),
@@ -354,12 +362,13 @@
 
       position: relative;
       border-radius: inherit;
-      transform: scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y));
-      will-change: transform;
-      image-rendering: optimizeQuality;
-      text-rendering: optimizeLegibility;
+      transform: scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y)) translate3d(0, 0, 0.01px);
+      transform-style: preserve-3d;
+      will-change: transform, box-shadow, mask, opacity;
+      image-rendering: smooth;
     }
 
+    /* the gradient glare layer */
     .hover-tilt::before {
       content: '';
       position: absolute;
@@ -370,12 +379,12 @@
       mix-blend-mode: var(--hover-tilt-blend-mode, overlay);
       opacity: var(--hover-tilt-opacity, 0);
       will-change: opacity, background-image;
-      /* Safari fixes: prevent flickering and ensure proper rendering during transforms */
       transform: translateZ(0);
       backface-visibility: hidden;
       isolation: isolate;
     }
 
+    /* the tilt layer with shadow applied */
     .hover-tilt-shadow {
       --shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);
       --shadow-blur-2: calc(var(--shadow-blur-1) / 2);
@@ -385,26 +394,16 @@
         calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));
 
       box-shadow: var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));
-      will-change: box-shadow;
     }
 
+    /* the tilt layer with glare mask applied */
     .hover-tilt-glare-mask::before {
       mask-image: var(--hover-tilt-glare-mask, none);
-      /* Safari fix: ensure mask-size is calculated correctly on transformed elements */
-      /* Use both standard and webkit prefix for better Safari support */
-      -webkit-mask-size: cover;
       mask-size: cover;
-      -webkit-mask-position: center;
       mask-position: center;
-      -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
-      -webkit-mask-mode: var(--hover-tilt-glare-mask-mode, match-source);
       mask-mode: var(--hover-tilt-glare-mask-mode, match-source);
-      -webkit-mask-composite: var(--hover-tilt-glare-mask-composite, add);
       mask-composite: var(--hover-tilt-glare-mask-composite, add);
-      /* Force Safari to recalculate mask relative to pseudo-element, not transformed parent */
-      width: 100%;
-      height: 100%;
     }
   }
 </style>

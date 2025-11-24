@@ -8,6 +8,8 @@ import catppuccin from '@catppuccin/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://hover-tilt.simey.me',
+
   integrations: [
     svelte(),
     starlight({
@@ -21,6 +23,9 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/simeydotme/hover-tilt' },
         { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/simeydotme' }
       ],
+      editLink: {
+        baseUrl: 'https://github.com/simeydotme/hover-tilt/edit/main/apps/docs/'
+      },
       sidebar: [
         {
           label: 'Getting Started',

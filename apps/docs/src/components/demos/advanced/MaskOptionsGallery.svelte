@@ -57,8 +57,13 @@
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute;">
   <defs>
     <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
-      <rect x="0" y="0" width="24" height="24" />
-      <polygon fill="white" fill-rule="evenodd" points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4" />
+      <rect x="0" y="0" width="24" height="24" fill="transparent" />
+      <polygon
+        fill="white"
+        fill-rule="evenodd"
+        points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4"
+        transform="translate(8,8)"
+      />
     </pattern>
     <mask id="mask">
       <rect x="0" y="0" width="500" height="500" fill="url(#pattern)"></rect>

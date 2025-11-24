@@ -1,7 +1,19 @@
+import fs from 'fs';
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+
+// banner to be added to the top of each generated file
+const banner = `/**
+ * ${pkg.name} ~ ${pkg.version}
+ * ${pkg.description || ''}
+ * ${pkg.homepage ? `Project home: ${pkg.homepage}` : ''}
+ * © ${new Date().getFullYear()} ${pkg.author} ~ ${pkg.license} License
+ * Published: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}
+ */`;
 
 export default {
   input: 'src/lib/index.ts',
@@ -9,7 +21,8 @@ export default {
     {
       file: 'dist/hover-tilt.js',
       format: 'es',
-      sourcemap: true
+      sourcemap: true,
+      banner: banner
     }
   ],
   onwarn(warning, warn) {

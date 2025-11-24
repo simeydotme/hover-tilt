@@ -95,7 +95,12 @@ The steps to apply a glare mask are as follows;
 
 </Steps>
 
-<Aside type="caution" title="CORS matters">
+<Aside type="caution" title="Safari Limitations">
+  Safari has a bug with `luminance`-based masks. This will not work, consider using `alpha`-based masks wherever
+  possible.
+</Aside>
+
+<Aside type="tip" title="CORS matters">
   Remote mask URLs must allow cross-origin image usage. Host masks in the same site (e.g., `/img/mask.png`) or ensure
   the CDN sends permissive CORS headers, otherwise the mask will silently fail.
 </Aside>
@@ -141,43 +146,53 @@ Utilizing **a CSS `repeating-radial-gradient()` as a mask**, and applying `glare
 Any css gradient can be used in this manner. You could also use a black &amp; white gradient
 with `glareMaskMode="luminance"`.
 
-```html
-<!-- Svelte -->
-<HoverTilt
-  class="mask-card"
-  glareMask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
-  glareMaskMode="alpha"
->
-  Your content here
-</HoverTilt>
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    ```svelte
+    <HoverTilt
+      class="mask-card"
+      glareMask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
+      glareMaskMode="alpha"
+    >
+      Your content here
+    </HoverTilt>
+    ```
+  </TabItem>
+  <TabItem label="Web Component">
+    ```html
+    <hover-tilt
+      class="mask-card"
+      glare-mask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
+      glare-mask-mode="alpha"
+    >
+      Your content here
+    </hover-tilt>
+    ```
+  </TabItem>
+</Tabs>
 
-<!-- Web Component -->
-<hover-tilt
-  class="mask-card"
-  glare-mask="repeating-radial-gradient(circle at 30% 30%, #fff, #fff 12px, #fff0 12px, #fff0 24px)"
-  glare-mask-mode="alpha"
->
-  Your content here
-</hover-tilt>
-```
+### Black &amp; White Bitmap
 
-### Black &amp; White WEBP
+Using a **black &amp; white bitmap sourced from a local folder**, with `glareMaskMode="luminance"`.
 
-Using a **black &amp; white WEBP sourced from a local folder**, with `glareMaskMode="luminance"`.
+Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transparent images should be used with `glareMaskMode="alpha"`.
 
-Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transparent images could be used with `glareMaskMode="alpha"`.
-
-```html
-<!-- Svelte -->
-<HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
-  Your content here
-</HoverTilt>
-
-<!-- Web Component -->
-<hover-tilt class="mask-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
-  Your content here
-</hover-tilt>
-```
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    ```svelte
+    <HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
+      Your content here
+    </HoverTilt>
+    ```
+  </TabItem>
+  <TabItem label="Web Component">
+    ```html
+    <hover-tilt class="mask-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
+      Your content here
+    </hover-tilt>
+    ```
+  </TabItem>
+</Tabs>
 
 ### Transparent SVG
 
@@ -185,15 +200,22 @@ Using a **transparent SVG sourced from a local folder**, with `glareMaskMode="al
 
 Just like the locally sourced PNG, except the SVG has a transparent background and so we use `glareMaskMode="alpha"`.
 
-```html
-<!-- Svelte -->
-<HoverTilt class="mask-card" glareMask="url(/circuit-board.svg)" glareMaskMode="alpha"> Your content here </HoverTilt>
-
-<!-- Web Component -->
-<hover-tilt class="mask-card" glare-mask="url(/circuit-board.svg)" glare-mask-mode="alpha">
-  Your content here
-</hover-tilt>
-```
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    ```svelte
+    <HoverTilt class="mask-card" glareMask="url(/circuit-board.svg)" glareMaskMode="alpha">
+      Your content here
+    </HoverTilt>
+    ```
+  </TabItem>
+  <TabItem label="Web Component">
+    ```html
+    <hover-tilt class="mask-card" glare-mask="url(/circuit-board.svg)" glare-mask-mode="alpha">
+      Your content here
+    </hover-tilt>
+    ```
+  </TabItem>
+</Tabs>
 
 ### SVG `url(#id)`
 
@@ -207,23 +229,45 @@ See [MDN's guide on SVG masks](https://developer.mozilla.org/en-US/docs/Web/SVG/
   or a linked svg.
 </Aside>
 
-```html
-<!-- SVG Inline Definition -->
-<svg width="0" height="0" aria-hidden="true" focusable="false">
-  <defs>
-    <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
-      <rect x="0" y="0" width="24" height="24" />
-      <polygon fill="white" fill-rule="evenodd" points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4" />
-    </pattern>
-    <mask id="mask">
-      <rect x="0" y="0" width="500" height="500" fill="url(#pattern)"></rect>
-    </mask>
-  </defs>
-</svg>
+<Tabs syncKey="api">
+  <TabItem label="Svelte">
+    ```svelte
+      <svg width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
+            <rect x="0" y="0" width="24" height="24" fill="transparent" />
+            <polygon fill="white" fill-rule="evenodd" points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4" />
+          </pattern>
+          <mask id="mask">
+            <rect x="0" y="0" width="500" height="500" fill="url(#pattern)"></rect>
+          </mask>
+        </defs>
+      </svg>
 
-<!-- Svelte -->
-<HoverTilt class="mask-card" glareMask="url(#mask)" glareMaskMode="alpha"> Your content here </HoverTilt>
+      <HoverTilt class="mask-card" glareMask="url(#mask)" glareMaskMode="alpha">
+        Your content here
+      </HoverTilt>
+    ```
 
-<!-- Web Component -->
-<hover-tilt class="mask-card" glare-mask="url(#mask)" glare-mask-mode="alpha"> Your content here </hover-tilt>
-```
+  </TabItem>
+  <TabItem label="Web Component">
+    ```html
+      <svg width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="pattern" patternUnits="userSpaceOnUse" width="24" height="24">
+            <rect x="0" y="0" width="24" height="24" fill="transparent" />
+            <polygon fill="white" fill-rule="evenodd" points="8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4" />
+          </pattern>
+          <mask id="mask">
+            <rect x="0" y="0" width="500" height="500" fill="url(#pattern)"></rect>
+          </mask>
+        </defs>
+      </svg>
+
+      <hover-tilt class="mask-card" glare-mask="url(#mask)" glare-mask-mode="alpha">
+        Your content here
+      </hover-tilt>
+    ```
+
+  </TabItem>
+</Tabs>

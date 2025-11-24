@@ -153,7 +153,7 @@ Here we put an image of a Credit Card inside the `<hover-tilt>` element, and use
 
 We want a really pronounced glare effect to make it look metallic, so we set the `glare-intensity` to `3`. Also we make it pop out of the frame with an exaggerated `scale-factor` of `1.15`. Border radius is set to `4%/6%` to match a credit card's rounded corners in a responsive manner.
 
-<CodeWithPreview lang="svelte" title="index.html" code={basicCreditCard}>
+<CodeWithPreview previewFirst lang="html" title="index.html" code={basicCreditCard}>
   <BasicCreditCard />
 
   <small class="block mt-4 text-center text-balance text-gray-500"><em>Notice how the black parts of the card don't really glare as much as the metallic parts? That's due to the `blend-mode` being set to `overlay` by default. You can change this with the `blend-mode` prop.</em></small>
@@ -166,7 +166,8 @@ Here we add a `glare-mask` to the `<hover-tilt>` element, tweak the `glare-inten
 The `glare-mask` is a transparent PNG with the American Express "world service" logo repeating pattern.
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={creditCardWithGlareMask}
   ins={['0.5', 7, 8, '/assets/amex.webp']}
@@ -193,7 +194,8 @@ Going even further, we can use a more advanced `polygon()` syntax to clip out th
 _This could also be done by editing the `glare-mask` image so it already has a blank area for the chip._
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={creditCardWithClipMaskChip}
   ins="-with-chip"
@@ -216,7 +218,8 @@ Explainer and Demo below the code block! ↓
 ### Adding a holo/rainbow gradient
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={creditCardWithClipMaskChipHolo}
   ins={['holo', 9, 10, { range: '23-38' }]}
@@ -224,10 +227,12 @@ Explainer and Demo below the code block! ↓
   <CreditCardWithClipMaskChipHolo />
 </CodeWithPreview>
 
+### Breakdown
+
 Let's break down the extra holographic bits step-by-step!
 
 <Steps>
-1. First we add the '.holo' class to the `<hover-tilt>` element.
+1. First we add the `.holo` class to the `<hover-tilt>` element.
 
 2. Next we modify the `glare-mask-mode` to `luminance` as we will be using 2 masks here.
 

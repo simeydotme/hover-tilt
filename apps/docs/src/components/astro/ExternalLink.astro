@@ -1,0 +1,17 @@
+---
+// accept the href prop from the MDX file
+const { href }: Record<string, any> = Astro.props;
+
+const domain = import.meta.env.SITE; // pulls from astro.config.mjs
+let attr: { target?: string; rel?: string } = {};
+
+// check if the link is external
+if (!href.includes(domain) && !href.startsWith('/') && !href.startsWith('#')) {
+  // if it is, add target="_blank" and rel="noopener noreferrer"
+  attr['target'] = '_blank';
+  attr['rel'] = 'noopener noreferrer';
+}
+---
+
+<!-- add attributes and maintain a <slot /> for the link text -->
+<a href={href} {...attr}><slot /></a>

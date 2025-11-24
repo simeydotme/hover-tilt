@@ -10,43 +10,71 @@ interface Props {
   mark?: MarkerDefinition;
   ins?: MarkerDefinition;
   del?: MarkerDefinition;
+  previewFirst?: boolean;
 }
 
-const { lang, title, code, mark, ins, del, previewTitle = 'Preview' } = Astro.props;
+const { lang, title, code, mark, ins, del, previewTitle = 'Preview', previewFirst = false } = Astro.props;
 ---
 
-<Code lang={lang} title={title} code={code} mark={mark} ins={ins} del={del} />
+<section class={`code-with-preview ${previewFirst ? 'preview-first' : ''}`}>
+  <Code lang={lang} title={title} code={code} mark={mark} ins={ins} del={del} />
 
-<div class="preview">
-  <figcaption>
-    {previewTitle}
-  </figcaption>
-  <div class="preview-content">
-    <slot />
+  <div class="preview">
+    <figcaption>
+      {previewTitle}
+    </figcaption>
+    <div class="preview-content">
+      <slot />
+    </div>
   </div>
-</div>
+</section>
 
 <style lang="postcss">
   @reference "tailwindcss";
+  .preview {
+    border: var(--ec-brdWd) solid var(--ec-brdCol);
+    border-radius: var(--ec-brdRad);
+    padding: .5rem 1rem 1rem;
+    position: relative;
+    z-index: 1;
+  }
 
-  :global(.expressive-code) + .preview {
+  .preview figcaption {
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+  }
+
+  .code-with-preview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .code-with-preview.preview-first {
+    flex-direction: column-reverse;
+  }
+
+  .code-with-preview:not(.preview-first) :global(.expressive-code:has(+ .preview) pre) {
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+  }
+
+  .code-with-preview:not(.preview-first) .preview {
     margin-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-top: none;
   }
-  :global(.expressive-code:has(+ .preview) pre) {
-    border-bottom-left-radius: 0!important;
-    border-bottom-right-radius: 0!important;
+
+  .code-with-preview.preview-first .preview {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
   }
 
-  .preview {
-    border: var(--ec-brdWd) solid var(--ec-brdCol);
-    border-radius: var(--ec-brdRad);
-    padding: .5rem 1rem 1rem;
-  }
-  .preview figcaption {
-    font-size: var(--sl-text-sm);
-    font-weight: 600;
+  .code-with-preview.preview-first :global(.expressive-code .header) {
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    padding-inline-start: var(--ec-brdRad);
   }
 </style>

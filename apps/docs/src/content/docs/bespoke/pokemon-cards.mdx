@@ -262,7 +262,7 @@ We simply wrap the Clefairy card `<img />` element inside `<hover-tilt>` with ma
 
 Using TailwindCSS we apply **a child-selector border radius (`[&::part(container)]:rounded-[4.55%/3.5%]`)** to the container element, and the **inner parts of the web-component will inherit** this radius. _(see [Styling Reference -> Border Radius](/options/css/#border-radius-on-glare) for more details)_
 
-<CodeWithPreview lang="svelte" title="index.html" code={basicPokemonCard}>
+<CodeWithPreview previewFirst lang="html" title="index.html" code={basicPokemonCard}>
   <BasicPokemonCard />
 </CodeWithPreview>
 
@@ -272,18 +272,23 @@ Basic cards often come with a reverse-holo version!
 
 So here we are using the `glare-mask` prop to point to a PNG that already matches the reverse-holo layout.
 
-<Aside title="Malie.io">
-  Thanks to [Malie.io](https://malie.io) and [PKMNCards.com](https://pkmncards.com/), we have access to scraped images
-  of the foil/etching masks used in the PTCG-Live game.
-</Aside>
+> _Thanks to [Malie.io](https://malie.io) and [PKMNCards.com](https://pkmncards.com/), we have access to scraped images
+> of the foil/etching masks used in the PTCG-Live game._
 
-The masks we got from PTCG-Live are luminance-based, so we set `glare-mask-mode="luminance"` to ensure the glare is only applied to the parts of the card that are not black.
+The masks we got from Malie are luminance-based, so we set `glare-mask-mode="luminance"` to ensure the glare is only applied to the parts of the card that are not black.
+
+<Aside type="caution" title="Safari Problems">
+  Safari browser on Mac & iOS has a bug that prevents it from correctly rendering `luminance`-based maskes. Therefore
+  all the following examples will appear broken in Safari. [bugzilla
+  reference](https://bugs.webkit.org/show_bug.cgi?id=282530)
+</Aside>
 
 Finally we set the `blend-mode` to `luminosity` which combined with
 `glare-intensity` of `4` gives us a nice shiny semi-metallic effect.
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={basicPokemonReverseCard}
   ins={[{ range: '3-6' }]}
@@ -298,7 +303,14 @@ Full Art cards have a metallic-style sheen to them, with complex masking.
 
 Setting `blend-mode="plus-lighter"` lets the foil texture add brightness, while a low `glare-intensity` keeps the glare controlled. We also point `glare-mask` to a PNG that already matches the foil layout.
 
-<CodeWithPreview lang="svelte" title="index.html" code={foilFullArtPokemonCard} ins={[3]} mark={[4, 6, 7, 11, 12]}>
+<CodeWithPreview
+  previewFirst
+  lang="html"
+  title="index.html"
+  code={foilFullArtPokemonCard}
+  ins={[3]}
+  mark={[4, 6, 7, 11, 12]}
+>
   <FoilFullArtPokemonCard />
 </CodeWithPreview>
 
@@ -316,6 +328,7 @@ The main things to note are;
 - applying `mix-blend-mode` and `background-blend-mode` for the holo effect
 
 <CodeWithPreview
+  previewFirst
   lang="html"
   title="index.html"
   code={exHoloPokemonCard}
@@ -338,7 +351,8 @@ I won't go into too much detail, but you can see the code and demo below. I'm ba
 `will-change` is used to hint to the browser that these properties are likely to change, so the browser can optimize the rendering of the element.
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={specialIllustrationRarePokemonCard}
   mark={[3, 4, 6, 11, 12]}
@@ -356,7 +370,8 @@ We use multiple `glare-mask` values and combine them with `glare-mask-composite=
 Here I'm also bumping the `glare-intensity`, `scale-factor` and `shadow-blur` to exaggerate the 'gallery' effect!
 
 <CodeWithPreview
-  lang="svelte"
+  previewFirst
+  lang="html"
   title="index.html"
   code={reverseHoloPokemonCard}
   ins={[3, 8]}
@@ -375,12 +390,13 @@ Using `hard-light` gives it a slightly more metallic shine.
 
 Again, this is a very advanced use-case, but it demonstrates the power of the component and the ability to create custom effects.
 
-<ReverseHoloPokemonCardExtra />
-
-<Code
-  lang="svelte"
+<CodeWithPreview
+  previewFirst
+  lang="html"
   title="index.html"
   code={reverseHoloPokemonCardExtra}
   ins={[{ range: '21-70' }, 'reverse-ball ', 'hover:z-10', 10, 18]}
   mark={[3, 4, 5, 8]}
-/>
+>
+  <ReverseHoloPokemonCardExtra />
+</CodeWithPreview>
