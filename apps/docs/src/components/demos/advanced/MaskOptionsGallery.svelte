@@ -20,7 +20,7 @@
 
   <HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
     <a
-      href="#black--white-png"
+      href="#black--white-bitmap"
       class="card-surface bg-linear-to-br from-indigo-400 to-fuchsia-400"
       title="view the code example"
     >
