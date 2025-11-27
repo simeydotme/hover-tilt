@@ -2,7 +2,7 @@
 title: Getting Started (Web Component)
 ---
 
-import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Code, Aside } from '@astrojs/starlight/components';
 import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
 import BasicExampleWebC from './BasicExampleWebC.astro';
 
@@ -46,6 +46,8 @@ export const basicExample = String.raw`
 
 `;
 
+This method would work for jQuery or other non-reactive JavaScript libraries.
+
 #### Include the Script
 
 Add the Web Component script to your HTML page:
@@ -54,9 +56,14 @@ Add the Web Component script to your HTML page:
 
 #### Using a CDN
 
-You can also use a CDN to load the Web Component:
+You could also use a CDN to load the Web Component:
 
-<Code lang="html" title="CDN usage" code={cdnExample} />
+<Code lang="html" title="index.html" code={cdnExample} />
+
+<Aside title="Component Registration">
+  Be aware that the Web Component file from the CDN is automatically registered as a custom element, so be sure to only
+  include the script once in your HTML page.
+</Aside>
 
 #### Basic Example
 

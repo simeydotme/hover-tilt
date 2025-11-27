@@ -91,10 +91,10 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 1. First we need to call the component and set a `glareIntensity` value.
 
    <Tabs syncKey="api">
-     <TabItem label="Svelte">
+     <TabItem label="Svelte" icon="seti:svelte">
        <Code lang="svelte" code={steps1Svelte} />
      </TabItem>
-     <TabItem label="Web Component">
+     <TabItem label="Web Component" icon="seti:html">
        <Code lang="html" code={steps1WebComponent} />
      </TabItem>
    </Tabs>
@@ -102,10 +102,10 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 2. Then we need to create a CSS selector to target the container of the `<HoverTilt />` component.
 
    <Tabs syncKey="api">
-     <TabItem label="Svelte">
+     <TabItem label="Svelte" icon="seti:svelte">
        <Code lang="css" code={`:global(.simple-card) {/* ... */}`} />
      </TabItem>
-     <TabItem label="Web Component">
+     <TabItem label="Web Component" icon="seti:html">
        <Code lang="css" code={`.simple-card::part(container) {/* ... */}`} />
      </TabItem>
    </Tabs>
@@ -115,10 +115,10 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 3. Next we assign the custom gradient to the `--hover-tilt-custom-gradient` CSS variable.
 
    <Tabs syncKey="api">
-     <TabItem label="Svelte">
+     <TabItem label="Svelte" icon="seti:svelte">
        <Code lang="css" code={steps3Svelte} />
      </TabItem>
-     <TabItem label="Web Component">
+     <TabItem label="Web Component" icon="seti:html">
        <Code lang="css" code={steps3WebComponent} />
      </TabItem>
    </Tabs>
@@ -149,10 +149,10 @@ Here's a breakdown of a simple custom gradient, with each part and how it works.
 And so the final (basic) custom gradient implementation looks like this;
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     <Code lang="css" code={steps4Svelte} />
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     <Code lang="css" code={steps4WebComponent} />
   </TabItem>
 </Tabs>

@@ -2,6 +2,16 @@
 
 Thank you for your interest in contributing to Svelte Hover Tilt! This document provides guidelines and instructions for contributing.
 
+## Code of Conduct
+
+Please be respectful and considerate of others. Comunication should be friendly, constructive and reasonable. Any form of discrimination will not be tolerated.
+
+## Check first!
+
+Before you start any work, please head to the issues page and check if the feature you want to add is already being worked on or if there is an open issue for it.
+
+If there is no issue for it, please open an issue/discussion to discuss the feature you want to add. This is for your own benefit so that you are not spending effort on something that might not be in line with the project's goals.
+
 ## Development Setup
 
 This is a monorepo using pnpm workspaces. Follow these steps to get started:
@@ -35,6 +45,10 @@ pnpm install
 ├── apps/
 │   └── docs/                   # Starlight-powered documentation site
 ```
+
+## Testing
+
+Right now there isn't a formal testing suite. There is a visual testing tool running in the Component Package (`/packages/hover-tilt/src/routes/`) that can be used to test the component.
 
 ## Running Packages
 
@@ -89,27 +103,6 @@ Pre-commit hooks are automatically set up when you run `pnpm install`. They will
 1. Make sure you've run `pnpm install` (this sets up the hooks automatically)
 2. If needed, manually run `pnpm prepare` to reinstall the hooks
 3. The hooks will prevent commits if linting fails - format your code with `pnpm format:all` and try again
-
-## Testing
-
-Currently, we rely on:
-- Type checking with `svelte-check`
-- Visual testing in the documentation site
-
-## Pull Request Process
-
-1. Create a feature branch from `main`
-2. Make your changes
-3. Ensure all linting and type checks pass
-4. Build all packages to ensure nothing is broken
-5. Submit a pull request with a clear description of changes
-
-### PR Checklist
-
-- [ ] Code is formatted (`pnpm format`)
-- [ ] Type checking passes (`pnpm check`)
-- [ ] All packages build successfully (`pnpm build`)
-- [ ] Documentation is updated if needed
 
 ## Questions?
 

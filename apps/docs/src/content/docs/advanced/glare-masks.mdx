@@ -114,14 +114,14 @@ The steps to apply a glare mask are as follows;
   </TabItem>
   <TabItem label="Code">
     <Tabs syncKey="api">
-      <TabItem label="Svelte">
+      <TabItem label="Svelte" icon="seti:svelte">
         ```svelte
         <HoverTilt class="foil-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
           Your content here
         </HoverTilt>
         ```
       </TabItem>
-      <TabItem label="Web Component">
+      <TabItem label="Web Component" icon="seti:html">
         ```html
         <hover-tilt class="foil-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
           Your content here
@@ -147,7 +147,7 @@ Any css gradient can be used in this manner. You could also use a black &amp; wh
 with `glareMaskMode="luminance"`.
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     ```svelte
     <HoverTilt
       class="mask-card"
@@ -158,7 +158,7 @@ with `glareMaskMode="luminance"`.
     </HoverTilt>
     ```
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     ```html
     <hover-tilt
       class="mask-card"
@@ -178,14 +178,14 @@ Using a **black &amp; white bitmap sourced from a local folder**, with `glareMas
 Any image format would work here (`webp`, `png`, `jpg`, `gif`, etc.), and transparent images should be used with `glareMaskMode="alpha"`.
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     ```svelte
     <HoverTilt class="mask-card" glareMask="url(/aztec-pattern.webp)" glareMaskMode="luminance">
       Your content here
     </HoverTilt>
     ```
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     ```html
     <hover-tilt class="mask-card" glare-mask="url(/aztec-pattern.webp)" glare-mask-mode="luminance">
       Your content here
@@ -201,14 +201,14 @@ Using a **transparent SVG sourced from a local folder**, with `glareMaskMode="al
 Just like the locally sourced PNG, except the SVG has a transparent background and so we use `glareMaskMode="alpha"`.
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     ```svelte
     <HoverTilt class="mask-card" glareMask="url(/circuit-board.svg)" glareMaskMode="alpha">
       Your content here
     </HoverTilt>
     ```
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     ```html
     <hover-tilt class="mask-card" glare-mask="url(/circuit-board.svg)" glare-mask-mode="alpha">
       Your content here
@@ -230,7 +230,7 @@ See [MDN's guide on SVG masks](https://developer.mozilla.org/en-US/docs/Web/SVG/
 </Aside>
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     ```svelte
       <svg width="0" height="0" aria-hidden="true" focusable="false">
         <defs>
@@ -250,7 +250,7 @@ See [MDN's guide on SVG masks](https://developer.mozilla.org/en-US/docs/Web/SVG/
     ```
 
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     ```html
       <svg width="0" height="0" aria-hidden="true" focusable="false">
         <defs>

@@ -7,14 +7,24 @@ import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
 import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
 import BasicDemo from '@components/demos/BasicDemo.svelte';
 
-import GettingStartedSvelte from '../../chunks/getting-started/svelte.mdx';
-import GettingStartedWebc from '../../chunks/getting-started/webc.mdx';
+export const example = String.raw`
+<script>
+  import { HoverTilt } from 'hover-tilt';
+</script>
+
+<HoverTilt>
+  <div class="card">
+    <h3>Basic Example</h3>
+    <p>Hover over this card to see the default tilt effect</p>
+  </div>
+</HoverTilt>
+`;
 
 ## Installation
 
 Install the package using your preferred package manager:
 
-<Tabs>
+<Tabs syncKey="package-manager">
   <TabItem label="npm">
     <Code lang="bash" title="terminal" code={`npm install hover-tilt`} />
   </TabItem>
@@ -29,24 +39,13 @@ Install the package using your preferred package manager:
   </TabItem>
 </Tabs>
 
-## Usage
-
-Because `HoverTilt` is available both as a **Svelte Component (`<HoverTilt />`)** and
-a **Web Component (`<hover-tilt />`)**, there are options for using it;
-
-<br />
-
-<Tabs syncKey="api">
-  <TabItem label="Svelte">
-    <GettingStartedSvelte />
-  </TabItem>
-  <TabItem label="Web Component">
-    <GettingStartedWebc />
-  </TabItem>
-</Tabs>
+<CodeWithPreview lang="svelte" title="App.svelte" code={example} previewFirst>
+  <BasicDemo client:only="svelte" />
+</CodeWithPreview>
 
 ## Next Steps
 
+- Learn how to use the component in your [specific framework](/usage)
 - Learn about all the [props and options](/options/props) available to customize the component
 - Dive into the [CSS Class / Style](/options/css) reference for styling the component
 - Explore [Usage Examples](/examples/usage) to see different props in action

@@ -1,0 +1,50 @@
+---
+title: Getting Started (Vue)
+---
+
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import { LinkButton, Aside } from '@astrojs/starlight/components';
+
+export const example = String.raw`
+<script setup>
+  import { ref } from 'vue'
+  import 'hover-tilt';
+  const msg = ref('Tilt me!')
+</script>
+
+<template>
+  <hover-tilt>
+    <div class="card">
+      <h1>{{ msg }}</h1>
+    </div>
+  </hover-tilt>
+
+  <input v-model="msg" placeholder="Type a message..." />
+</template>
+`;
+
+#### Using the Web Component in Vue
+
+Here's an example using the `<hover-tilt>` web component in your Vue Single File Component and bind the content to a ref.
+
+<Aside type="caution" title="Vue Component Resolution Warning">
+  Vue may trigger warnings related to `Failed to resolve component: 'hover-tilt'`. See the [Vue documentation on how to
+  fix this warning](https://vuejs.org/guide/extras/web-components#skipping-component-resolution).
+</Aside>
+
+<CodeWithPreview
+  lang="vue"
+  title="HoverTiltDemo.vue"
+  code={example}
+>
+
+<p class="p-4 pb-8 text-center">
+  <LinkButton
+    icon="external"
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://play.vuejs.org/#eNqFVdtu2zgQ/ZVZLQqngHWxEzuJ1i32VmB3H3YXbR71wohjma1EEiTlODD87x1Ski2nqftggZzrOcOZ8T76Tetk22KURytbGqEdWHStfl9IANFoZRz8pbZoHkTt/sRGwdqoBiZJeib1ISa/FHKVdkHInS4OG10zhyHY6jxMSsJVOrKgq3XPdWf8qPgz7P2Jzqz8UhnVSp7DxtZX8/l8CvPszRTuF2/eUlKAg/9YLJ1QcnDjwlLo5xwqI3iwAiBBiXGppEPpcijpi6bXNULGGxTVhhT3md1uerlHva7VEyUXnKPsxRXTOcwNNgMAot7Dj6ZRV7m4YTr5bJWk6gZURa+wRZQPOIto41PEjirjxXR3Tts8TUsuyZtjLbYmkehSqZv0ZPyrL5x1KRF1IzG5FFGP6UBQnCW+a1G9AFKqRosazX/aF+0cEKuJ7z9B5kyL00FebrD88or8s911yP83aNFssYiOOsdMhT2xD5/+xR2dj8pG8bYm6wvKj2hV3XqMndnv1AcEe2QX0P4d6ipk9WA/7Oh17UDKAw3VCPZFRI36xwXqJ7jXyc2oit90+6WB2YPBNRz6UfGjMVJOTk/lJwaAnsc6aGwF77zf1cSngQZ/mry9PFB9w4cLYQ/f1Sk6+E+8ZqVT5l0RzZJFEYEtWY1j4cwLN4yrpz4OxeBiC2XNrCWLkhleREedzzB7v98HvIfDKqXb0Y9acdvfSHEEErAHoZC6dbCN6WmxpuAUhNKHqdyomqOH9PCsERjxt5ZVmCQJWfhlESinJ87fXx6Jxzw86Xis51mmd/38MqspVGwYhcuBitPLx9umFhKZiSvDuKBVcTW7XnCspvDzmt/eLEt/WN9ny7tuCdF6YZxTC472gn/dWpkcnjbC4WlXdYXoITKtKQ2TJeYglezMjp6mery6mU3h5nYKy9mQ6vtLcZZl/VYcAcqSu9vFEdOjMlRr4s5Fa71yccLb6agiegc0eYLTBDFpNTNUgWElts6X5rIRK/16pWUbWASMWTaFuwVhXJ4gPqpd3PUfAYFrCjinX+wP57zIcfAJyYTvg7zHSxyuLSCzGAs5HQCSdDmSnlKdKV68Sr5WZWuPfz5dqUYsZstXWPQJf8j2VeQDFAoyhj4QCuIz7CPNy3+f6PAVBWeDlA=="
+  >{`View a Vue live demo here`}</LinkButton>
+</p>
+
+</CodeWithPreview>

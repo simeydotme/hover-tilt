@@ -41,7 +41,7 @@ export const webComponentStyles = String.raw`
 Here's a look at the internal structure of the rendered component;
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
 
     ```txt
     <div class="hover-tilt-container">
@@ -84,7 +84,7 @@ Here's a look at the internal structure of the rendered component;
     </Tabs>
 
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     ```txt
     <hover-tilt>
       ├── #shadow-root
@@ -227,7 +227,7 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
 
 <Tabs syncKey="api">
 
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     The Svelte Component exposes a `class` prop on the container. And the 
     `tilt` and `::before` elements both inherit the `border-radius` of the container.
 
@@ -240,7 +240,7 @@ that inner layer to avoid the glare spilling past rounded corners. (see example 
 
   </TabItem>
 
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     The custom element renders inside Shadow DOM, so classes on `<hover-tilt>` 
     only affect the host and not the internal container/tilt nodes. 
     
@@ -290,7 +290,7 @@ The `<HoverTilt>` component has a default `perspective` of `600px`.
 If you need to change the perspective, you can apply it to the container with CSS;
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
@@ -316,7 +316,7 @@ If you need to change the perspective, you can apply it to the container with CS
     </Tabs>
     </div>
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
@@ -368,7 +368,7 @@ While this is phsyically correct, it may not be visually desirable. So it's poss
 All we need to do is apply a `z-index` to the slotted content to move it up in the z-order.
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
@@ -397,7 +397,7 @@ All we need to do is apply a `z-index` to the slotted content to move it up in t
     </Tabs>
     </div>
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     <div class="ml-4">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
@@ -458,7 +458,7 @@ If you are using the `scaleFactor` prop, you may find that when the component zo
 But it is easily resolved by applying a `z-index` to the `<HoverTilt>` component when it is being hovered;
 
 <Tabs syncKey="api">
-  <TabItem label="Svelte">
+  <TabItem label="Svelte" icon="seti:svelte">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
         ```svelte
@@ -481,7 +481,7 @@ But it is easily resolved by applying a `z-index` to the `<HoverTilt>` component
       </TabItem>
     </Tabs>
   </TabItem>
-  <TabItem label="Web Component">
+  <TabItem label="Web Component" icon="seti:html">
     <Tabs syncKey="css">
       <TabItem label="Plain CSS">
         ```html

@@ -29,7 +29,10 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Getting Started',
-          items: [{ label: 'Installation', slug: 'getting-started' }]
+          items: [
+            { label: 'Installation', slug: 'getting-started' },
+            { label: 'Usage', slug: 'usage' }
+          ]
         },
         {
           label: 'Options',
@@ -42,7 +45,7 @@ export default defineConfig({
           label: 'Examples',
           items: [
             { label: 'Web Component', slug: 'examples/web-component' },
-            { label: 'Usage Examples', slug: 'examples/usage' }
+            { label: 'Props Examples', slug: 'examples/props' }
           ]
         },
         {

@@ -7,6 +7,8 @@ import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 Here you can find a complete reference for all HoverTilt props and options.
 
+Any prop that is `camelCase` in the Svelte Component, is `kebab-case` in the Web Component.
+
 ## Interaction Props
 
 Props which affect the interaction/animation of the component,
@@ -15,12 +17,12 @@ such as tilt factor, scale factor, and spring options.
 ### `tiltFactor`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt tiltFactor={1.5}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt tilt-factor="1.5">
 		```
@@ -35,12 +37,12 @@ such as tilt factor, scale factor, and spring options.
 ### `tiltFactorY`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt tiltFactorY={0.5}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt tilt-factor-y="0.5">
 		```
@@ -55,12 +57,12 @@ such as tilt factor, scale factor, and spring options.
 ### `scaleFactor`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt scaleFactor={1.1}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt scale-factor="1.1">
 		```
@@ -75,12 +77,12 @@ such as tilt factor, scale factor, and spring options.
 ### `springOptions`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt springOptions={{ stiffness: 0.3, damping: 0.7 }}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt spring-options='{"stiffness": 0.3, "damping": 0.7}'>
 		```
@@ -95,12 +97,12 @@ such as tilt factor, scale factor, and spring options.
 ### `tiltSpringOptions`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt tiltSpringOptions={{ stiffness: 0.3, damping: 0.7 }}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt tilt-spring-options='{"stiffness": 0.3, "damping": 0.7}'>
 		```
@@ -114,12 +116,12 @@ such as tilt factor, scale factor, and spring options.
 ### `enterDelay`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt enterDelay={300}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt enter-delay="300">
 		```
@@ -133,12 +135,12 @@ such as tilt factor, scale factor, and spring options.
 ### `exitDelay`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt exitDelay={300}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt exit-delay="300">
 		```
@@ -160,12 +162,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `class`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt class="my-custom-class">
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt class="my-custom-class">
 		```
@@ -183,12 +185,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `shadow`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt shadow>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt shadow>
 		```
@@ -204,12 +206,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `shadowBlur`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt shadow shadowBlur={40}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt shadow shadow-blur="40">
 		```
@@ -229,12 +231,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `blendMode`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt blendMode="overlay">
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt blend-mode="overlay">
 		```
@@ -252,12 +254,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `glareIntensity`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt glareIntensity={1.5}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt glare-intensity="1.5">
 		```
@@ -271,12 +273,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `glareHue`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt glareHue={180}>
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt glare-hue="180">
 		```
@@ -294,12 +296,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `glareMask`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt glareMask="url(#mask)">
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt glare-mask="url(#mask)">
 		```
@@ -315,12 +317,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `glareMaskMode`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt glareMaskMode="luminance">
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt glare-mask-mode="luminance">
 		```
@@ -336,12 +338,12 @@ adding a shadow, or increasing the intensity of the glare effect.
 ### `glareMaskComposite`
 
 <Tabs syncKey='api'>
-	<TabItem label="Svelte">
+	<TabItem label="Svelte" icon="seti:svelte">
 		```svelte
 		<HoverTilt glareMaskComposite="add">
 		```
 	</TabItem>
-	<TabItem label="Web Component">
+	<TabItem label="Web Component" icon="seti:html">
 		```html
 		<hover-tilt glare-mask-composite="add">
 		```

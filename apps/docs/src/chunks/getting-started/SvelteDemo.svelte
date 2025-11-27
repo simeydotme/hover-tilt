@@ -1,29 +1,18 @@
----
-const { initialMessage = 'Tilt me!' }: Record<string, any> = Astro.props;
----
+<script>
+  import { HoverTilt } from 'hover-tilt';
+
+  let message = $state('Tilt me!');
+</script>
 
 <section>
-  <hover-tilt tilt-factor="1.5" scale-factor="1.1" container-class="rounded-xl">
+  <HoverTilt tiltFactor={1.5} scaleFactor={1.1} shadow>
     <div class="card not-content">
-      <h2 id="webc-message">{initialMessage}</h2>
+      <h2>{message}</h2>
     </div>
-  </hover-tilt>
+  </HoverTilt>
 
-  <input id="webc-message-input" value={initialMessage} placeholder="Type a message..." />
+  <input bind:value={message} placeholder="Type a message..." />
 </section>
-
-<script>
-  if (typeof window !== 'undefined') {
-    const input = document.getElementById('webc-message-input');
-    const heading = document.getElementById('webc-message');
-
-    if (input && heading) {
-      input.addEventListener('input', (event) => {
-        heading.textContent = event.target.value;
-      });
-    }
-  }
-</script>
 
 <style>
   section {
@@ -43,7 +32,6 @@ const { initialMessage = 'Tilt me!' }: Record<string, any> = Astro.props;
   }
 
   input {
-    margin-top: 1rem;
     appearance: none;
     color: rgb(41, 47, 61);
     background: hsl(222, 20%, 100%);

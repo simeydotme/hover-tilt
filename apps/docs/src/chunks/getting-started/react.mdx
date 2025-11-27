@@ -1,0 +1,53 @@
+---
+title: Getting Started (React)
+---
+
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import { LinkButton } from '@astrojs/starlight/components';
+
+export const example = String.raw`
+import React, { useState } from 'react';
+import 'hover-tilt/web-component';
+
+export function MyComponent() {
+  const [msg, setMsg] = useState('Tilt me!');
+  
+  return (
+    <>
+      <hover-tilt tilt-factor="1.5" scale-factor="1.1" shadow>
+        <div className="card">
+          <h1>{msg}</h1>
+        </div>
+      </hover-tilt>
+
+      <input
+        value={msg}
+        onChange={(event) => setMsg(event.target.value)}
+        placeholder="Type a message..."
+      />
+    </>
+
+);
+}
+`;
+
+#### Import the Web Component and use
+
+Here's an example using the `<hover-tilt>` web component directly in your React app, binding the content to a state variable.
+
+<CodeWithPreview
+  lang="tsx"
+  title="MyComponent.tsx"
+  code={example}
+>
+
+<p class="p-4 pb-8 text-center">
+  <LinkButton
+    icon="external"
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://reactplayground.vercel.app/#N4IgLgziBcBmCGAbCBTANCAbrK1QEsA7AExQA8A6AK1xHwFsAHAewCcwACAQUcY9lbN6HAOQUA9D0bUIZEQB1CDFuw4AlFPADGnAUNGtNOhUqZtOwDlsPwwKNc2acAvv0HCRNnQFpiQ8VqI+CiEYCaKWsyEEJyRofBEKKwcALwcfloArvQhYBQA5ihgAKKIKDmhAEIAngCSxAAUno5hAJQRUTEcgk6pVjZ2Dk4NcWAJhEnthD15hiRJDYoc6kZ51pp2peW5i4TLyxraeQDKYKz4OgCyzKRoS-uEmYiId3v7hzoU67YoWxVgDSkU2WU1aIAwUhkZBgdDMqg+YDQHEsmVQGlgSNRKFOPw4rj0Hi8YUUynMyI4AAlmJgkgAVfCIMAAEXKzDxbn0YnEVJprHpjJZ9GYUJEAG5FB1opwpH0Gq1UgA+ZH3e6GMCZVh7Xb7DgAHno4wV9x1up5dIZzNZCt13Op5oFVuNevEBqIRreU2cEomZBUnFICCe0t44JAMWqZQgXwgtFde2A91gUTA3gQ9AZ1WgHG88F4ZW8EGqMXKSMqQUIAGtLtpjkW7PQAGLJpHyEDHFD5ZgoDgAVVqraRDgARk5mEiAPJkaqFQhIntDzKhTJIgDC8HihmeLZA48YIQ4x3XEAHHFbFJQiBpYAu8A4ADkUJkUCeIEeC0l8LBxW9iPgIIxEHgTMOHyc5iG-ZYAO0FBvFGXIsy0XIkggjh00IbwAAsUHwfIMLALMAE4AAYIEwDCULtVhYEQZgAHcsww-BiFIQgUPyXMswAJkMehvy9QhFBHYhqmVN4h20CtQOYRdiAYiBEAaTilKRTiiIAUiRAiAFY1NaPjvS+eBWGIUTll-f9AOA0CmJQqDENg5N4KsJDWBQtDMOw3D8I4VSiMYMgUPgf8UB8VhbHwZgswARgoLSUPErRJMEGSs3LTRWG8UD4F-HYooAZi00h8iRABiWBiAAdgAFgANi0UrYFgYiaoADj0+5GGy39CHyLieJQyIaNYLNaMYux9IEpRCEYTILHuA1WHyIhvDAZhGGi-r7lzPcjPXRCs0IKIUAG5ghqzRahwaKqoqRKqKqRGqovasSJKklKOAw+TFOUnz1KRKKiPU57IK6oheo4IiKBaiqtPKeK2FIDKwt-VEs0hrTNrEhGkmi-yOAgU6mI4M4j06uYwAo2a0txsh8cJkySeiMnckCrRENCByzo+r7fKRFqdIeoH4bIAsMOyui0Y4PK8c4vHvGl2nPoUpTOJUv6OH53SUMZiB8GvKIsxHYykghig8ogDhNFQbwiCRaSwDS02aotq2YNtp0RxFiAxb8WinZdoK3dYxR+JJabZrgZgsgthMseNjLBrYOSFKimqiL5gWODTrX7nttLOaT7nlcBjONKzoX7h1vWIsIQ3seSSHnctwPvHtu2qcSU3zeb622495gvZ9uiu4D3vZr40MzT5C1BWFGhoWgWE-RWI4kRRVAcTsdkCQMVYxRJOFOBEDDKJWi1xFolAhwcswJlCffTGXrlw0jaMIHCH1l9gRcdBrylKP5JaIUcpTJWE6JwAA2vQCAxV8ZFEuDAgAun0LEm8UBNEAahFAABCEQwNTxvDVBqLUTpdTuh1MsXUJ9eRn0ZMTC0qYjhsBSK2GKWlWz4y0EgGCCAdDMNYRQKKHDvbi1ouQihlDfyYCsIBGMd54A5BYSALhxlWziIkZQjCUUFTAGgfkZwNotHqIoTaKRxjKHiGoUkWhYBzF6iIDNMATodSYCQE+FIuiYH8Q0RwKIK4xY9RQB4hoKAaShHlCkJUqAwAIPyCEsJeQxiLSKBQVxiAnytG8RouyKAT6IERko2k1Q9wcFvDkGM8BCgUGqa2ZxHBxDGJtOI56zgQDOGcEAA"
+  >{`View a React live demo here`}</LinkButton>
+</p>
+
+</CodeWithPreview>
