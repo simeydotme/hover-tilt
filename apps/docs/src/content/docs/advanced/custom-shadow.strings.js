@@ -66,6 +66,7 @@ export const neonShadowWebComponent = String.raw`
 </hover-tilt>
 
 <style>
+  /* access the .neon-card with the ::part(container) Web Component selector */
   .neon-card::part(container) {
     --hover-tilt-custom-shadow: 
       hsl(322 87% 56% / calc(var(--hover-tilt-opacity, 0) * 0.41 + 0.05)) calc(var(--shadow-x) * 2px) calc(var(--shadow-y) * 4px + 1px) 0px 2px, 

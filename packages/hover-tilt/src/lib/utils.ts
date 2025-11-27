@@ -1,4 +1,4 @@
-import type { ElementBox, PointerDerivatives, PointerPosition, XY, NormalizedInput } from './types.js';
+import type { ElementBox, PointerDerivatives, PointerPosition, XY, NormalizedInput } from './types/index.js';
 
 export const ZERO_POINTER_DERIVATIVES: PointerDerivatives = {
   delta: [0, 0],

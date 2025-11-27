@@ -1,5 +1,5 @@
 /**
- * hover-tilt ~ 0.6.0
+ * hover-tilt ~ 0.6.1
  * A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component
  * Project home: https://hover-tilt.simey.me
  * © 2025 Simon Goellner <simey.me@gmail.com> ~ MPL-2.0 License

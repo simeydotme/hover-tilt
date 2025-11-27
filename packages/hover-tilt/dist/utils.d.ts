@@ -1,4 +1,4 @@
-import type { ElementBox, PointerDerivatives, PointerPosition, NormalizedInput } from './types.js';
+import type { ElementBox, PointerDerivatives, PointerPosition, NormalizedInput } from './types/index.js';
 export declare const ZERO_POINTER_DERIVATIVES: PointerDerivatives;
 export declare const clamp: (value: number, min?: number, max?: number) => number;
 export declare const round: (value: number, precision?: number) => number;

@@ -29,7 +29,7 @@
     ElementBox,
     PointerDerivatives,
     PointerPosition
-  } from '../types.js';
+  } from '../types/index.js';
   import { Spring } from 'svelte/motion';
   import { derivePointerState, pointerPositionFromEvent, readElementBox, ZERO_POINTER_DERIVATIVES } from '../utils.js';
   import { onMount } from 'svelte';

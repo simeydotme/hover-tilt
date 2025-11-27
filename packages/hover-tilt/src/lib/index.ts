@@ -12,4 +12,4 @@ export type {
   PointerPosition,
   PointerDerivatives,
   NormalizedInput
-} from './types.js';
+} from './types/index.js';

@@ -63,22 +63,12 @@ The steps for overriding the built-in dynamic shadow are;
 
 ## Examples
 
-<Tabs syncKey="custom-shadow">
-  <TabItem label="Simple">
-    <CustomShadowDemo client:only="svelte" />
-  </TabItem>
-  <TabItem label="Neon">
-    <CustomShadowNeonDemo client:only="svelte" />
-  </TabItem>
-</Tabs>
-
-### Code
-
 The key **difference between the Svelte and Web Component** examples is the selector used to target the custom shadow.
 In **Svelte the `:global()` selector is needed** to access the container, while in the **Web Component the `::part(container)` selector is used**.
 
 <Tabs syncKey="custom-shadow">
   <TabItem label="Simple">
+    <CustomShadowDemo client:only="svelte" />
     <div class="ml-4">
       <Tabs syncKey="api">
         <TabItem label="Svelte" icon="seti:svelte">
@@ -91,6 +81,7 @@ In **Svelte the `:global()` selector is needed** to access the container, while 
     </div>
   </TabItem>
   <TabItem label="Neon">
+    <CustomShadowNeonDemo client:only="svelte" />
     <div class="ml-4">
       <Tabs syncKey="api">
         <TabItem label="Svelte" icon="seti:svelte">
@@ -106,7 +97,7 @@ In **Svelte the `:global()` selector is needed** to access the container, while 
 
 ## Breakdown
 
-Here's a breakdown of a simple custom shadow, with each part and how it works.
+Here's a **breakdown of a _simple_ custom shadow**, with each part and how it works.
 
 <Steps>
 
