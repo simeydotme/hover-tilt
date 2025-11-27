@@ -48,3 +48,22 @@ Here's an example using the `<hover-tilt>` web component in your Vue Single File
 </p>
 
 </CodeWithPreview>
+
+#### TypeScript Support
+
+For TypeScript projects with Volar, you can also import `hover-tilt/vue` to enable template type-checking and IntelliSense at the app level.
+
+```ts
+import { createApp } from 'vue';
+import App from './App.vue';
+
+import 'hover-tilt'; // defines the custom element
+import 'hover-tilt/vue'; // pulls in GlobalComponents typings (type-only)
+
+createApp(App).mount('#app');
+```
+
+<Aside type="note" title="Note">
+  `hover-tilt/vue` is a TypeScript-only augmentation and requires a bundler (Vite/Webpack). It won't work in browser
+  playgrounds like Vue Playground.
+</Aside>
