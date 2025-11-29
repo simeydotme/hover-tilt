@@ -26,6 +26,7 @@ Works with any framework or vanilla JavaScript via the Web Component.
 <a href="#with-vue" title="Works with Vue"><img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue Icon"></a>
 <a href="#with-react" title="Works with React"><img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Icon"></a>
 <a href="#with-angular" title="Works with Angular"><img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular Icon"></a>
+<a href="#with-astro" title="Works with Astro"><img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg" alt="Astro Icon"></a>
 <a href="#with-jquery" title="Works with jQuery"><img height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="jQuery Icon"></a>
 
 <br>
