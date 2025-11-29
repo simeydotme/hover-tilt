@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content glare-demo">
   <div class="demo-item">
     <h4>Default Glare</h4>
     <HoverTilt>
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .demo-card {
+  :global(.glare-demo .demo-card) {
     background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
   }
 </style>

@@ -1,0 +1,100 @@
+---
+title: Getting Started (Astro)
+---
+
+import { Tabs, TabItem, Code, Aside } from '@astrojs/starlight/components';
+import CodeWithPreview from '@components/astro/CodeWithPreview.astro';
+import BasicExampleSvelte from './BasicExampleSvelte.astro';
+import BasicExampleWebC from './BasicExampleWebC.astro';
+
+export const svelteExample = String.raw`
+
+import HoverTilt from 'hover-tilt/HoverTilt.svelte';
+
+<HoverTilt client:only="svelte" tilt-factor="1.5" scale-factor="1.1">
+  <div class="card">
+    <h2>Card Title</h2>
+    <p>Hover over this card to see the effect!</p>
+  </div>
+</HoverTilt>
+
+<style>
+  .card {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    color: white;
+  }
+</style>
+
+`;
+
+export const webComponentExample = String.raw`
+
+import 'hover-tilt/web-component';
+
+<hover-tilt tilt-factor="1.5" scale-factor="1.1">
+  <div class="card">
+    <h2>Card Title</h2>
+    <p>Hover over this card to see the effect!</p>
+  </div>
+</hover-tilt>
+
+<style>
+  .card {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    color: white;
+  }
+</style>
+
+`;
+
+In Astro, you can use Hover Tilt in two ways: as a **Svelte component** or as a **Web Component**. Choose the approach that best fits your project.
+
+<Tabs>
+  <TabItem label="Svelte Component" icon="seti:svelte">
+    #### Setup
+
+    To use Hover Tilt as a Svelte component in Astro, you'll need to install the [Svelte integration](https://docs.astro.build/en/guides/integrations-guide/svelte/):
+
+    ```bash
+    npx astro add svelte
+    ```
+
+    This will automatically configure Astro to support Svelte components.
+
+    #### Import and Use
+
+    Import the `HoverTilt` component directly from the package:
+
+    <Code lang="astro" title="MyComponent.astro" code={svelteExample} />
+
+  </TabItem>
+
+  <TabItem label="Web Component" icon="seti:html">
+    #### Import and Use
+
+    The Web Component approach doesn't require any framework integration. Simply import the Web Component module in your Astro component's frontmatter:
+
+    <Code lang="astro" title="MyComponent.astro" code={webComponentExample} />
+
+    The Web Component is automatically registered when you import `'hover-tilt/web-component'`, so you can use `<hover-tilt>` directly in your template.
+
+    <Aside type="tip" title="No Framework Required">
+      The Web Component approach works in any Astro component, regardless of which framework integrations you have installed. This makes it perfect for projects that want to keep dependencies minimal.
+    </Aside>
+
+  </TabItem>
+</Tabs>
+
+## Which Should I Use?
+
+- **Svelte Component**: Use this if you already have the Svelte integration installed, or if you want to use Svelte's reactivity and component features alongside Hover Tilt.
+
+- **Web Component**: Use this if you want to keep your project lightweight, or if you're not using Svelte elsewhere in your project. The Web Component works in any Astro component without additional setup.

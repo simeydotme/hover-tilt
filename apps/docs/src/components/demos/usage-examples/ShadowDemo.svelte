@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content shadow-demo">
   <div class="demo-item">
     <h4>No Shadow</h4>
     <HoverTilt>
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .demo-card {
+  :global(.shadow-demo .demo-card) {
     background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   }
 </style>

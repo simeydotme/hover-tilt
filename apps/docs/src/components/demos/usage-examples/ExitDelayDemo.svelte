@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content exit-delay-demo">
   <div class="demo-item">
     <h4>Default Exit Delay (200ms)</h4>
     <HoverTilt scaleFactor={1}>
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .demo-card {
+  :global(.exit-delay-demo .demo-card) {
     background: linear-gradient(135deg, #febb4f 0%, #94430d 100%);
   }
 </style>

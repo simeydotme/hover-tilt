@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content glare-hue-demo">
   <div class="demo-item">
     <h4>Default Hue</h4>
     <HoverTilt>
@@ -18,7 +18,7 @@
 </div>
 
 <style>
-  .demo-card.hue {
+  :global(.glare-hue-demo .demo-card.hue) {
     background: linear-gradient(135deg, #acacac 0%, #616161 100%);
   }
 </style>

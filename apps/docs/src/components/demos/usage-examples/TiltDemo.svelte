@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content tilt-demo">
   <div class="demo-item">
     <h4>Default Tilt</h4>
     <HoverTilt>
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .demo-card {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  :global(.tilt-demo .demo-card) {
+    background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   }
 </style>

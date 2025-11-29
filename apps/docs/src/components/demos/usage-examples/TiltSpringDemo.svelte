@@ -2,7 +2,7 @@
   import { HoverTilt } from 'hover-tilt';
 </script>
 
-<div class="demo-container not-content">
+<div class="demo-container not-content tilt-spring-demo">
   <div class="demo-item">
     <h4>Default Tilt Spring</h4>
     <HoverTilt scaleFactor={1.1}>
@@ -32,7 +32,7 @@
 </div>
 
 <style>
-  .demo-card {
+  :global(.tilt-spring-demo .demo-card) {
     background: linear-gradient(135deg, #5565db 0%, #36a6b5 100%);
   }
 </style>
