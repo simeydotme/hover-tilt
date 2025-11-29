@@ -312,7 +312,7 @@
   bind:this={container}
   id={componentId ?? undefined}
   part="container"
-  data-is-active={activation.current >= 0.1}
+  data-is-active={activation.current >= 0.01}
   class="hover-tilt-container {containerClass}"
   style={`${dynamicStyleVariables} ${staticProperties} ${containerStyle}`}
 >
@@ -343,10 +343,6 @@
     .hover-tilt-container {
       /* perspective defaults to 600px, but can be overridden on the container element */
       perspective: 600px;
-      transform: translate3d(0, 0, 0.01px);
-      transform-style: preserve-3d;
-      isolation: isolate;
-      will-change: transform;
       /* prevent pinch/double-tap zooms on card */
       touch-action: none;
     }
@@ -364,7 +360,7 @@
       border-radius: inherit;
       transform: scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y)) translate3d(0, 0, 0.01px);
       transform-style: preserve-3d;
-      will-change: transform, box-shadow, mask, opacity;
+      will-change: transform, box-shadow, opacity;
       image-rendering: smooth;
     }
 
@@ -378,10 +374,7 @@
       background-image: var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));
       mix-blend-mode: var(--hover-tilt-blend-mode, overlay);
       opacity: var(--hover-tilt-opacity, 0);
-      will-change: opacity, background-image;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      isolation: isolate;
+      will-change: background-image, opacity;
     }
 
     /* the tilt layer with shadow applied */

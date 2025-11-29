@@ -1,6 +1,6 @@
 <script lang="ts">
   import HoverTilt from '$lib/components/HoverTilt.svelte';
-  import type { SpringOpts } from '$lib/types.js';
+  import type { SpringOpts } from '$lib/types/index.ts';
 
   // State for all props
   let tiltFactor = $state(1);

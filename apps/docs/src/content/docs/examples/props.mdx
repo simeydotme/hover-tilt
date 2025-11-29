@@ -11,6 +11,7 @@ import ShadowDemo from '@components/demos/usage-examples/ShadowDemo.svelte';
 import GlareDemo from '@components/demos/usage-examples/GlareDemo.svelte';
 import GlareHueDemo from '@components/demos/usage-examples/GlareHueDemo.svelte';
 import SpringDemo from '@components/demos/usage-examples/SpringDemo.svelte';
+import TiltSpringDemo from '@components/demos/usage-examples/TiltSpringDemo.svelte';
 import ExitDelayDemo from '@components/demos/usage-examples/ExitDelayDemo.svelte';
 import EnterDelayDemo from '@components/demos/usage-examples/EnterDelayDemo.svelte';
 import BlendModeDemo from '@components/demos/usage-examples/BlendModeDemo.svelte';
@@ -303,36 +304,93 @@ Control stiffness & damping for different feeling interactions.
 		```svelte
 
     	<!-- Default spring -->
-    	<HoverTilt>
-    	  <div class="card">Default</div>
+    	<HoverTilt scaleFactor={1.1} >
+    	  <div class="card"></div>
     	</HoverTilt>
 
     	<!-- Fast spring -->
-    	<HoverTilt springOptions={{ stiffness: 0.5, damping: 0.2 }}>
-    	  <div class="card">stiffness: 0.5, damping: 0.6</div>
+    	<HoverTilt scaleFactor={1.1} springOptions={{ stiffness: 0.4, damping: 0.3 }}>
+    	  <div class="card"></div>
     	</HoverTilt>
 
     	<!-- Slow spring -->
-    	<HoverTilt springOptions={{ stiffness: 0.05, damping: 0.9 }}>
-    	  <div class="card">stiffness: 0.1, damping: 0.9</div>
+    	<HoverTilt scaleFactor={1.1}  springOptions={{ stiffness: 0.05, damping: 0.9 }}>
+    	  <div class="card"></div>
     	</HoverTilt>
     	```
     </TabItem>
     <TabItem label="Web Component" icon="seti:html">
+
+    		<Aside type="tip" title="Web Components">
+    			**`springOptions`** and **`tiltSpringOptions`** require JSON string values.
+    		</Aside>
+
     	```html
     	<!-- Default spring -->
-    	<hover-tilt>
-    	  <div class="card">Default</div>
+    	<hover-tilt scale-factor="1.1">
+    	  <div class="card"></div>
     	</hover-tilt>
 
     	<!-- Fast spring (requires JSON string) -->
-    	<hover-tilt spring-options='{"stiffness": 0.5, "damping": 0.2}'>
-    	  <div class="card">stiffness: 0.5, damping: 0.6</div>
+    	<hover-tilt scale-factor="1.1" spring-options='{"stiffness": 0.4, "damping": 0.3}'>
+    	  <div class="card"></div>
     	</hover-tilt>
 
+    	<!-- Slow spring (requires JSON string) -->
+    	<hover-tilt scale-factor="1.1" spring-options='{"stiffness": 0.05, "damping": 0.9}'>
+    	  <div class="card"></div>
+    	</hover-tilt>
+    	```
+    </TabItem>
+
+</Tabs>
+
+### Tilt Spring options
+
+The `springOptions` will apply to both the scale and tilt animations by default. If you want to apply different physics to the tilt animation, you can use the `tiltSpringOptions` prop.
+
+<TiltSpringDemo client:only="svelte" />
+
+<Tabs syncKey="api">
+	<TabItem label="Svelte" icon="seti:svelte">
+		```svelte
+
+    	<!-- Default spring -->
+    	<HoverTilt scaleFactor={1.1} >
+    	  <div class="card"></div>
+    	</HoverTilt>
+
+    	<!-- Fast spring -->
+    	<HoverTilt scaleFactor={1.1} springOptions={{ stiffness: 0.08, damping: 0.15 }} tiltSpringOptions={{ stiffness: 0.1, damping: 0.2 }}>
+    	  <div class="card"></div>
+    	</HoverTilt>
+
     	<!-- Slow spring -->
-    	<hover-tilt spring-options='{"stiffness": 0.05, "damping": 0.9}'>
-    	  <div class="card">stiffness: 0.1, damping: 0.9</div>
+    	<HoverTilt scaleFactor={1.1}  springOptions={{ stiffness: 0.05, damping: 0.5 }} tiltSpringOptions={{ stiffness: 0.1, damping: 0.075 }}>
+    	  <div class="card"></div>
+    	</HoverTilt>
+    	```
+    </TabItem>
+    <TabItem label="Web Component" icon="seti:html">
+
+    		<Aside type="tip" title="Web Components">
+    			**`springOptions`** and **`tiltSpringOptions`** require JSON string values.
+    		</Aside>
+
+    	```html
+    	<!-- Default spring -->
+    	<hover-tilt scale-factor="1.1">
+    	  <div class="card"></div>
+    	</hover-tilt>
+
+    	<!-- Bouncey Scale, Soft Tilt -->
+    	<hover-tilt scale-factor="1.1" spring-options='{"stiffness": 0.08, "damping": 0.15}' tilt-spring-options='{"stiffness": 0.1, "damping": 0.2}'>
+    	  <div class="card"></div>
+    	</hover-tilt>
+
+    	<!-- Soft Scale, Elastic Tilt -->
+    	<hover-tilt scale-factor="1.1" spring-options='{"stiffness": 0.05, "damping": 0.5}' tilt-spring-options='{"stiffness": 0.1, "damping": 0.075}'>
+    	  <div class="card"></div>
     	</hover-tilt>
     	```
     </TabItem>

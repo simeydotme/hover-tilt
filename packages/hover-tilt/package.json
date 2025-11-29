@@ -1,6 +1,6 @@
 {
   "name": "hover-tilt",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "description": "A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "pnpm prepack && rollup -c",
+    "build": "pnpm prepack",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "prepack": "svelte-kit sync && svelte-package && rollup -c && publint",
@@ -28,12 +28,7 @@
     "dist",
     "src/lib",
     "src/web-component.d.ts",
-    "src/vue.d.ts",
-    "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
-  ],
-  "sideEffects": [
-    "**/*.css"
+    "src/vue.d.ts"
   ],
   "module": "./dist/hover-tilt.js",
   "svelte": "./dist/index.js",
@@ -78,6 +73,7 @@
     "prettier-plugin-tailwindcss": "^0.7.1",
     "publint": "^0.3.14",
     "rollup": "^4.53.2",
+    "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-svelte": "^7.2.3",
     "svelte": "^5.41.0",
     "svelte-check": "^4.3.3",
@@ -87,20 +83,27 @@
     "vite-plugin-devtools-json": "^1.0.0"
   },
   "keywords": [
-    "svelte",
-    "svelte5",
-    "component",
-    "ui",
     "hover",
     "tilt",
     "effect",
+    "ui",
+    "component",
     "animation",
-    "web-component",
-    "custom-element",
     "glare",
     "shadow",
     "spring",
     "simey",
-    "simeydotme"
+    "simeydotme",
+    "pokemon",
+    "holographic",
+    "hologram",
+    "svelte",
+    "svelte5",
+    "web-component",
+    "custom-element",
+    "react",
+    "vue",
+    "angular",
+    "typescript"
   ]
 }

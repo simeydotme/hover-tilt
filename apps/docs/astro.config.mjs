@@ -60,6 +60,7 @@ export default defineConfig({
         {
           label: 'Bespoke Ideas',
           items: [
+            { label: 'Stacked 3D Layers', slug: 'bespoke/stacked-3d' },
             { label: 'Credit Cards', slug: 'bespoke/credit-cards' },
             { label: 'Pokemon Cards', slug: 'bespoke/pokemon-cards' }
           ]

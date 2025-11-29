@@ -1,9 +1,9 @@
 /**
- * hover-tilt ~ 0.6.1
+ * hover-tilt ~ 1.0.0
  * A simple, beautiful tilt & glare component, available as both a Svelte Component and Web Component
  * Project home: https://hover-tilt.simey.me
  * © 2025 Simon Goellner <simey.me@gmail.com> ~ MPL-2.0 License
- * Published: 27/11/2025
+ * Published: 29/11/2025
  */
 // generated during release, do not modify
 
@@ -6237,12 +6237,18 @@ function clamp$1(n, min, max) {
 	return Math.max(min, Math.min(max, n));
 }
 
+/**
+ * Clean pointer derivatives for when no pointer is present.
+ */
 var ZERO_POINTER_DERIVATIVES = {
     delta: [0, 0],
     distance: 0,
     angle: 0,
     edge: 0
 };
+/**
+ * Returns a value clamped between a minimum and maximum.
+ */
 var clamp = function (value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
@@ -6266,6 +6272,9 @@ var readElementBox = function ($el) {
         half: [halfWidth, halfHeight]
     };
 };
+/**
+ * Calculates the position of a pointer event relative to an element box.
+ */
 var pointerPositionFromEvent = function (event, box) {
     var x = event.clientX - box.left;
     var y = event.clientY - box.top;
@@ -6279,6 +6288,9 @@ var pointerPositionFromEvent = function (event, box) {
         percent: [normalizedX * 100, normalizedY * 100]
     };
 };
+/**
+ * Derives the state of a pointer from a normalized position.
+ */
 var derivePointerState = function (box, position) {
     var normalized = toNormalizedXY(position);
     var px = normalized[0] * box.width;
@@ -6294,6 +6306,9 @@ var derivePointerState = function (box, position) {
         edge: edge
     };
 };
+/**
+ * Converts a normalized input to a normalized XY tuple.
+ */
 var toNormalizedXY = function (value) {
     var _a, _b;
     var tuple;
@@ -6308,6 +6323,9 @@ var toNormalizedXY = function (value) {
     }
     return [clamp(tuple[0], 0, 1), clamp(tuple[1], 0, 1)];
 };
+/**
+ * Calculates the angle of a pointer from deltas.
+ */
 var angleFromDeltas = function (dx, dy) {
     if (dx === 0 && dy === 0)
         return 0;
@@ -6317,6 +6335,9 @@ var angleFromDeltas = function (dx, dy) {
         degrees += 360;
     return degrees;
 };
+/**
+ * Calculates the closeness of a pointer to the edge of an element.
+ */
 var closenessToEdge = function (half, dx, dy) {
     var absX = Math.abs(dx);
     var absY = Math.abs(dy);
@@ -6330,7 +6351,7 @@ var root = from_html(`<div part="container"><!> <!> <div part="tilt"><!></div></
 
 const $$css = {
 	hash: 'svelte-1g9r0vt',
-	code: '\n  @layer components {\n    /* the container element */.hover-tilt-container.svelte-1g9r0vt {\n      /* perspective defaults to 600px, but can be overridden on the container element */perspective:600px;transform:translate3d(0, 0, 0.01px);transform-style:preserve-3d;isolation:isolate;will-change:transform;\n      /* prevent pinch/double-tap zooms on card */touch-action:none;}\n\n    /* the main tilt element */.hover-tilt.svelte-1g9r0vt {--hover-tilt-default-gradient: radial-gradient(\n        farthest-corner circle at var(--gradient-x) var(--gradient-y),\n        lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n        lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n        lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n      );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y)) translate3d(0, 0, 0.01px);transform-style:preserve-3d;will-change:transform, box-shadow, mask, opacity;image-rendering:smooth;}\n\n    /* the gradient glare layer */.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:opacity, background-image;transform:translateZ(0);backface-visibility:hidden;isolation:isolate;}\n\n    /* the tilt layer with shadow applied */.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);\n      /* prettier-ignore */--hover-tilt-default-shadow: \n        calc(var(--shadow-x) * var(--shadow-blur-1)) calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2) calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n        calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));}\n\n    /* the tilt layer with glare mask applied */.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);mask-size:cover;mask-position:center;mask-repeat:no-repeat;mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-composite:var(--hover-tilt-glare-mask-composite, add);}\n  }'
+	code: '\n  @layer components {\n    /* the container element */.hover-tilt-container.svelte-1g9r0vt {\n      /* perspective defaults to 600px, but can be overridden on the container element */perspective:600px;\n      /* prevent pinch/double-tap zooms on card */touch-action:none;}\n\n    /* the main tilt element */.hover-tilt.svelte-1g9r0vt {--hover-tilt-default-gradient: radial-gradient(\n        farthest-corner circle at var(--gradient-x) var(--gradient-y),\n        lch(95% 2.7 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.66)) 8%,\n        lch(88% 5.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.5)) 28%,\n        lch(05% 3.5 var(--hover-tilt-glare-hue, 270) / calc(var(--hover-tilt-glare-intensity, 1) * 0.25)) 90%\n      );position:relative;border-radius:inherit;transform:scale(var(--scale)) rotateX(var(--rotation-x)) rotateY(var(--rotation-y)) translate3d(0, 0, 0.01px);transform-style:preserve-3d;will-change:transform, box-shadow, opacity;image-rendering:smooth;}\n\n    /* the gradient glare layer */.hover-tilt.svelte-1g9r0vt::before {content:\'\';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background-image:var(--hover-tilt-custom-gradient, var(--hover-tilt-default-gradient));mix-blend-mode:var(--hover-tilt-blend-mode, overlay);opacity:var(--hover-tilt-opacity, 0);will-change:background-image, opacity;}\n\n    /* the tilt layer with shadow applied */.hover-tilt-shadow.svelte-1g9r0vt {--shadow-blur-1: calc(var(--hover-tilt-shadow-blur, 12) * 1px);--shadow-blur-2: calc(var(--shadow-blur-1) / 2);\n      /* prettier-ignore */--hover-tilt-default-shadow: \n        calc(var(--shadow-x) * var(--shadow-blur-1)) calc(var(--shadow-y) * var(--shadow-blur-1) / 2 + var(--shadow-blur-1) / 4) calc(var(--shadow-blur-1) / 2) calc(var(--shadow-blur-1) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125)),\n        calc(var(--shadow-x) * var(--shadow-blur-2)) calc(var(--shadow-y) * var(--shadow-blur-2) / 2 + var(--shadow-blur-2) / 4) calc(var(--shadow-blur-2) / 2) calc(var(--shadow-blur-2) * -0.25) lch(0% 0 0 / calc(var(--hover-tilt-opacity, 0) * 0.125));box-shadow:var(--hover-tilt-custom-shadow, var(--hover-tilt-default-shadow));}\n\n    /* the tilt layer with glare mask applied */.hover-tilt-glare-mask.svelte-1g9r0vt::before {mask-image:var(--hover-tilt-glare-mask, none);mask-size:cover;mask-position:center;mask-repeat:no-repeat;mask-mode:var(--hover-tilt-glare-mask-mode, match-source);mask-composite:var(--hover-tilt-glare-mask-composite, add);}\n  }'
 };
 
 function HoverTilt($$anchor, $$props) {
@@ -6817,7 +6838,7 @@ function HoverTilt($$anchor, $$props) {
 
 	template_effect(() => {
 		set_attribute(div, 'id', get(componentId) ?? undefined);
-		set_attribute(div, 'data-is-active', activation.current >= 0.1);
+		set_attribute(div, 'data-is-active', activation.current >= 0.01);
 		set_class(div, 1, `hover-tilt-container ${containerClass() ?? ''}`, 'svelte-1g9r0vt');
 		set_style(div, `${get(dynamicStyleVariables)} ${staticProperties} ${containerStyle()}`);
 

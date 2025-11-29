@@ -1,5 +1,8 @@
 import type { ElementBox, PointerDerivatives, PointerPosition, XY, NormalizedInput } from './types/index.js';
 
+/**
+ * Clean pointer derivatives for when no pointer is present.
+ */
 export const ZERO_POINTER_DERIVATIVES: PointerDerivatives = {
   delta: [0, 0],
   distance: 0,
@@ -7,8 +10,14 @@ export const ZERO_POINTER_DERIVATIVES: PointerDerivatives = {
   edge: 0
 };
 
+/**
+ * Returns a value clamped between a minimum and maximum.
+ */
 export const clamp = (value: number, min = 0, max = 100): number => Math.min(Math.max(value, min), max);
 
+/**
+ * Returns a value rounded to a given precision.
+ */
 export const round = (value: number, precision = 3): number => {
   const factor = 10 ** precision;
   return Math.round(value * factor) / factor;
@@ -36,6 +45,9 @@ export const readElementBox = ($el: HTMLElement): ElementBox => {
   };
 };
 
+/**
+ * Calculates the position of a pointer event relative to an element box.
+ */
 export const pointerPositionFromEvent = (event: PointerEvent, box: ElementBox): PointerPosition => {
   const x = event.clientX - box.left;
   const y = event.clientY - box.top;
@@ -50,6 +62,9 @@ export const pointerPositionFromEvent = (event: PointerEvent, box: ElementBox): 
   };
 };
 
+/**
+ * Derives the state of a pointer from a normalized position.
+ */
 export const derivePointerState = (box: ElementBox, position: NormalizedInput): PointerDerivatives => {
   const normalized = toNormalizedXY(position);
   const px = normalized[0] * box.width;
@@ -67,6 +82,9 @@ export const derivePointerState = (box: ElementBox, position: NormalizedInput): 
   };
 };
 
+/**
+ * Converts a normalized input to a normalized XY tuple.
+ */
 const toNormalizedXY = (value: NormalizedInput): XY => {
   let tuple: XY;
   if (Array.isArray(value)) {
@@ -80,6 +98,9 @@ const toNormalizedXY = (value: NormalizedInput): XY => {
   return [clamp(tuple[0], 0, 1), clamp(tuple[1], 0, 1)];
 };
 
+/**
+ * Calculates the angle of a pointer from deltas.
+ */
 const angleFromDeltas = (dx: number, dy: number): number => {
   if (dx === 0 && dy === 0) return 0;
   // Convert atan2 output into clockwise degrees where 0deg is pointing up.
@@ -88,6 +109,9 @@ const angleFromDeltas = (dx: number, dy: number): number => {
   return degrees;
 };
 
+/**
+ * Calculates the closeness of a pointer to the edge of an element.
+ */
 const closenessToEdge = (half: XY, dx: number, dy: number): number => {
   const absX = Math.abs(dx);
   const absY = Math.abs(dy);

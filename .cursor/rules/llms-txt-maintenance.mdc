@@ -1,0 +1,107 @@
+---
+description: Maintain llms.txt file when documentation changes are made
+globs:
+  - 'apps/docs/src/content/docs/**/*.mdx'
+  - 'apps/docs/src/content/docs/**/*.md'
+  - 'apps/docs/astro.config.mjs'
+  - 'packages/hover-tilt/src/lib/components/HoverTilt.svelte'
+  - 'packages/hover-tilt/src/lib/types/index.ts'
+alwaysApply: false
+---
+
+# llms.txt Maintenance Rule
+
+When modifying documentation files in this project, ensure the `apps/docs/public/llms.txt` file stays synchronized with the documentation structure.
+
+## What is llms.txt?
+
+The `llms.txt` file (located at `apps/docs/public/llms.txt`) follows the [llmstxt.org specification](https://llmstxt.org/) and helps Large Language Models understand this project's documentation. It provides a curated, LLM-friendly overview of the Hover Tilt component library.
+
+## When to Update llms.txt
+
+Update the `llms.txt` file when you:
+
+1. **Add a new documentation page** — Add a corresponding entry in the appropriate section (Docs, Examples, or Optional)
+2. **Remove a documentation page** — Remove the corresponding link from llms.txt
+3. **Rename a page or change its URL/slug** — Update the URL in llms.txt
+4. **Significantly change a page's content or purpose** — Update the description for that link
+5. **Add new major features or props** — Update the "Key Technical Details" or "Quick Start" sections if needed
+6. **Change the sidebar structure in astro.config.mjs** — Reflect structural changes in llms.txt sections
+7. **Modify the component's public API** — When props are added, removed, or changed in `HoverTilt.svelte` or `types/index.ts`, update the "Component Props Reference" section in llms.txt
+
+## llms.txt Structure
+
+The file follows this structure:
+
+```markdown
+# Hover Tilt
+
+> Brief summary of what the project is
+
+## Key Technical Details
+- Package info, import paths, key concepts
+
+## Quick Start
+- Installation and basic usage code examples
+
+## Component Props Reference
+- Tables of all props with Type, Default, and Description
+- Interaction Props (tiltFactor, scaleFactor, springOptions, etc.)
+- Aesthetic Props (shadow, glareIntensity, glareMask, etc.)
+- Common Prop Combinations (practical usage examples)
+
+## Docs
+- [Page Title](URL): Brief description of what the page covers
+
+## Examples  
+- [Example Title](URL): What the example demonstrates
+
+## Optional
+- [Advanced Topic](URL): Secondary resources that can be skipped for basic understanding
+```
+
+## Section Guidelines
+
+- **Docs section**: Core documentation essential for using the component (Getting Started, Usage, API Reference)
+- **Examples section**: Live demos and code examples
+- **Optional section**: Advanced topics, bespoke demos, and supplementary content
+- **Component Props Reference**: Complete props API in table format (synced with `HoverTilt.svelte` and `types/index.ts`)
+
+## Updating the Component Props Reference
+
+When modifying props in `HoverTilt.svelte` or `types/index.ts`:
+
+1. **Adding a prop**: Add a new row to the appropriate table (Interaction Props or Aesthetic Props)
+2. **Removing a prop**: Remove the corresponding row from the table
+3. **Changing a prop**: Update the Type, Default, or Description as needed
+4. **Renaming a prop**: Update the prop name and ensure both Svelte (camelCase) and Web Component (kebab-case) formats are correct
+
+Props table format:
+```markdown
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `propName` | `type` | `default` | Brief description of what it does. |
+```
+
+Source files for props:
+- `packages/hover-tilt/src/lib/components/HoverTilt.svelte` — Props destructured from `$props()` and `<svelte:options>` attribute mappings
+- `packages/hover-tilt/src/lib/types/index.ts` — `HoverTiltProps` interface with JSDoc comments
+
+## Link Format
+
+Each link entry should follow this format:
+```markdown
+- [Human-readable title](https://hover-tilt.simey.me/path/): Concise description explaining what the page covers
+```
+
+The site URL is `https://hover-tilt.simey.me`.
+
+## Current Documentation Structure
+
+Reference for the current docs structure (from astro.config.mjs sidebar):
+
+- Getting Started: `/getting-started/`, `/usage/`
+- Options: `/options/props/`, `/options/css/`
+- Examples: `/examples/web-component/`, `/examples/props/`
+- Advanced: `/advanced/shadows/`, `/advanced/custom-shadow/`, `/advanced/custom-gradient/`, `/advanced/glare-masks/`
+- Bespoke: `/bespoke/credit-cards/`, `/bespoke/pokemon-cards/`, `/bespoke/stacked-3d/`

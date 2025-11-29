@@ -1,0 +1,161 @@
+# Hover Tilt
+
+> Hover Tilt is a lightweight tilt & glare effect component for creating interactive 3D hover effects on cards and UI elements. Available as both a **Svelte 5 Component** (`<HoverTilt>`) and a **Web Component** (`<hover-tilt>`), making it usable in any JavaScript framework (React, Vue, Angular, etc.) or vanilla HTML/JS.
+
+## Key Technical Details
+
+- **Package name:** `hover-tilt` (npm)
+- **Svelte Component:** Import `{ HoverTilt }` from `'hover-tilt'`
+- **Web Component:** Import `'hover-tilt/web-component'` to register `<hover-tilt>` custom element
+- **Props use camelCase in Svelte**, **kebab-case in Web Component** (e.g., `tiltFactor` → `tilt-factor`)
+- **Animation:** Uses Svelte's spring-based physics for smooth, natural motion
+- **Customization:** Tilt intensity, scale, glare, shadows, blend modes, and CSS masks
+
+### Web Component Shadow DOM Styling
+
+The web component uses Shadow DOM with exposed parts for styling:
+
+- **Structure:** `<hover-tilt>` → `#shadow-root` → `<div part="container">` → `<div part="tilt">` → `<slot />`
+- **CSS Variables (Preferred):** Automatically exposed to slotted content via `::slotted(*)` - use these for animated state
+- **Available CSS variables:** `--hover-tilt-opacity` (0-1), `--hover-tilt-x`, `--hover-tilt-y`, `--hover-tilt-scale`, `--hover-tilt-rotation-x`, `--hover-tilt-rotation-y`, and more
+- **Styling internals:** Use `::part(container)` and `::part(tilt)` to style shadow DOM elements
+- **data-is-active attribute:** Set on `part="container"` element, only needed for discrete state changes
+
+**Example (Preferred - CSS Variables):**
+```css
+/* ✅ BEST - Use CSS variables for animated state */
+.my-element {
+  transform: translateZ(calc(var(--hover-tilt-opacity, 0) * 50px));
+}
+```
+
+**CRITICAL: preserve-3d Compatibility**
+
+When using `transform-style: preserve-3d` for 3D parallax effects, certain properties flatten the 3D context:
+
+1. **will-change: opacity** - Override on `::part(tilt)`: `will-change: transform, box-shadow, mask;`
+2. **mix-blend-mode (non-normal)** - Set `blend-mode="normal"` on the component
+
+These properties create stacking contexts that flatten child elements, breaking 3D effects.
+
+**Example (Alternative - data-is-active for discrete state):**
+```css
+/* ✅ Use ::part() only for discrete state changes */
+hover-tilt::part(container)[data-is-active="true"] .my-element {
+  background-color: red; /* Discrete on/off state */
+}
+
+/* ❌ Wrong - Cannot access data-is-active on host element */
+hover-tilt[data-is-active] .my-element {
+  background-color: red;
+}
+```
+
+## Quick Start
+
+```bash
+npm install hover-tilt
+```
+
+**Svelte:**
+```svelte
+<script>
+  import { HoverTilt } from 'hover-tilt';
+</script>
+
+<HoverTilt tiltFactor={1.5} scaleFactor={1.1}>
+  <div class="card">Your content</div>
+</HoverTilt>
+```
+
+**Web Component (any framework):**
+```html
+<script type="module">
+  import 'hover-tilt/web-component';
+</script>
+
+<hover-tilt tilt-factor="1.5" scale-factor="1.1">
+  <div class="card">Your content</div>
+</hover-tilt>
+```
+
+## Component Props Reference
+
+All props use **camelCase in Svelte** and **kebab-case in Web Component** (e.g., `tiltFactor` → `tilt-factor`).
+
+### Interaction Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `tiltFactor` | `number` | `1` | Controls intensity of horizontal tilt. Higher values = more pronounced effect. |
+| `tiltFactorY` | `number` | `tiltFactor` | Controls intensity of vertical tilt. Defaults to same as tiltFactor unless overridden. Useful for asymmetric tilt effects. |
+| `scaleFactor` | `number` | `1` | Scale multiplier on hover. Values >1 scale up, <1 scale down. |
+| `springOptions` | `{ stiffness?: number, damping?: number }` | `{ stiffness: 0.2, damping: 0.8 }` | Physics options for scale/opacity animations. Controls stiffness & damping for different feeling interactions. Higher stiffness = faster response, more pronounced elastic effects (more 'boing-y'). Higher damping = less oscillation, smoother motion at start/end (less 'zippy'). **Web Component:** Requires JSON string value (e.g., `'{"stiffness": 0.4, "damping": 0.3}'`). |
+| `tiltSpringOptions` | `{ stiffness?: number, damping?: number }` | Uses `springOptions` | Separate physics options for tilt animations. By default, `springOptions` applies to both scale and tilt animations. Use `tiltSpringOptions` to apply different physics to tilt vs scale (e.g., bouncy scale with soft tilt, or smooth scale with elastic tilt). **Web Component:** Requires JSON string value (e.g., `'{"stiffness": 0.1, "damping": 0.2}'`). |
+| `enterDelay` | `number` | `0` | Delay (ms) before activating when cursor enters. Prevents flickering on brief hovers. |
+| `exitDelay` | `number` | `200` | Delay (ms) before animating back to default when cursor leaves. Prevents flickering. |
+
+### Aesthetic Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `shadow` | `boolean` | `false` | Enables dynamic shadow that moves with the tilt effect. |
+| `shadowBlur` | `number` | `12` | Blur radius (px) for the shadow. Only applies when `shadow` is true. |
+| `blendMode` | `string` | `"overlay"` | CSS blend mode for glare effect. Common values: `overlay`, `screen`, `multiply`, `plus-lighter`. |
+| `glareIntensity` | `number` | `1` | Intensity of glare effect. Values >1 increase, <1 decrease. Values over 4 have diminishing returns. |
+| `glareHue` | `number` | `270` | Hue value (0-360) for glare color. Default is lavender-ish. |
+| `glareMask` | `string` | `undefined` | CSS mask-image for glare. Allows masking glare to specific areas (e.g., `url(#mask)`). |
+| `glareMaskMode` | `'match-source' \| 'luminance' \| 'alpha' \| 'none'` | `undefined` | CSS mask-mode for glare mask. Controls how mask is interpreted. |
+| `glareMaskComposite` | `'add' \| 'subtract' \| 'exclude' \| 'intersect'` | `undefined` | Composite operation for multiple masks. |
+| `class` | `string` | `undefined` | CSS class for container/host element. |
+| `style` | `string` | `undefined` | Inline CSS styles for container/host element. |
+
+### Common Prop Combinations
+
+**Subtle hover effect:**
+```svelte
+<HoverTilt tiltFactor={0.5} scaleFactor={1.02} glareIntensity={0.5}>
+```
+
+**Dramatic 3D card:**
+```svelte
+<HoverTilt tiltFactor={2} scaleFactor={1.15} shadow shadowBlur={30} glareIntensity={2}>
+```
+
+**Smooth, slow animations:**
+```svelte
+<HoverTilt springOptions={{ stiffness: 0.1, damping: 0.9 }}>
+```
+
+**Different physics for scale vs tilt:**
+```svelte
+<HoverTilt springOptions={{ stiffness: 0.08, damping: 0.15 }} tiltSpringOptions={{ stiffness: 0.1, damping: 0.2 }}>
+```
+
+**Holographic/foil effect with mask:**
+```svelte
+<HoverTilt glareMask="url(#foil-pattern)" glareMaskMode="luminance" glareIntensity={3}>
+```
+
+## Docs
+
+- [Getting Started](https://hover-tilt.simey.me/getting-started/): Installation instructions for npm/pnpm/yarn/bun and basic component usage
+- [Framework Usage](https://hover-tilt.simey.me/usage/): How to use Hover Tilt in Svelte, React, Vue, and vanilla HTML
+- [Props Reference](https://hover-tilt.simey.me/options/props/): Complete API reference with interactive examples for all component props
+- [CSS Styling Reference](https://hover-tilt.simey.me/options/css/): CSS custom properties and styling guide for customizing the component appearance
+
+## Examples
+
+- [Web Component Examples](https://hover-tilt.simey.me/examples/web-component/): Live demos of the Web Component in different scenarios
+- [Props Examples](https://hover-tilt.simey.me/examples/props/): Interactive examples demonstrating different prop combinations and effects
+
+## Optional
+
+- [Shadows Guide](https://hover-tilt.simey.me/advanced/shadows/): How to enable and customize dynamic shadows that move with the tilt
+- [Custom Shadow](https://hover-tilt.simey.me/advanced/custom-shadow/): Creating multi-layer drop shadows and neon effects using CSS custom properties
+- [Custom Gradient](https://hover-tilt.simey.me/advanced/custom-gradient/): Customizing the glare gradient for unique visual effects
+- [Glare Masks](https://hover-tilt.simey.me/advanced/glare-masks/): Using CSS masks to create foil, etch, and selective glare effects
+- [Credit Card Demo](https://hover-tilt.simey.me/bespoke/credit-cards/): Realistic credit card hover effect with metallic glare
+- [Pokemon Card Demo](https://hover-tilt.simey.me/bespoke/pokemon-cards/): Holographic Pokemon card effect with masked glare patterns
+- [Stacked 3D Text Demo](https://hover-tilt.simey.me/bespoke/stacked-3d/): Creating layered parallax effects with text and icons that pop off the background using transform-style: preserve-3d and translateZ
+

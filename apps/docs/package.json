@@ -1,13 +1,14 @@
 {
   "name": "",
   "type": "module",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "predev": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",
+    "copy:component": "node scripts/copy-web-component.js",
+    "predev": "pnpm --filter hover-tilt build && pnpm copy:component",
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "pnpm --filter hover-tilt build && node scripts/copy-web-component.js",
+    "prebuild": "pnpm --filter hover-tilt build && pnpm copy:component",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",

@@ -1,6 +1,6 @@
 {
 	"name": "@hover-tilt/monorepo",
-	"version": "0.6.1",
+	"version": "1.0.0",
 	"private": true,
 	"type": "module",
 	"repository": {
@@ -16,7 +16,7 @@
 		"dev": "pnpm --filter './packages/*' dev",
 		"dev:all": "pnpm --parallel --filter './{packages,apps}/*' dev",
 		"dev:docs": "pnpm --filter './apps/docs' dev",
-		"build": "pnpm --filter './packages/*' build",
+		"build": "pnpm --filter './packages/*' build && pnpm --filter './apps/docs' copy:component",
 		"build:all": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
 		"build:docs": "pnpm --filter './apps/docs' build",
 		"lint": "pnpm --filter './packages/*' lint",

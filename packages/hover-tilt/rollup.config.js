@@ -3,6 +3,7 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import filesize from 'rollup-plugin-filesize';
 
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 
@@ -35,14 +36,10 @@ export default {
   plugins: [
     svelte({
       compilerOptions: {
-        customElement: true
+        customElement: true,
+        dev: false
       }
     }),
-    resolve({
-      browser: true,
-      dedupe: ['svelte']
-    }),
-    commonjs(),
     typescript({
       sourceMap: true,
       inlineSources: true,
@@ -59,6 +56,12 @@ export default {
       // Disable type checking - only use for transpilation
       // Type checking is handled separately by svelte-check
       noEmitOnError: false
-    })
+    }),
+    resolve({
+      browser: true,
+      dedupe: ['svelte']
+    }),
+    commonjs(),
+    filesize()
   ]
 };

@@ -156,7 +156,8 @@ container element (or `::part(container)` in the Web Component).
 <Aside type="tip">
   When used as a **Web Component**, the variables are [exposed via
   `::slotted(*)`](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted) so that they can be picked up by your
-  slotted content.
+  slotted content. When used as a **Svelte Component**, the variables are available via the `style` attribute on the
+  container.
 </Aside>
 
 <PropTable columns={['Variable', 'Description / Units']}>
